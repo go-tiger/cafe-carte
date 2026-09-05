@@ -43,7 +43,7 @@ export function HeroCollage() {
   return (
     <div
       aria-hidden
-      className='collage group absolute right-4 top-1/2 hidden aspect-[3/2] w-[42vw] max-w-[520px] -translate-y-1/2 grid-cols-3 grid-rows-2 gap-3 lg:grid'
+      className='collage group absolute right-4 top-1/2 hidden aspect-3/2 w-[42vw] max-w-130 -translate-y-1/2 grid-cols-3 grid-rows-2 gap-3 lg:grid'
     >
       {tiles.map(({ m, rotate, dx, dy, scale }) => (
         <div
@@ -60,7 +60,7 @@ export function HeroCollage() {
           }
         >
           <Image src={m.avatar} alt='' fill sizes='200px' className='tile-img object-cover' />
-          <span className='absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/45 to-transparent p-2 text-right text-xs font-bold text-white'>
+          <span className='absolute inset-x-0 bottom-0 bg-linear-to-t from-black/45 to-transparent p-2 text-right text-xs font-bold text-white'>
             {m.nameKo}
           </span>
         </div>
