@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { cn } from '@/lib/cn';
+import { asset } from '@/lib/asset';
 
 export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: boolean }) {
   const [scrolled, setScrolled] = useState(!transparentOnTop);
@@ -26,7 +27,7 @@ export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: bo
     >
       <nav className='mx-auto flex h-16 max-w-5xl items-center px-4'>
         <Link href='/' className='flex shrink-0 items-center gap-2'>
-          <Image src='/logo.png' alt='Cafe Carte' width={32} height={32} className='rounded-full' priority />
+          <Image src={asset('/logo.png')} alt='Cafe Carte' width={32} height={32} className='rounded-full' priority />
           <span className={cn('font-heavy tracking-tight transition-opacity', scrolled ? 'opacity-100' : 'opacity-0')}>
             Cafe Carte
           </span>

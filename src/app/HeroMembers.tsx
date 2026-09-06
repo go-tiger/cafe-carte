@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { MEMBERS } from '@/lib/members';
+import { asset } from '@/lib/asset';
 
 export function HeroMembers() {
   return (
@@ -11,7 +12,7 @@ export function HeroMembers() {
           style={{ backgroundColor: m.color }}
         >
           <Image
-            src={m.avatar}
+            src={asset(m.avatar)}
             alt={m.nameKo}
             fill
             sizes='(max-width: 640px) 33vw, 20vw'

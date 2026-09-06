@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { MEMBERS, type Member } from '@/lib/members';
+import { asset } from '@/lib/asset';
 
 type Tile = {
   m: Member;
@@ -62,13 +63,13 @@ export function HeroCollage() {
             className='inner relative h-full w-full overflow-hidden rounded-2xl shadow-poster'
             style={{ backgroundColor: m.color }}
           >
-            <Image src={m.avatar} alt='' fill sizes='220px' className='img object-cover' priority />
+            <Image src={asset(m.avatar)} alt='' fill sizes='220px' className='img object-cover' priority />
           </div>
         </div>
       ))}
       <div className='slot slot-static relative aspect-179/236'>
         <div className='inner relative h-full w-full overflow-hidden rounded-2xl bg-white shadow-poster'>
-          <Image src='/logo.png' alt='Cafe Carte' fill sizes='220px' className='object-cover' />
+          <Image src={asset('/logo.png')} alt='Cafe Carte' fill sizes='220px' className='object-cover' />
         </div>
       </div>
 
