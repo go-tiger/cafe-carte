@@ -30,9 +30,9 @@
   font-display: swap;
 }
 
+/* 원시 토큰 — 값의 출처. 시맨틱 토큰이 이 스케일을 참조한다. */
 @theme {
   --font-sans: 'NanumSquareNeo', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-
   --font-weight-heavy: 900;
 
   --text-display: 3.25rem;
@@ -41,6 +41,28 @@
 
   --radius-poster: 1.5rem;
 
+  /* 웜 뉴트럴 스케일 (아이보리 ~ 코코아) */
+  --palette-cream-50: #fdf9f3;
+  --palette-cream-100: #f6efe6;
+  --palette-cream-200: #eadfce;
+  --palette-ink-700: #8a8078;
+  --palette-ink-900: #2b2724;
+
+  /* 다크 뉴트럴 스케일 (플럼 계열) */
+  --palette-plum-950: #17151a;
+  --palette-plum-900: #221f27;
+  --palette-plum-800: #2c2833;
+  --palette-plum-700: #3a3543;
+  --palette-plum-300: #a49bb0;
+  --palette-plum-50: #f2ede8;
+
+  /* 브랜드 그린 */
+  --palette-green-500: #3e7766;
+  --palette-green-300: #6dc3a8;
+  --palette-green-ink-light: #ffffff;
+  --palette-green-ink-dark: #10231d;
+
+  /* 멤버 팔레트 */
   --color-mocoparfe: #fba7d2;
   --color-hanseorin: #f8515f;
   --color-dangkey: #ffce90;
@@ -48,7 +70,8 @@
   --color-aerusolstice: #a7cdfb;
 }
 
-/* inline 이어야 런타임 [data-theme] 변경이 반영됨 */
+/* 시맨틱 토큰을 Tailwind 색 유틸(bg-bg, text-text 등)에 연결.
+   inline 이어야 런타임 테마 전환이 반영된다. */
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -60,44 +83,43 @@
   --color-accent-ink: var(--accent-ink);
 }
 
+/* 라이트 시맨틱 */
 :root {
-  --bg: #fdf9f3;
+  --bg: var(--palette-cream-50);
   --surface: #ffffff;
-  --surface-2: #f6efe6;
-  --border: #eadfce;
-  --text: #2b2724;
-  --text-muted: #8a8078;
-  --accent: #3e7766;
-  --accent-ink: #ffffff;
-
+  --surface-2: var(--palette-cream-100);
+  --border: var(--palette-cream-200);
+  --text: var(--palette-ink-900);
+  --text-muted: var(--palette-ink-700);
+  --accent: var(--palette-green-500);
+  --accent-ink: var(--palette-green-ink-light);
   --shadow-poster: 0 18px 40px -18px rgba(62, 119, 102, 0.35);
 }
 
+/* 다크 시맨틱 — 시스템 설정과 명시적 토글 양쪽에서 동일하게 적용 */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #17151a;
-    --surface: #221f27;
-    --surface-2: #2c2833;
-    --border: #3a3543;
-    --text: #f2ede8;
-    --text-muted: #a49bb0;
-    --accent: #6dc3a8;
-    --accent-ink: #10231d;
-
+    --bg: var(--palette-plum-950);
+    --surface: var(--palette-plum-900);
+    --surface-2: var(--palette-plum-800);
+    --border: var(--palette-plum-700);
+    --text: var(--palette-plum-50);
+    --text-muted: var(--palette-plum-300);
+    --accent: var(--palette-green-300);
+    --accent-ink: var(--palette-green-ink-dark);
     --shadow-poster: 0 18px 44px -18px rgba(0, 0, 0, 0.6);
   }
 }
 
 :root[data-theme='dark'] {
-  --bg: #17151a;
-  --surface: #221f27;
-  --surface-2: #2c2833;
-  --border: #3a3543;
-  --text: #f2ede8;
-  --text-muted: #a49bb0;
-  --accent: #6dc3a8;
-  --accent-ink: #10231d;
-
+  --bg: var(--palette-plum-950);
+  --surface: var(--palette-plum-900);
+  --surface-2: var(--palette-plum-800);
+  --border: var(--palette-plum-700);
+  --text: var(--palette-plum-50);
+  --text-muted: var(--palette-plum-300);
+  --accent: var(--palette-green-300);
+  --accent-ink: var(--palette-green-ink-dark);
   --shadow-poster: 0 18px 44px -18px rgba(0, 0, 0, 0.6);
 }
 

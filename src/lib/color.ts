@@ -1,0 +1,37 @@
+function srgbChannelToLinear(channel: number): number {
+  const v = channel / 255;
+  return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+}
+
+function hexToRgb(hex: string): { r: number; g: number; b: number } {
+  return {
+    r: parseInt(hex.slice(1, 3), 16),
+    g: parseInt(hex.slice(3, 5), 16),
+    b: parseInt(hex.slice(5, 7), 16),
+  };
+}
+
+/** WCAG 상대 휘도 (6자리 hex). https://www.w3.org/TR/WCAG21/#dfn-relative-luminance */
+function getRelativeLuminance(hex: string): number {
+  const { r, g, b } = hexToRgb(hex);
+  return (
+    0.2126 * srgbChannelToLinear(r) +
+    0.7152 * srgbChannelToLinear(g) +
+    0.0722 * srgbChannelToLinear(b)
+  );
+}
+
+/** 배경 hex 위에서 대비가 높은 텍스트 색을 고른다. WCAG 임계값 L ≈ 0.179. */
+export function getContrastColor(hex: string): 'white' | 'black' {
+  return getRelativeLuminance(hex) > 0.179 ? 'black' : 'white';
+}
+
+/**
+ * 멤버색 hex에서 파스텔 배경면을 만든다. getContrastColor 결과와 짝을 이뤄
+ * 그 위 텍스트가 읽히도록 명도를 임계값 한쪽으로 밀어낸다.
+ */
+export function getMemberSurface(hex: string): string {
+  const lightnessClause =
+    getContrastColor(hex) === 'black' ? 'max(l, 0.75)' : 'min(l, 0.35)';
+  return `oklch(from ${hex} ${lightnessClause} min(c, 0.2) h)`;
+}
