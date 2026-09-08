@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+/* next-themes 가 <html>에 .dark 클래스를 붙인다 */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* NanumSquareNeo (네이버 한글 웹폰트) */
 @font-face {
   font-family: 'NanumSquareNeo';
@@ -96,22 +99,9 @@
   --shadow-poster: 0 18px 40px -18px rgba(62, 119, 102, 0.35);
 }
 
-/* 다크 시맨틱 — 시스템 설정과 명시적 토글 양쪽에서 동일하게 적용 */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    --bg: var(--palette-plum-950);
-    --surface: var(--palette-plum-900);
-    --surface-2: var(--palette-plum-800);
-    --border: var(--palette-plum-700);
-    --text: var(--palette-plum-50);
-    --text-muted: var(--palette-plum-300);
-    --accent: var(--palette-green-300);
-    --accent-ink: var(--palette-green-ink-dark);
-    --shadow-poster: 0 18px 44px -18px rgba(0, 0, 0, 0.6);
-  }
-}
-
-:root[data-theme='dark'] {
+/* 다크 시맨틱 — next-themes 가 붙이는 .dark 클래스 기준
+   (system 설정도 next-themes 가 .dark 를 붙여 해결하므로 prefers-color-scheme 불필요) */
+:root.dark {
   --bg: var(--palette-plum-950);
   --surface: var(--palette-plum-900);
   --surface-2: var(--palette-plum-800);

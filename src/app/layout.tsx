@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import './globals.css';
-import { themeInitScript } from '@/components/ui/ThemeToggle';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
   title: {
@@ -15,13 +14,12 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang='ko' className='h-full antialiased' suppressHydrationWarning>
       <body className='flex min-h-full flex-col bg-bg text-text'>
-        <Script id='theme-init' strategy='beforeInteractive'>
-          {themeInitScript}
-        </Script>
-        {children}
-        <footer className='border-t border-border py-10 text-center text-xs text-text-muted'>
-          비공식 팬사이트 · Cafe Carte / Twillet Studio
-        </footer>
+        <ThemeProvider>
+          {children}
+          <footer className='border-t border-border py-10 text-center text-xs text-text-muted'>
+            비공식 팬사이트 · Cafe Carte / Twillet Studio
+          </footer>
+        </ThemeProvider>
       </body>
     </html>
   );
