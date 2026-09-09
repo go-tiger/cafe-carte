@@ -1,11 +1,16 @@
+'use client';
+
 import Image from 'next/image';
 import { MEMBERS } from '@/shared/constants';
 import { asset } from '@/shared/lib';
+import { useShuffled } from '@/shared/lib/useShuffled';
 
 export function HeroMembers() {
+  const members = useShuffled(MEMBERS);
+
   return (
     <ul className='mt-10 grid grid-cols-3 gap-3 sm:grid-cols-5 lg:hidden'>
-      {MEMBERS.map((m, i) => (
+      {members.map((m, i) => (
         <li
           key={m.id}
           className='relative aspect-179/236 overflow-hidden rounded-xl shadow-poster'

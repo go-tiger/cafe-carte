@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useMemo, useSyncExternalStore } from 'react';
 import Image from 'next/image';
 import { MEMBERS, type Member } from '@/shared/constants';
-import { asset } from '@/shared/lib';
+import { asset, shuffle, randomInRange } from '@/shared/lib';
 
 type Tile = {
   m: Member;
@@ -13,33 +13,28 @@ type Tile = {
   scale: number;
 };
 
-function shuffle<T>(arr: T[]): T[] {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+const noopSubscribe = () => () => {};
+
+const STATIC_TILES: Tile[] = MEMBERS.map(m => ({ m, rotate: 0, dx: 0, dy: 0, scale: 1 }));
+
+function scatter(): Tile[] {
+  return shuffle(MEMBERS).map(m => ({
+    m,
+    rotate: randomInRange(-4, 4),
+    dx: randomInRange(-6, 6),
+    dy: randomInRange(-8, 8),
+    scale: randomInRange(0.94, 1.06),
+  }));
 }
 
-const rand = (min: number, max: number) => Math.random() * (max - min) + min;
-
-const INITIAL: Tile[] = MEMBERS.map(m => ({ m, rotate: 0, dx: 0, dy: 0, scale: 1 }));
-
 export function HeroCollage() {
-  const [tiles, setTiles] = useState<Tile[]>(INITIAL);
-
-  useEffect(() => {
-    setTiles(
-      shuffle(MEMBERS).map(m => ({
-        m,
-        rotate: rand(-4, 4),
-        dx: rand(-6, 6),
-        dy: rand(-8, 8),
-        scale: rand(0.94, 1.06),
-      })),
-    );
-  }, []);
+  // 서버·첫 클라 렌더는 정렬된 STATIC_TILES(hydration match), 마운트 후 셔플/회전 적용
+  const mounted = useSyncExternalStore(
+    noopSubscribe,
+    () => true,
+    () => false,
+  );
+  const tiles = useMemo(() => (mounted ? scatter() : STATIC_TILES), [mounted]);
 
   return (
     <div
