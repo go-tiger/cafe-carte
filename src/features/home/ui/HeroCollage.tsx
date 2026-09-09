@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { MEMBERS, type Member } from '@/lib/members';
-import { asset } from '@/lib/asset';
+import { MEMBERS, type Member } from '@/shared/constants';
+import { asset } from '@/shared/lib';
 
 type Tile = {
   m: Member;

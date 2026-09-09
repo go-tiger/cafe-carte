@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { MEMBERS } from '@/lib/members';
-import { asset } from '@/lib/asset';
+import { MEMBERS } from '@/shared/constants';
+import { asset } from '@/shared/lib';
 
 export function HeroMembers() {
   return (

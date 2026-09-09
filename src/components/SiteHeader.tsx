@@ -3,9 +3,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ThemeToggle } from '@/components/ui/ThemeToggle';
-import { cn } from '@/lib/cn';
-import { asset } from '@/lib/asset';
+import { ThemeToggle } from '@/shared/ui';
+import { cn, asset } from '@/shared/lib';
 
 export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: boolean }) {
   const [scrolled, setScrolled] = useState(!transparentOnTop);

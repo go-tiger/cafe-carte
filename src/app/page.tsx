@@ -1,7 +1,6 @@
-import { MEMBERS } from '@/lib/members';
-import { SiteHeader } from '@/components/SiteHeader';
-import { HeroCollage } from './HeroCollage';
-import { HeroMembers } from './HeroMembers';
+import { MEMBERS } from '@/shared/constants';
+import { SiteHeader } from '@/components';
+import { HeroCollage, HeroMembers } from '@/features/home/ui';
 
 const memberNames = MEMBERS.map(m => m.nameKo).join(' · ');
 

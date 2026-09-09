@@ -42,3 +42,6 @@ next-env.d.ts
 
 # reference 관련 파일 모음
 .reference/
+
+# 개발 로그
+dev.log
