@@ -13,11 +13,7 @@ function hexToRgb(hex: string): { r: number; g: number; b: number } {
 
 function getRelativeLuminance(hex: string): number {
   const { r, g, b } = hexToRgb(hex);
-  return (
-    0.2126 * srgbChannelToLinear(r) +
-    0.7152 * srgbChannelToLinear(g) +
-    0.0722 * srgbChannelToLinear(b)
-  );
+  return 0.2126 * srgbChannelToLinear(r) + 0.7152 * srgbChannelToLinear(g) + 0.0722 * srgbChannelToLinear(b);
 }
 
 export function getContrastColor(hex: string): 'white' | 'black' {
@@ -25,7 +21,6 @@ export function getContrastColor(hex: string): 'white' | 'black' {
 }
 
 export function getMemberSurface(hex: string): string {
-  const lightnessClause =
-    getContrastColor(hex) === 'black' ? 'max(l, 0.75)' : 'min(l, 0.35)';
+  const lightnessClause = getContrastColor(hex) === 'black' ? 'max(l, 0.75)' : 'min(l, 0.35)';
   return `oklch(from ${hex} ${lightnessClause} min(c, 0.2) h)`;
 }
