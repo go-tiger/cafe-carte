@@ -1,0 +1,74 @@
+                  비공식 팬 프로젝트 — 저작권 및 상표 고지
+
+이 프로젝트는 Twillit Studio 소속 버추얼 그룹 Cafe Carte에 관한 비공식(unofficial),
+비영리(non-commercial) 팬 제작물입니다. Twillit Studio 및 Cafe Carte와 어떠한
+제휴·후원·승인 관계도 없습니다.
+
+Cafe Carte 멤버, Twillit Studio와 관련된 모든 캐릭터, 이름, 로고, 이미지, 일러스트,
+상표 및 그 밖의 콘텐츠에 대한 권리는 각 원저작권자에게 있습니다. 이 저장소는 해당
+자산을 소유하지 않으며, 팬 활동 목적으로만 인용합니다.
+
+권리자이며 본 프로젝트가 귀하의 지적 재산을 부적절하게 사용한다고 판단되면 저장소
+이슈로 알려 주시기 바랍니다. 신속히 조치하겠습니다.
+
+--------------------------------------------------------------------------------
+
+                  원본 소스 코드 라이선스
+
+이 프로젝트가 자체 제작한 모든 소스 코드는 MIT License 하에 배포됩니다.
+
+MIT License
+
+Copyright (c) 2026 go-tiger
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+--------------------------------------------------------------------------------
+
+                  비(非)코드 자산
+
+이 저장소에 포함된 비코드 자산은 출처에 따라 취급이 다릅니다.
+
+1) Cafe Carte / Twillit Studio 및 그 밖의 원저작권자가 제작한 자산
+
+   멤버 프로필 이미지, 로고, 캐릭터 일러스트, 그 밖에 Cafe Carte·Twillit Studio가
+   제작했거나 그 권리가 이들 또는 제3의 원저작권자에게 있는 모든 이미지·그래픽.
+
+   이 자산의 권리는 전적으로 각 원저작권자에게 있습니다. 이 저장소는 해당 자산을
+   소유하지 않으며, 팬 활동 목적의 인용으로만 포함합니다. 재사용·재배포 시에는
+   각 원저작권자의 허락과 조건을 따라야 하며, 이 프로젝트의 라이선스는 그 권리에
+   어떠한 영향도 주지 않습니다. (위 "저작권 및 상표 고지" 참조)
+
+2) 이 프로젝트 팀 및 기여자가 직접 제작한 자산
+
+   사이트에 쓰인 자체 작성 문구, 레이아웃·디자인, 자체 제작 그래픽 등.
+
+   Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+   (CC BY-NC-SA 4.0) 하에 배포됩니다.
+
+     - 저작자 표시(Attribution): 원저작자(go-tiger)를 표시해야 합니다.
+     - 비영리(NonCommercial): 상업적 목적으로 이용할 수 없습니다.
+     - 동일조건 변경 허락(ShareAlike): 변경물은 동일 라이선스로 배포해야 합니다.
+     - 이 웹사이트의 자산 중 일부 또는 전부에 대한 권리가 원저작권자에게 있음을
+       명시해야 합니다.
+
+   전문: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+   이 라이선스는 위 1)의 원저작권자 자산에는 적용되지 않습니다. 어떤 자산이 어느
+   쪽에 해당하는지 불분명하면 원저작권자에게 권리가 있는 것으로 간주하십시오.
