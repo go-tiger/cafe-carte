@@ -6,7 +6,10 @@ const nextConfig: NextConfig = {
   output: 'export',
   basePath,
   env: { NEXT_PUBLIC_BASE_PATH: basePath },
-  images: { unoptimized: true },
+  images: {
+    unoptimized: true,
+    remotePatterns: [{ protocol: 'https', hostname: 'avatars.githubusercontent.com' }],
+  },
 };
 
 export default nextConfig;

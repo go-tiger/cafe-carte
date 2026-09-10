@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from '@/shared/providers';
+import { SiteFooter } from '@/components';
 
 export const metadata: Metadata = {
   title: {
@@ -16,9 +17,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       <body className='flex min-h-full flex-col bg-bg text-text'>
         <ThemeProvider>
           {children}
-          <footer className='border-t border-border py-10 text-center text-xs text-text-muted'>
-            비공식 팬사이트 · Cafe Carte / Twillet Studio
-          </footer>
+          <SiteFooter />
         </ThemeProvider>
       </body>
     </html>
