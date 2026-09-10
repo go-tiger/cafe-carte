@@ -54,10 +54,11 @@ src/
 | 멤버 프로필 이미지 | Twillit Studio 네이버 카페 대문 이미지                    | 원저작권자(Twillit) 소유 |
 | 로고               | Cafe Carte 관련 이미지                                    | 원저작권자 소유          |
 | 본문 폰트          | [NanumSquareNeo](https://hangeul.naver.com/font) (네이버) | 네이버 폰트 라이선스     |
+| 브랜드 아이콘      | YouTube · X · 네이버 카페 · 치지직 로고를 단순화한 SVG    | 각 서비스 상표권자 소유  |
 
-Cafe Carte·Twillit Studio가 제작했거나 그 권리가 이들 또는 제3자에게 있는 이미지·그래픽의 권리는 전적으로 각
-원저작권자에게 있습니다. 이 저장소는 이를 소유하지 않으며 팬 활동 목적으로만 인용합니다. 자세한 내용은
-[LICENSE](LICENSE) 참고.
+Cafe Carte·Twillit Studio가 제작했거나 그 권리가 이들 또는 제3자에게 있는 이미지·그래픽, 그리고 각 서비스의 브랜드
+아이콘에 대한 권리는 전적으로 각 원저작권자에게 있습니다. 이 저장소는 이를 소유하지 않으며 팬 활동 목적으로만
+인용합니다. 자세한 내용은 [LICENSE](LICENSE) 참고.
 
 ## 기여
 
