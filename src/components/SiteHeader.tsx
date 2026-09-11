@@ -3,11 +3,15 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { ThemeToggle } from '@/shared/ui';
 import { cn, asset } from '@/shared/lib';
 
+const NAV_LINKS = [{ href: '/members', label: 'MEMBERS' }];
+
 export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: boolean }) {
   const [scrolled, setScrolled] = useState(!transparentOnTop);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!transparentOnTop) return;
@@ -24,13 +28,33 @@ export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: bo
         scrolled ? 'border-b border-border bg-bg/80 backdrop-blur' : 'border-b border-transparent bg-transparent',
       )}
     >
-      <nav className='mx-auto flex h-16 max-w-5xl items-center px-4'>
+      <nav className='mx-auto flex h-16 max-w-5xl items-center gap-6 px-4'>
         <Link href='/' className='flex shrink-0 items-center gap-2'>
           <Image src={asset('/logo.png')} alt='Cafe Carte' width={32} height={32} className='rounded-full' priority />
           <span className={cn('font-heavy tracking-tight transition-opacity', scrolled ? 'opacity-100' : 'opacity-0')}>
             Cafe Carte
           </span>
         </Link>
+
+        <ul className='flex items-center gap-5'>
+          {NAV_LINKS.map(link => {
+            const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
+            return (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className={cn(
+                    'text-xs font-bold tracking-[0.15em] transition-colors',
+                    active ? 'text-accent' : 'text-text-muted hover:text-text',
+                  )}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+
         <div className='ml-auto'>
           <ThemeToggle />
         </div>
