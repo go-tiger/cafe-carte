@@ -5,6 +5,8 @@ export function relativeTime(iso: string | null): string {
   if (Number.isNaN(then)) return '—';
 
   const diffSec = Math.round((Date.now() - then) / 1000);
+  if (diffSec < 60) return '방금 전';
+
   const rtf = new Intl.RelativeTimeFormat('ko', { numeric: 'auto' });
 
   const units: [Intl.RelativeTimeFormatUnit, number][] = [
@@ -18,5 +20,5 @@ export function relativeTime(iso: string | null): string {
   for (const [unit, sec] of units) {
     if (diffSec >= sec) return rtf.format(-Math.floor(diffSec / sec), unit);
   }
-  return rtf.format(0, 'minute');
+  return '방금 전';
 }
