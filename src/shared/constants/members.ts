@@ -14,7 +14,7 @@ export const MEMBERS: Member[] = [
     name: 'Moco Parfe',
     color: '#fba7d2',
     ink: '#6b2350',
-    avatar: '/members/mocoparfe.avif',
+    avatar: '/members/mocoparfe.png',
   },
   {
     id: 'hanseorin',
@@ -22,7 +22,7 @@ export const MEMBERS: Member[] = [
     name: 'Han Seorin',
     color: '#f8515f',
     ink: '#5a1016',
-    avatar: '/members/hanseorin.avif',
+    avatar: '/members/hanseorin.png',
   },
   {
     id: 'dangkey',
@@ -30,7 +30,7 @@ export const MEMBERS: Member[] = [
     name: 'Dangkey',
     color: '#ffce90',
     ink: '#6b4a12',
-    avatar: '/members/dangkey.avif',
+    avatar: '/members/dangkey.png',
   },
   {
     id: 'uuhee',
@@ -38,7 +38,7 @@ export const MEMBERS: Member[] = [
     name: 'Uuhee',
     color: '#ceb4f1',
     ink: '#3f2a63',
-    avatar: '/members/uuhee.avif',
+    avatar: '/members/uuhee.png',
   },
   {
     id: 'aerusolstice',
@@ -46,6 +46,6 @@ export const MEMBERS: Member[] = [
     name: 'Aeru Solstice',
     color: '#a7cdfb',
     ink: '#123a63',
-    avatar: '/members/aerusolstice.avif',
+    avatar: '/members/aerusolstice.png',
   },
 ];
