@@ -7,7 +7,10 @@ import { usePathname } from 'next/navigation';
 import { ThemeToggle } from '@/shared/ui';
 import { cn, asset } from '@/shared/lib';
 
-const NAV_LINKS = [{ href: '/members', label: 'MEMBERS' }];
+const NAV_LINKS = [
+  { href: '/members', label: 'MEMBERS' },
+  { href: '/credits', label: 'CREDITS' },
+];
 
 export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: boolean }) {
   const [scrolled, setScrolled] = useState(!transparentOnTop);
