@@ -1,3 +1,4 @@
+import { mocoparfe } from './mocoparfe';
 import type { MemberDetail } from './types';
 
 export type { MemberDetail };
@@ -12,7 +13,9 @@ export interface Member {
   position: string;
 }
 
-export const MEMBER_DETAILS: Record<string, MemberDetail | undefined> = {};
+export const MEMBER_DETAILS: Record<string, MemberDetail | undefined> = {
+  mocoparfe,
+};
 
 export const MEMBERS: Member[] = [
   {
