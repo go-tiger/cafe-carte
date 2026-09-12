@@ -23,7 +23,7 @@ export const OFFICIAL_LINKS: OfficialLink[] = [
     label: '유튜브',
     handle: '@TWILLITSTUDIOofficial',
     href: 'https://www.youtube.com/@TWILLITSTUDIOofficial',
-    brand: '#FF0033',
+    brand: '#FF0000',
     ink: '#ffffff',
   },
   {
