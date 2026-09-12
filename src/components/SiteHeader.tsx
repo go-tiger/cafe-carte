@@ -31,9 +31,7 @@ export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: bo
       <nav className='mx-auto flex h-16 max-w-5xl items-center gap-6 px-4'>
         <Link href='/' className='flex shrink-0 items-center gap-2'>
           <Image src={asset('/logo.png')} alt='Cafe Carte' width={32} height={32} className='rounded-full' priority />
-          <span className={cn('font-heavy tracking-tight transition-opacity', scrolled ? 'opacity-100' : 'opacity-0')}>
-            Cafe Carte
-          </span>
+          <span className='font-heavy tracking-tight'>Cafe Carte</span>
         </Link>
 
         <ul className='flex items-center gap-5'>
