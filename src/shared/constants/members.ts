@@ -2,8 +2,8 @@ export interface Member {
   id: string;
   nameKo: string;
   name: string;
-  color: string;
   ink: string;
+  color: string;
   avatar: string;
   position: string;
 }
@@ -13,8 +13,8 @@ export const MEMBERS: Member[] = [
     id: 'mocoparfe',
     nameKo: '모코 파르페',
     name: 'Moco Parfe',
-    color: '#fba7d2',
     ink: '#6b2350',
+    color: '#FF99FF',
     avatar: '/members/mocoparfe.png',
     position: '바리스타',
   },
@@ -22,8 +22,8 @@ export const MEMBERS: Member[] = [
     id: 'hanseorin',
     nameKo: '한서린',
     name: 'Han Seorin',
-    color: '#f8515f',
     ink: '#5a1016',
+    color: '#FF6666',
     avatar: '/members/hanseorin.png',
     position: '매니저',
   },
@@ -31,8 +31,8 @@ export const MEMBERS: Member[] = [
     id: 'dangkey',
     nameKo: '댕키',
     name: 'Dangkey',
-    color: '#ffce90',
     ink: '#6b4a12',
+    color: '#FFCC33',
     avatar: '/members/dangkey.png',
     position: '경비견',
   },
@@ -40,8 +40,8 @@ export const MEMBERS: Member[] = [
     id: 'uuhee',
     nameKo: '유우희',
     name: 'Uuhee',
-    color: '#ceb4f1',
     ink: '#3f2a63',
+    color: '#CC99FF',
     avatar: '/members/uuhee.png',
     position: '청소부 (자칭 마스코트)',
   },
@@ -49,8 +49,8 @@ export const MEMBERS: Member[] = [
     id: 'aerusolstice',
     nameKo: '에루 솔스티스',
     name: 'Aeru Solstice',
-    color: '#a7cdfb',
     ink: '#123a63',
+    color: '#CCFFFF',
     avatar: '/members/aerusolstice.png',
     position: '서빙',
   },
