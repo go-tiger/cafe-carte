@@ -1,5 +1,6 @@
 import { mocoparfe } from './mocoparfe';
 import { hanseorin } from './hanseorin';
+import { dangkey } from './dangkey';
 import type { MemberDetail } from './types';
 
 export type { MemberDetail };
@@ -17,6 +18,7 @@ export interface Member {
 export const MEMBER_DETAILS: Record<string, MemberDetail | undefined> = {
   mocoparfe,
   hanseorin,
+  dangkey,
 };
 
 export const MEMBERS: Member[] = [
