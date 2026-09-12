@@ -2,6 +2,7 @@ import { mocoparfe } from './mocoparfe';
 import { hanseorin } from './hanseorin';
 import { dangkey } from './dangkey';
 import { uuhee } from './uuhee';
+import { aerusolstice } from './aerusolstice';
 import type { MemberDetail } from './types';
 
 export type { MemberDetail };
@@ -21,6 +22,7 @@ export const MEMBER_DETAILS: Record<string, MemberDetail | undefined> = {
   hanseorin,
   dangkey,
   uuhee,
+  aerusolstice,
 };
 
 export const MEMBERS: Member[] = [
