@@ -20,6 +20,7 @@ export function Emoji({ children, className }: EmojiProps) {
   return (
     <>
       {segments.map((segment, i) => (
+        // eslint-disable-next-line @next/next/no-img-element
         <img
           key={`${segment}-${i}`}
           src={`https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.3/assets/svg/${toCodePoints(segment)}.svg`}
