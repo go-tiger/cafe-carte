@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { CircleDot, GitFork, Scale, Star } from 'lucide-react';
+import { CircleDot, Clock, GitFork, Scale, Star } from 'lucide-react';
 import { getGitHubData, githubLinks, type GitHubStats } from '@/shared/lib/github';
 import { relativeTime } from '@/shared/lib/relative-time';
 import { GithubIcon } from '@/shared/ui/icons';
@@ -51,12 +51,19 @@ export async function CreditsContent() {
                 </a>
               </li>
             ))}
-            <li className='flex items-center gap-1.5'>
-              <Scale className='size-4' />
-              MIT · CC BY-NC-SA 4.0
-            </li>
           </ul>
-          {stats?.pushedAt && <p className='mt-3 text-xs text-text-muted'>마지막 커밋 {relativeTime(stats.pushedAt)}</p>}
+          <p className='mt-2 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-text-muted'>
+            <span className='flex items-center gap-1.5'>
+              <Scale className='size-4 shrink-0' />
+              MIT · CC BY-NC-SA 4.0
+            </span>
+            {stats?.pushedAt && (
+              <span className='flex items-center gap-1.5'>
+                <Clock className='size-4 shrink-0' />
+                Last commit: {relativeTime(stats.pushedAt)}
+              </span>
+            )}
+          </p>
         </section>
 
         {contributors.length > 0 && (
