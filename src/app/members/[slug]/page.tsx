@@ -5,6 +5,7 @@ import type { ComponentType, CSSProperties, SVGProps } from 'react';
 import { SiteHeader } from '@/components';
 import { MEMBERS, MEMBER_DETAILS, BRAND_COLORS } from '@/shared/constants';
 import { asset } from '@/shared/lib';
+import { Emoji } from '@/shared/ui';
 import { ChzzkIcon, YoutubeIcon, XIcon } from '@/shared/ui/icons';
 
 const SNS_ICONS = {
@@ -102,7 +103,7 @@ export default async function MemberPage({ params }: MemberPageProps) {
               </div>
               <div className='rounded-2xl border border-border bg-surface p-4 shadow-poster'>
                 <dt className='text-xs text-text-muted'>오시마크</dt>
-                <dd className='mt-1 font-heavy'>{detail?.mark}</dd>
+                <dd className='mt-1 text-lg'>{detail && <Emoji>{detail.mark}</Emoji>}</dd>
               </div>
             </dl>
           )}
