@@ -27,20 +27,7 @@ export function MemberCard({ member, variant = 'compact' }: MemberCardProps) {
           {member.nameKo}
         </span>
         <span className='text-xs text-text-muted'>{member.name}</span>
-        <p className='mt-1 text-xs leading-relaxed text-text-muted'>소개 글이 등록되어있지 않습니다.</p>
-
-        {detailed && (
-          <dl className='mt-4 grid grid-cols-2 gap-x-3 gap-y-2 border-t border-border pt-4 text-xs'>
-            <div>
-              <dt className='text-text-muted'>데뷔일</dt>
-              <dd className='mt-0.5 text-text-muted'>미등록</dd>
-            </div>
-            <div>
-              <dt className='text-text-muted'>담당</dt>
-              <dd className='mt-0.5 text-text-muted'>미등록</dd>
-            </div>
-          </dl>
-        )}
+        <span className='mt-0.5 text-xs text-text-muted'>{member.position}</span>
       </div>
     </div>
   );

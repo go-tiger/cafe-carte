@@ -5,6 +5,7 @@ export interface Member {
   color: string;
   ink: string;
   avatar: string;
+  position: string;
 }
 
 export const MEMBERS: Member[] = [
@@ -15,6 +16,7 @@ export const MEMBERS: Member[] = [
     color: '#fba7d2',
     ink: '#6b2350',
     avatar: '/members/mocoparfe.png',
+    position: '바리스타',
   },
   {
     id: 'hanseorin',
@@ -23,6 +25,7 @@ export const MEMBERS: Member[] = [
     color: '#f8515f',
     ink: '#5a1016',
     avatar: '/members/hanseorin.png',
+    position: '매니저',
   },
   {
     id: 'dangkey',
@@ -31,6 +34,7 @@ export const MEMBERS: Member[] = [
     color: '#ffce90',
     ink: '#6b4a12',
     avatar: '/members/dangkey.png',
+    position: '경비견',
   },
   {
     id: 'uuhee',
@@ -39,6 +43,7 @@ export const MEMBERS: Member[] = [
     color: '#ceb4f1',
     ink: '#3f2a63',
     avatar: '/members/uuhee.png',
+    position: '청소부 (자칭 마스코트)',
   },
   {
     id: 'aerusolstice',
@@ -47,5 +52,6 @@ export const MEMBERS: Member[] = [
     color: '#a7cdfb',
     ink: '#123a63',
     avatar: '/members/aerusolstice.png',
+    position: '서빙',
   },
 ];
