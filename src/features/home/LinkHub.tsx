@@ -22,7 +22,6 @@ export function LinkHub() {
             const chipStyle: CSSProperties = {
               backgroundColor: link.brand,
               color: link.ink,
-              // 유튜브 재생 삼각형이 칩 색으로 파여 보이도록
               ['--yt-notch' as string]: link.brand,
             };
             return (

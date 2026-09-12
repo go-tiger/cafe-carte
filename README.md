@@ -35,7 +35,7 @@ npm run dev        # http://localhost:3000
 ```
 src/
   app/                 라우팅, 레이아웃, 페이지 메타데이터
-  features/<도메인>/    도메인별 컴포넌트·훅·로직 (예: features/home/ui)
+  features/<도메인>/    도메인별 컴포넌트·훅·로직 (예: features/home)
   shared/
     ui/                재사용 UI 컴포넌트 (Button, Card, Badge …)
     lib/               유틸 (cn, asset, color, shuffle …)
