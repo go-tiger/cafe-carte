@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { SiteHeader } from '@/components';
 import { MEMBERS } from '@/shared/constants';
 import { MemberCard } from '@/shared/ui';
@@ -23,7 +24,9 @@ export default function MembersPage() {
           <ul className='mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5'>
             {MEMBERS.map(m => (
               <li key={m.id}>
-                <MemberCard member={m} variant='detailed' />
+                <Link href={`/members/${m.id}`}>
+                  <MemberCard member={m} variant='detailed' />
+                </Link>
               </li>
             ))}
           </ul>

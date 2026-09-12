@@ -1,3 +1,7 @@
+import type { MemberDetail } from './types';
+
+export type { MemberDetail };
+
 export interface Member {
   id: string;
   nameKo: string;
@@ -7,6 +11,8 @@ export interface Member {
   avatar: string;
   position: string;
 }
+
+export const MEMBER_DETAILS: Record<string, MemberDetail | undefined> = {};
 
 export const MEMBERS: Member[] = [
   {
