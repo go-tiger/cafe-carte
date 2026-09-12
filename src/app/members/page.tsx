@@ -20,7 +20,7 @@ export default function MembersPage() {
             각 멤버의 프로필과 활동 정보는 준비 중입니다. 차차 채워나갈 예정이에요.
           </p>
 
-          <ul className='mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4'>
+          <ul className='mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5'>
             {MEMBERS.map(m => (
               <li key={m.id}>
                 <MemberCard member={m} variant='detailed' />
