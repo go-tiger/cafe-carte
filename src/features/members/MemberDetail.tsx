@@ -3,7 +3,7 @@ import type { ComponentType, CSSProperties, SVGProps } from 'react';
 import type { Member } from '@/shared/constants';
 import { MEMBER_DETAILS, BRAND_COLORS } from '@/shared/constants';
 import { asset } from '@/shared/lib';
-import { Emoji } from '@/shared/ui';
+import { Emoji, LiveBadge } from '@/shared/ui';
 import { ChzzkIcon, YoutubeIcon, XIcon } from '@/shared/ui/icons';
 
 const SNS_ICONS = {
@@ -43,6 +43,7 @@ export function MemberDetail({ member }: { member: Member }) {
               {member.nameKo}
             </h1>
             <p className='text-sm text-black/60'>{member.name}</p>
+            <LiveBadge chzzkUrl={detail?.links.chzzk} />
           </div>
         </div>
       </div>

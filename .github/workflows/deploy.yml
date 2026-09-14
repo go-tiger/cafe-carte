@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PAGES_BASE_PATH: /cafe-carte
+      NEXT_PUBLIC_API_URL: https://cafe-carte.api.gotiger.dev
     steps:
       - name: Checkout
         uses: actions/checkout@v4

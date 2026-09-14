@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import type { Member } from '@/shared/constants';
+import { MEMBER_DETAILS } from '@/shared/constants';
 import { asset } from '@/shared/lib';
+import { LiveBadge } from './LiveBadge';
 
 interface MemberCardProps {
   member: Member;
@@ -10,6 +12,7 @@ interface MemberCardProps {
 
 export function MemberCard({ member, variant = 'compact' }: MemberCardProps) {
   const detailed = variant === 'detailed';
+  const chzzkUrl = MEMBER_DETAILS[member.id]?.links.chzzk;
 
   if (detailed) {
     return (
@@ -22,6 +25,10 @@ export function MemberCard({ member, variant = 'compact' }: MemberCardProps) {
             sizes='(max-width: 640px) 100vw, 20vw'
             className='object-cover'
           />
+        </div>
+
+        <div className='absolute top-3 left-3'>
+          <LiveBadge chzzkUrl={chzzkUrl} />
         </div>
 
         <div className='absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/80 via-black/10 to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
@@ -43,6 +50,9 @@ export function MemberCard({ member, variant = 'compact' }: MemberCardProps) {
           sizes='(max-width: 640px) 50vw, 20vw'
           className='object-cover'
         />
+        <div className='absolute top-2 left-2'>
+          <LiveBadge chzzkUrl={chzzkUrl} />
+        </div>
       </div>
       <div className='flex flex-1 flex-col gap-1 p-4'>
         <span className='font-heavy leading-tight' style={{ color: member.ink }}>

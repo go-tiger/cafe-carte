@@ -5,3 +5,4 @@ export { Badge, badgeVariants } from './Badge';
 export { Reveal } from './Reveal';
 export { MemberCard } from './MemberCard';
 export { Emoji } from './Emoji';
+export { LiveBadge } from './LiveBadge';
