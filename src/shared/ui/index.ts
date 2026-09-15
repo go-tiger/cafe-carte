@@ -6,3 +6,4 @@ export { Reveal } from './Reveal';
 export { MemberCard } from './MemberCard';
 export { Emoji } from './Emoji';
 export { LiveBadge } from './LiveBadge';
+export { DebutCounter } from './DebutCounter';

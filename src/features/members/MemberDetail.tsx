@@ -3,7 +3,7 @@ import type { ComponentType, CSSProperties, SVGProps } from 'react';
 import type { Member } from '@/shared/constants';
 import { MEMBER_DETAILS, BRAND_COLORS } from '@/shared/constants';
 import { asset } from '@/shared/lib';
-import { Emoji, LiveBadge } from '@/shared/ui';
+import { DebutCounter, Emoji, LiveBadge } from '@/shared/ui';
 import { ChzzkIcon, YoutubeIcon, XIcon } from '@/shared/ui/icons';
 
 const SNS_ICONS = {
@@ -66,6 +66,11 @@ export function MemberDetail({ member }: { member: Member }) {
             <div className='rounded-2xl border border-border bg-surface p-4 shadow-poster'>
               <dt className='text-xs text-text-muted'>데뷔일</dt>
               <dd className='mt-1 font-heavy'>{detail?.debutDate}</dd>
+              {detail && (
+                <dd className='mt-1.5'>
+                  <DebutCounter debutDate={detail.debutDate} color={member.color} ink={member.ink} />
+                </dd>
+              )}
             </div>
             <div className='col-span-2 rounded-2xl border border-border bg-surface p-4 shadow-poster'>
               <dt className='text-xs text-text-muted'>팬네임</dt>
