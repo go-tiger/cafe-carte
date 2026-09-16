@@ -18,7 +18,7 @@ export const hanseorin: MemberDetail = {
     youtube: [
       { url: 'https://www.youtube.com/@hanseorin_rin', label: '본채널' },
       { url: 'https://www.youtube.com/@서린다시보기', label: '다시보기' },
-      { url: 'https://www.youtube.com/@seorin_asmr', label: 'ASMR' },
+      // { url: 'https://www.youtube.com/@seorin_asmr', label: 'ASMR' },
     ],
   },
 };
