@@ -91,9 +91,17 @@ export function MemberDetail({ member }: { member: Member }) {
 
         {detail && (
           <div className='mt-6 flex flex-wrap gap-2 text-xs'>
-            <span className='rounded-full bg-surface-2 px-3 py-1 text-text-muted'>{detail.tags.unified}</span>
-            <span className='rounded-full bg-surface-2 px-3 py-1 text-text-muted'>{detail.tags.clip}</span>
-            <span className='rounded-full bg-surface-2 px-3 py-1 text-text-muted'>{detail.tags.art}</span>
+            {[detail.tags.unified, detail.tags.clip, detail.tags.art].map(tag => (
+              <a
+                key={tag}
+                href={`https://x.com/hashtag/${encodeURIComponent(tag.replace(/^#/, ''))}`}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='rounded-full bg-surface-2 px-3 py-1 text-text-muted transition-opacity hover:opacity-70'
+              >
+                {tag}
+              </a>
+            ))}
           </div>
         )}
 
