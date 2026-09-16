@@ -21,15 +21,19 @@ export function generateMetadata({ params }: MemberPageProps): Promise<Metadata>
 
 export default async function MemberPage({ params }: MemberPageProps) {
   const { slug } = await params;
-  const member = MEMBERS.find(m => m.id === slug);
-  if (!member) notFound();
+  const index = MEMBERS.findIndex(m => m.id === slug);
+  if (index === -1) notFound();
+
+  const member = MEMBERS[index];
+  const prevMember = MEMBERS[(index - 1 + MEMBERS.length) % MEMBERS.length];
+  const nextMember = MEMBERS[(index + 1) % MEMBERS.length];
 
   return (
     <>
       <SiteHeader />
 
       <main className='pb-20'>
-        <MemberDetail member={member} />
+        <MemberDetail member={member} prevMember={prevMember} nextMember={nextMember} />
       </main>
     </>
   );
