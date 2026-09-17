@@ -7,3 +7,4 @@ export { MemberCard } from './MemberCard';
 export { Emoji } from './Emoji';
 export { LiveBadge } from './LiveBadge';
 export { DebutCounter } from './DebutCounter';
+export { LastCommitTime } from './LastCommitTime';

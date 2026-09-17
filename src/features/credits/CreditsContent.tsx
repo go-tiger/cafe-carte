@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { CircleDot, Clock, GitFork, Scale, Star } from 'lucide-react';
 import { getGitHubData, githubLinks, type GitHubStats } from '@/shared/lib/github';
-import { relativeTime } from '@/shared/lib/relative-time';
+import { LastCommitTime } from '@/shared/ui';
 import { GithubIcon } from '@/shared/ui/icons';
 
 const numberFmt = new Intl.NumberFormat('ko');
@@ -60,7 +60,7 @@ export async function CreditsContent() {
             {stats?.pushedAt && (
               <span className='flex items-center gap-1.5'>
                 <Clock className='size-4 shrink-0' />
-                Last commit: {relativeTime(stats.pushedAt)}
+                Last commit: <LastCommitTime pushedAt={stats.pushedAt} />
               </span>
             )}
           </p>
