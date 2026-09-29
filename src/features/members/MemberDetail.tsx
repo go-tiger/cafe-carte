@@ -3,7 +3,7 @@ import Link from 'next/link';
 import type { ComponentType, CSSProperties, SVGProps } from 'react';
 import type { Member } from '@/shared/constants';
 import { MEMBER_DETAILS, BRAND_COLORS } from '@/shared/constants';
-import { asset } from '@/shared/lib';
+import { asset, memberVars } from '@/shared/lib';
 import { DebutCounter, Emoji, LiveBadge } from '@/shared/ui';
 import { ChzzkIcon, YoutubeIcon, XIcon } from '@/shared/ui/icons';
 
@@ -50,7 +50,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
               {member.nameKo}
             </h1>
             <p className='text-sm text-black/60'>{member.name}</p>
-            <LiveBadge chzzkUrl={detail?.links.chzzk} />
+            <LiveBadge chzzkUrl={detail?.links.chzzk} asLink />
           </div>
         </div>
       </div>
@@ -114,21 +114,27 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
 
         <Link
           href={`/members/${prevMember.id}`}
+          aria-label={`이전 멤버: ${prevMember.nameKo}`}
+          data-member
+          style={memberVars(prevMember)}
           className='group fixed top-1/2 left-2 z-40 flex -translate-y-1/2 items-center gap-2 rounded-full border border-border bg-surface py-2 pr-3 pl-2 shadow-poster transition-transform hover:-translate-x-1 sm:left-4 sm:py-3 sm:pr-4'
         >
-          <span className='text-lg text-text-muted'>←</span>
-          <span className='hidden max-w-24 truncate font-heavy sm:block' style={{ color: prevMember.color }}>
-            {prevMember.nameKo}
+          <span aria-hidden className='text-lg text-text-muted'>
+            ←
           </span>
+          <span className='hidden max-w-24 truncate font-heavy text-member-text sm:block'>{prevMember.nameKo}</span>
         </Link>
         <Link
           href={`/members/${nextMember.id}`}
+          aria-label={`다음 멤버: ${nextMember.nameKo}`}
+          data-member
+          style={memberVars(nextMember)}
           className='group fixed top-1/2 right-2 z-40 flex -translate-y-1/2 items-center gap-2 rounded-full border border-border bg-surface py-2 pr-2 pl-3 shadow-poster transition-transform hover:translate-x-1 sm:right-4 sm:py-3 sm:pl-4'
         >
-          <span className='hidden max-w-24 truncate font-heavy sm:block' style={{ color: nextMember.color }}>
-            {nextMember.nameKo}
+          <span className='hidden max-w-24 truncate font-heavy text-member-text sm:block'>{nextMember.nameKo}</span>
+          <span aria-hidden className='text-lg text-text-muted'>
+            →
           </span>
-          <span className='text-lg text-text-muted'>→</span>
         </Link>
 
         {detail?.links && (

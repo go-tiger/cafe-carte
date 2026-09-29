@@ -84,6 +84,7 @@
   --color-text-muted: var(--text-muted);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
+  --color-member-text: var(--member-text);
 }
 
 /* 라이트 시맨틱 */
@@ -111,6 +112,15 @@
   --accent: var(--palette-green-300);
   --accent-ink: var(--palette-green-ink-dark);
   --shadow-poster: 0 18px 44px -18px rgba(0, 0, 0, 0.6);
+}
+
+/* 멤버 글자색: 라이트는 ink, 다크는 color 여야 배경 대비가 나온다 */
+[data-member] {
+  --member-text: var(--m-ink);
+}
+
+:root.dark [data-member] {
+  --member-text: var(--m-color);
 }
 
 html {
