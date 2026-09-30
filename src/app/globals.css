@@ -38,6 +38,8 @@
   --font-sans: 'NanumSquareNeo', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   --font-weight-heavy: 900;
 
+  --breakpoint-xs: 24rem;
+
   --text-display: 3.25rem;
   --text-display--line-height: 1.05;
   --text-display--letter-spacing: -0.02em;
