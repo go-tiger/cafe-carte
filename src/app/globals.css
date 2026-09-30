@@ -64,13 +64,6 @@
   --palette-green-300: #6dc3a8;
   --palette-green-ink-light: #ffffff;
   --palette-green-ink-dark: #10231d;
-
-  /* 멤버 팔레트 */
-  --color-mocoparfe: #fba7d2;
-  --color-hanseorin: #f8515f;
-  --color-dangkey: #ffce90;
-  --color-uuhee: #ceb4f1;
-  --color-aerusolstice: #a7cdfb;
 }
 
 /* 시맨틱 토큰을 Tailwind 색 유틸(bg-bg, text-text 등)에 연결.

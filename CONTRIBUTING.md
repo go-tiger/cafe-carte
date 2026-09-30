@@ -39,6 +39,7 @@ Cafe Carte 팬사이트에 관심 가져 주셔서 감사합니다. 버그 수�
 - 스타일은 Tailwind CSS v4와 `globals.css`의 시맨틱 토큰을 사용합니다. `text-[10px]` 같은 arbitrary 값, 하드코딩 색상,
   인라인 SVG 아이콘은 지양합니다.
 - 조건부 클래스는 `@/shared/lib`의 `cn`을 사용합니다.
+- 멤버색은 `src/shared/constants/members/index.ts`의 `color` / `ink`에서만 정의합니다.
 - 멤버색 대비가 필요하면 `src/shared/lib/color.ts`의 `getContrastColor` / `getMemberSurface`를 사용합니다.
 - `prefers-reduced-motion` 설정을 존중합니다.
 
