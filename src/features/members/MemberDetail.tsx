@@ -117,21 +117,21 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
           aria-label={`이전 멤버: ${prevMember.nameKo}`}
           data-member
           style={memberVars(prevMember)}
-          className='group fixed top-1/2 left-2 z-40 flex -translate-y-1/2 items-center gap-2 rounded-full border border-border bg-surface py-2 pr-3 pl-2 shadow-poster transition-transform hover:-translate-x-1 sm:left-4 sm:py-3 sm:pr-4'
+          className='fixed top-1/2 left-4 z-40 hidden -translate-y-1/2 items-center gap-2 rounded-full border border-border bg-surface py-3 pr-4 pl-2 shadow-poster transition-transform hover:-translate-x-1 sm:flex'
         >
           <span aria-hidden className='text-lg text-text-muted'>
             ←
           </span>
-          <span className='hidden max-w-24 truncate font-heavy text-member-text sm:block'>{prevMember.nameKo}</span>
+          <span className='max-w-24 truncate font-heavy text-member-text'>{prevMember.nameKo}</span>
         </Link>
         <Link
           href={`/members/${nextMember.id}`}
           aria-label={`다음 멤버: ${nextMember.nameKo}`}
           data-member
           style={memberVars(nextMember)}
-          className='group fixed top-1/2 right-2 z-40 flex -translate-y-1/2 items-center gap-2 rounded-full border border-border bg-surface py-2 pr-2 pl-3 shadow-poster transition-transform hover:translate-x-1 sm:right-4 sm:py-3 sm:pl-4'
+          className='fixed top-1/2 right-4 z-40 hidden -translate-y-1/2 items-center gap-2 rounded-full border border-border bg-surface py-3 pr-2 pl-4 shadow-poster transition-transform hover:translate-x-1 sm:flex'
         >
-          <span className='hidden max-w-24 truncate font-heavy text-member-text sm:block'>{nextMember.nameKo}</span>
+          <span className='max-w-24 truncate font-heavy text-member-text'>{nextMember.nameKo}</span>
           <span aria-hidden className='text-lg text-text-muted'>
             →
           </span>
@@ -206,6 +206,37 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
             </ul>
           </div>
         )}
+
+        <nav aria-label='멤버 이동' className='mt-12 grid grid-cols-2 gap-3 sm:hidden'>
+          <Link
+            href={`/members/${prevMember.id}`}
+            data-member
+            style={memberVars(prevMember)}
+            className='flex min-h-16 items-center gap-3 rounded-2xl border border-border bg-surface px-4 py-3 shadow-poster'
+          >
+            <span aria-hidden className='text-lg text-text-muted'>
+              ←
+            </span>
+            <span className='flex min-w-0 flex-col'>
+              <span className='text-xs text-text-muted'>이전 멤버</span>
+              <span className='truncate font-heavy text-member-text'>{prevMember.nameKo}</span>
+            </span>
+          </Link>
+          <Link
+            href={`/members/${nextMember.id}`}
+            data-member
+            style={memberVars(nextMember)}
+            className='flex min-h-16 items-center justify-end gap-3 rounded-2xl border border-border bg-surface px-4 py-3 text-right shadow-poster'
+          >
+            <span className='flex min-w-0 flex-col'>
+              <span className='text-xs text-text-muted'>다음 멤버</span>
+              <span className='truncate font-heavy text-member-text'>{nextMember.nameKo}</span>
+            </span>
+            <span aria-hidden className='text-lg text-text-muted'>
+              →
+            </span>
+          </Link>
+        </nav>
       </div>
     </>
   );
