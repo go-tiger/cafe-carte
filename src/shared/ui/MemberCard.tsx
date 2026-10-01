@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { Member } from '@/shared/constants';
 import { MEMBER_DETAILS } from '@/shared/constants';
-import { asset } from '@/shared/lib';
+import { asset, memberVars } from '@/shared/lib';
 import { LiveBadge } from './LiveBadge';
 
 interface MemberCardProps {
@@ -31,7 +31,7 @@ export function MemberCard({ member, variant = 'compact' }: MemberCardProps) {
           <LiveBadge chzzkUrl={chzzkUrl} />
         </div>
 
-        <div className='absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/80 via-black/10 to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100'>
+        <div className='absolute inset-x-0 bottom-0 flex flex-col bg-linear-to-t from-black/80 via-black/50 to-transparent p-5 pt-16'>
           <span className='font-heavy text-xl leading-tight text-white'>{member.nameKo}</span>
           <span className='text-xs text-white/70'>{member.name}</span>
           <span className='mt-0.5 text-xs text-white/70'>{member.position}</span>
@@ -41,7 +41,11 @@ export function MemberCard({ member, variant = 'compact' }: MemberCardProps) {
   }
 
   return (
-    <div className='flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-poster'>
+    <div
+      data-member
+      style={memberVars(member)}
+      className='flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-poster'
+    >
       <div className='relative aspect-179/236 w-full' style={{ backgroundColor: member.color }}>
         <Image
           src={asset(member.avatar)}
@@ -55,9 +59,7 @@ export function MemberCard({ member, variant = 'compact' }: MemberCardProps) {
         </div>
       </div>
       <div className='flex flex-1 flex-col gap-1 p-4'>
-        <span className='font-heavy leading-tight' style={{ color: member.ink }}>
-          {member.nameKo}
-        </span>
+        <span className='font-heavy leading-tight text-member-text'>{member.nameKo}</span>
         <span className='text-xs text-text-muted'>{member.name}</span>
         <span className='mt-0.5 text-xs text-text-muted'>{member.position}</span>
       </div>

@@ -38,6 +38,8 @@
   --font-sans: 'NanumSquareNeo', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   --font-weight-heavy: 900;
 
+  --breakpoint-xs: 24rem;
+
   --text-display: 3.25rem;
   --text-display--line-height: 1.05;
   --text-display--letter-spacing: -0.02em;
@@ -48,7 +50,7 @@
   --palette-cream-50: #fdf9f3;
   --palette-cream-100: #f6efe6;
   --palette-cream-200: #eadfce;
-  --palette-ink-700: #8a8078;
+  --palette-ink-700: #6f665e;
   --palette-ink-900: #2b2724;
 
   /* 다크 뉴트럴 스케일 (플럼 계열) */
@@ -64,13 +66,6 @@
   --palette-green-300: #6dc3a8;
   --palette-green-ink-light: #ffffff;
   --palette-green-ink-dark: #10231d;
-
-  /* 멤버 팔레트 */
-  --color-mocoparfe: #fba7d2;
-  --color-hanseorin: #f8515f;
-  --color-dangkey: #ffce90;
-  --color-uuhee: #ceb4f1;
-  --color-aerusolstice: #a7cdfb;
 }
 
 /* 시맨틱 토큰을 Tailwind 색 유틸(bg-bg, text-text 등)에 연결.
@@ -84,6 +79,7 @@
   --color-text-muted: var(--text-muted);
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
+  --color-member-text: var(--member-text);
 }
 
 /* 라이트 시맨틱 */
@@ -111,6 +107,15 @@
   --accent: var(--palette-green-300);
   --accent-ink: var(--palette-green-ink-dark);
   --shadow-poster: 0 18px 44px -18px rgba(0, 0, 0, 0.6);
+}
+
+/* 멤버 글자색: 라이트는 ink, 다크는 color 여야 배경 대비가 나온다 */
+[data-member] {
+  --member-text: var(--m-ink);
+}
+
+:root.dark [data-member] {
+  --member-text: var(--m-color);
 }
 
 html {

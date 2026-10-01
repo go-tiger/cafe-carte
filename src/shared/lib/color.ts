@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react';
+
 function srgbChannelToLinear(channel: number): number {
   const v = channel / 255;
   return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
@@ -23,4 +25,8 @@ export function getContrastColor(hex: string): 'white' | 'black' {
 export function getMemberSurface(hex: string): string {
   const lightnessClause = getContrastColor(hex) === 'black' ? 'max(l, 0.75)' : 'min(l, 0.35)';
   return `oklch(from ${hex} ${lightnessClause} min(c, 0.2) h)`;
+}
+
+export function memberVars({ color, ink }: { color: string; ink: string }): CSSProperties {
+  return { '--m-color': color, '--m-ink': ink } as CSSProperties;
 }

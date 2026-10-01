@@ -31,13 +31,13 @@ export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: bo
         scrolled ? 'border-b border-border bg-bg/80 backdrop-blur' : 'border-b border-transparent bg-transparent',
       )}
     >
-      <nav className='mx-auto flex h-16 max-w-5xl items-center gap-6 px-4'>
+      <nav className='mx-auto flex h-16 max-w-5xl items-center gap-3 px-4 sm:gap-6'>
         <Link href='/' className='flex shrink-0 items-center gap-2'>
           <Image src={asset('/logo.png')} alt='Cafe Carte' width={32} height={32} className='rounded-full' priority />
-          <span className='font-heavy tracking-tight'>Cafe Carte</span>
+          <span className='hidden font-heavy tracking-tight xs:inline'>Cafe Carte</span>
         </Link>
 
-        <ul className='flex items-center gap-5'>
+        <ul className='flex items-center gap-3 sm:gap-5'>
           {NAV_LINKS.map(link => {
             const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
             return (
@@ -56,7 +56,7 @@ export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: bo
           })}
         </ul>
 
-        <div className='ml-auto'>
+        <div className='ml-auto shrink-0'>
           <ThemeToggle />
         </div>
       </nav>
