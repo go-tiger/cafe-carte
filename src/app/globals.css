@@ -80,6 +80,9 @@
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-member-text: var(--member-text);
+
+  /* 제목용: 영문은 Playfair Display, 한글은 본문 폰트로 폴백 */
+  --font-display: var(--font-playfair), var(--font-sans);
 }
 
 /* 라이트 시맨틱 */
