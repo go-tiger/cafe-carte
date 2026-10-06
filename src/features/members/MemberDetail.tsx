@@ -46,7 +46,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
           </div>
 
           <div className='flex flex-col gap-2 pb-2'>
-            <p className='text-xs font-bold tracking-[0.3em] text-black/60'>{member.position}</p>
+            <p className='text-xs font-bold tracking-eyebrow text-black/60'>{member.position}</p>
             <h1 className='font-display font-heavy text-5xl tracking-tight sm:text-6xl' style={{ color: member.ink }}>
               {member.nameKo}
             </h1>
@@ -136,7 +136,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
 
         {detail?.links && (
           <div className='mt-12 border-t border-border pt-8'>
-            <p className='text-xs font-bold tracking-[0.3em] text-text-muted'>CHANNELS</p>
+            <p className='text-xs font-bold tracking-eyebrow text-text-muted'>CHANNELS</p>
             <ul className='mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
               {detail.links.chzzk && (
                 <li>

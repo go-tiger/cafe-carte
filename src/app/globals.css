@@ -37,6 +37,7 @@
 @theme {
   --font-sans: 'NanumSquareNeo', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   --font-weight-heavy: 900;
+  --tracking-eyebrow: 0.3em;
 
   --breakpoint-xs: 24rem;
 

@@ -14,7 +14,7 @@ export function LinkHub() {
   return (
     <section className='border-t border-border bg-surface-2 px-6 py-20 sm:px-10'>
       <Reveal className='mx-auto max-w-5xl'>
-        <p className='text-xs font-bold tracking-[0.3em] text-text-muted'>OFFICIAL</p>
+        <p className='text-xs font-bold tracking-eyebrow text-text-muted'>OFFICIAL</p>
         <h2 className='mt-2 font-display font-heavy text-3xl tracking-tight sm:text-4xl'>공식 채널</h2>
 
         <ul className='mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>

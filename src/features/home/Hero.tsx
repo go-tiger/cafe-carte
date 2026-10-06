@@ -11,7 +11,7 @@ export function Hero() {
         <HeroCollage />
 
         <div className='pointer-events-none relative z-10 w-full max-w-2xl'>
-          <p className='mb-3 w-fit text-xs font-bold tracking-[0.3em] text-text-muted sm:text-sm'>
+          <p className='mb-3 w-fit text-xs font-bold tracking-eyebrow text-text-muted sm:text-sm'>
             UNOFFICIAL FAN SITE
           </p>
           <h1 className='w-fit font-display font-heavy text-[clamp(2.75rem,13vw,7rem)] leading-[0.95] tracking-[-0.03em]'>
