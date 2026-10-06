@@ -14,7 +14,7 @@ export function Hero() {
           <p className='mb-3 w-fit text-xs font-bold tracking-[0.3em] text-text-muted sm:text-sm'>
             UNOFFICIAL FAN SITE
           </p>
-          <h1 className='w-fit font-heavy text-[clamp(2.75rem,13vw,7rem)] leading-[0.95] tracking-[-0.03em]'>
+          <h1 className='w-fit font-display font-heavy text-[clamp(2.75rem,13vw,7rem)] leading-[0.95] tracking-[-0.03em]'>
             CAFE
             <br />
             CARTE
