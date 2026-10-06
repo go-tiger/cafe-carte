@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
+import { Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/shared/providers';
 import { SiteFooter } from '@/components';
-import { asset } from '@/shared/lib';
+import { asset, cn } from '@/shared/lib';
+
+const playfair = Playfair_Display({ weight: '700', subsets: ['latin'], variable: '--font-playfair' });
 
 export const metadata: Metadata = {
   title: {
@@ -15,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang='ko' className='h-full antialiased' suppressHydrationWarning>
+    <html lang='ko' className={cn('h-full antialiased', playfair.variable)} suppressHydrationWarning>
       <body className='flex min-h-full flex-col bg-bg text-text'>
         <ThemeProvider>
           {children}

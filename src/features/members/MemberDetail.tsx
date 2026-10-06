@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import type { ComponentType, CSSProperties, SVGProps } from 'react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import type { ComponentType, SVGProps } from 'react';
 import type { Member } from '@/shared/constants';
 import { MEMBER_DETAILS, BRAND_COLORS } from '@/shared/constants';
 import { asset, memberVars } from '@/shared/lib';
-import { DebutCounter, Emoji, LiveBadge } from '@/shared/ui';
+import { ChannelCard, DebutCounter, Emoji, LiveBadge } from '@/shared/ui';
 import { ChzzkIcon, YoutubeIcon, XIcon } from '@/shared/ui/icons';
 
 const SNS_ICONS = {
@@ -45,8 +46,8 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
           </div>
 
           <div className='flex flex-col gap-2 pb-2'>
-            <p className='text-xs font-bold tracking-[0.3em] text-black/60'>{member.position}</p>
-            <h1 className='font-heavy text-5xl tracking-tight sm:text-6xl' style={{ color: member.ink }}>
+            <p className='text-xs font-bold tracking-eyebrow text-black/60'>{member.position}</p>
+            <h1 className='font-display font-heavy text-5xl tracking-tight sm:text-6xl' style={{ color: member.ink }}>
               {member.nameKo}
             </h1>
             <p className='text-sm text-black/60'>{member.name}</p>
@@ -119,9 +120,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
           style={memberVars(prevMember)}
           className='fixed top-1/2 left-4 z-40 hidden -translate-y-1/2 items-center gap-2 rounded-full border border-border bg-surface py-3 pr-4 pl-2 shadow-poster transition-transform hover:-translate-x-1 sm:flex'
         >
-          <span aria-hidden className='text-lg text-text-muted'>
-            ←
-          </span>
+          <ArrowLeft aria-hidden className='size-5 shrink-0 text-text-muted' />
           <span className='max-w-24 truncate font-heavy text-member-text'>{prevMember.nameKo}</span>
         </Link>
         <Link
@@ -132,75 +131,36 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
           className='fixed top-1/2 right-4 z-40 hidden -translate-y-1/2 items-center gap-2 rounded-full border border-border bg-surface py-3 pr-2 pl-4 shadow-poster transition-transform hover:translate-x-1 sm:flex'
         >
           <span className='max-w-24 truncate font-heavy text-member-text'>{nextMember.nameKo}</span>
-          <span aria-hidden className='text-lg text-text-muted'>
-            →
-          </span>
+          <ArrowRight aria-hidden className='size-5 shrink-0 text-text-muted' />
         </Link>
 
         {detail?.links && (
           <div className='mt-12 border-t border-border pt-8'>
-            <p className='text-xs font-bold tracking-[0.3em] text-text-muted'>CHANNELS</p>
+            <p className='text-xs font-bold tracking-eyebrow text-text-muted'>CHANNELS</p>
             <ul className='mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
               {detail.links.chzzk && (
                 <li>
-                  <a
+                  <ChannelCard
                     href={detail.links.chzzk}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='group flex items-center gap-4 rounded-2xl border border-border bg-surface p-5 shadow-poster transition-transform hover:-translate-y-1'
-                  >
-                    <span
-                      className='flex size-12 shrink-0 items-center justify-center rounded-xl'
-                      style={{ backgroundColor: BRAND_COLORS.chzzk.color, color: BRAND_COLORS.chzzk.ink }}
-                    >
-                      <SNS_ICONS.chzzk className='size-6' />
-                    </span>
-                    <span className='min-w-0 flex-1 font-heavy text-lg leading-tight'>{SNS_LABELS.chzzk}</span>
-                  </a>
+                    icon={SNS_ICONS.chzzk}
+                    brand={BRAND_COLORS.chzzk}
+                    label={SNS_LABELS.chzzk}
+                  />
                 </li>
               )}
               {detail.links.youtube?.map(yt => (
                 <li key={yt.url}>
-                  <a
+                  <ChannelCard
                     href={yt.url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='group flex items-center gap-4 rounded-2xl border border-border bg-surface p-5 shadow-poster transition-transform hover:-translate-y-1'
-                  >
-                    <span
-                      className='flex size-12 shrink-0 items-center justify-center rounded-xl'
-                      style={
-                        {
-                          backgroundColor: BRAND_COLORS.youtube.color,
-                          color: BRAND_COLORS.youtube.ink,
-                          ['--yt-notch' as string]: BRAND_COLORS.youtube.color,
-                        } as CSSProperties
-                      }
-                    >
-                      <SNS_ICONS.youtube className='size-6' />
-                    </span>
-                    <span className='min-w-0 flex-1 truncate font-heavy text-lg leading-tight'>
-                      {SNS_LABELS.youtube} · {yt.label}
-                    </span>
-                  </a>
+                    icon={SNS_ICONS.youtube}
+                    brand={BRAND_COLORS.youtube}
+                    label={`${SNS_LABELS.youtube} · ${yt.label}`}
+                  />
                 </li>
               ))}
               {detail.links.x && (
                 <li>
-                  <a
-                    href={detail.links.x}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='group flex items-center gap-4 rounded-2xl border border-border bg-surface p-5 shadow-poster transition-transform hover:-translate-y-1'
-                  >
-                    <span
-                      className='flex size-12 shrink-0 items-center justify-center rounded-xl'
-                      style={{ backgroundColor: BRAND_COLORS.x.color, color: BRAND_COLORS.x.ink }}
-                    >
-                      <SNS_ICONS.x className='size-6' />
-                    </span>
-                    <span className='min-w-0 flex-1 font-heavy text-lg leading-tight'>{SNS_LABELS.x}</span>
-                  </a>
+                  <ChannelCard href={detail.links.x} icon={SNS_ICONS.x} brand={BRAND_COLORS.x} label={SNS_LABELS.x} />
                 </li>
               )}
             </ul>
@@ -214,9 +174,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
             style={memberVars(prevMember)}
             className='flex min-h-16 items-center gap-3 rounded-2xl border border-border bg-surface px-4 py-3 shadow-poster'
           >
-            <span aria-hidden className='text-lg text-text-muted'>
-              ←
-            </span>
+            <ArrowLeft aria-hidden className='size-5 shrink-0 text-text-muted' />
             <span className='flex min-w-0 flex-col'>
               <span className='text-xs text-text-muted'>이전 멤버</span>
               <span className='truncate font-heavy text-member-text'>{prevMember.nameKo}</span>
@@ -232,9 +190,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
               <span className='text-xs text-text-muted'>다음 멤버</span>
               <span className='truncate font-heavy text-member-text'>{nextMember.nameKo}</span>
             </span>
-            <span aria-hidden className='text-lg text-text-muted'>
-              →
-            </span>
+            <ArrowRight aria-hidden className='size-5 shrink-0 text-text-muted' />
           </Link>
         </nav>
       </div>

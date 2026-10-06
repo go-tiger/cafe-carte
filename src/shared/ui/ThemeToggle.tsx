@@ -1,5 +1,6 @@
 'use client';
 
+import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 export function ThemeToggle() {
@@ -10,9 +11,10 @@ export function ThemeToggle() {
     <button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       aria-label='테마 전환'
-      className='rounded-full p-2 text-lg text-text-muted transition-colors hover:bg-surface-2 hover:text-text'
+      className='rounded-full p-2 text-text-muted transition-colors hover:bg-surface-2 hover:text-text'
     >
-      <span suppressHydrationWarning>{isDark ? '☀️' : '🌙'}</span>
+      <Sun aria-hidden className='hidden size-5 dark:block' />
+      <Moon aria-hidden className='size-5 dark:hidden' />
     </button>
   );
 }

@@ -37,14 +37,9 @@
 @theme {
   --font-sans: 'NanumSquareNeo', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
   --font-weight-heavy: 900;
+  --tracking-eyebrow: 0.3em;
 
   --breakpoint-xs: 24rem;
-
-  --text-display: 3.25rem;
-  --text-display--line-height: 1.05;
-  --text-display--letter-spacing: -0.02em;
-
-  --radius-poster: 1.5rem;
 
   /* 웜 뉴트럴 스케일 (아이보리 ~ 코코아) */
   --palette-cream-50: #fdf9f3;
@@ -80,6 +75,9 @@
   --color-accent: var(--accent);
   --color-accent-ink: var(--accent-ink);
   --color-member-text: var(--member-text);
+
+  /* 제목용: 영문은 Playfair Display, 한글은 본문 폰트로 폴백 */
+  --font-display: var(--font-playfair), var(--font-sans);
 }
 
 /* 라이트 시맨틱 */
