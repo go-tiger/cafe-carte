@@ -20,7 +20,7 @@ export function Hero() {
             CARTE
           </h1>
           <p className='mt-5 w-fit max-w-md text-sm text-text-muted sm:text-base'>
-            Twillet Studio 소속 버추얼 그룹 Cafe Carte
+            Twillit Studio 소속 버추얼 그룹 Cafe Carte
             <br />
             <span className='text-text'>{memberNames}</span>
           </p>
