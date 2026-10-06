@@ -1,11 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import type { ComponentType, CSSProperties, SVGProps } from 'react';
+import type { ComponentType, SVGProps } from 'react';
 import type { Member } from '@/shared/constants';
 import { MEMBER_DETAILS, BRAND_COLORS } from '@/shared/constants';
 import { asset, memberVars } from '@/shared/lib';
-import { DebutCounter, Emoji, LiveBadge } from '@/shared/ui';
+import { ChannelCard, DebutCounter, Emoji, LiveBadge } from '@/shared/ui';
 import { ChzzkIcon, YoutubeIcon, XIcon } from '@/shared/ui/icons';
 
 const SNS_ICONS = {
@@ -140,64 +140,27 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
             <ul className='mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
               {detail.links.chzzk && (
                 <li>
-                  <a
+                  <ChannelCard
                     href={detail.links.chzzk}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='group flex items-center gap-4 rounded-2xl border border-border bg-surface p-5 shadow-poster transition-transform hover:-translate-y-1'
-                  >
-                    <span
-                      className='flex size-12 shrink-0 items-center justify-center rounded-xl'
-                      style={{ backgroundColor: BRAND_COLORS.chzzk.color, color: BRAND_COLORS.chzzk.ink }}
-                    >
-                      <SNS_ICONS.chzzk className='size-6' />
-                    </span>
-                    <span className='min-w-0 flex-1 font-heavy text-lg leading-tight'>{SNS_LABELS.chzzk}</span>
-                  </a>
+                    icon={SNS_ICONS.chzzk}
+                    brand={BRAND_COLORS.chzzk}
+                    label={SNS_LABELS.chzzk}
+                  />
                 </li>
               )}
               {detail.links.youtube?.map(yt => (
                 <li key={yt.url}>
-                  <a
+                  <ChannelCard
                     href={yt.url}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='group flex items-center gap-4 rounded-2xl border border-border bg-surface p-5 shadow-poster transition-transform hover:-translate-y-1'
-                  >
-                    <span
-                      className='flex size-12 shrink-0 items-center justify-center rounded-xl'
-                      style={
-                        {
-                          backgroundColor: BRAND_COLORS.youtube.color,
-                          color: BRAND_COLORS.youtube.ink,
-                          ['--yt-notch' as string]: BRAND_COLORS.youtube.color,
-                        } as CSSProperties
-                      }
-                    >
-                      <SNS_ICONS.youtube className='size-6' />
-                    </span>
-                    <span className='min-w-0 flex-1 truncate font-heavy text-lg leading-tight'>
-                      {SNS_LABELS.youtube} · {yt.label}
-                    </span>
-                  </a>
+                    icon={SNS_ICONS.youtube}
+                    brand={BRAND_COLORS.youtube}
+                    label={`${SNS_LABELS.youtube} · ${yt.label}`}
+                  />
                 </li>
               ))}
               {detail.links.x && (
                 <li>
-                  <a
-                    href={detail.links.x}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='group flex items-center gap-4 rounded-2xl border border-border bg-surface p-5 shadow-poster transition-transform hover:-translate-y-1'
-                  >
-                    <span
-                      className='flex size-12 shrink-0 items-center justify-center rounded-xl'
-                      style={{ backgroundColor: BRAND_COLORS.x.color, color: BRAND_COLORS.x.ink }}
-                    >
-                      <SNS_ICONS.x className='size-6' />
-                    </span>
-                    <span className='min-w-0 flex-1 font-heavy text-lg leading-tight'>{SNS_LABELS.x}</span>
-                  </a>
+                  <ChannelCard href={detail.links.x} icon={SNS_ICONS.x} brand={BRAND_COLORS.x} label={SNS_LABELS.x} />
                 </li>
               )}
             </ul>
