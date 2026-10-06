@@ -40,12 +40,6 @@
 
   --breakpoint-xs: 24rem;
 
-  --text-display: 3.25rem;
-  --text-display--line-height: 1.05;
-  --text-display--letter-spacing: -0.02em;
-
-  --radius-poster: 1.5rem;
-
   /* 웜 뉴트럴 스케일 (아이보리 ~ 코코아) */
   --palette-cream-50: #fdf9f3;
   --palette-cream-100: #f6efe6;
