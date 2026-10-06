@@ -1,4 +1,5 @@
 import type { ComponentType, CSSProperties, SVGProps } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { OFFICIAL_LINKS, type OfficialLinkId } from '@/shared/constants';
 import { Reveal } from '@/shared/ui';
 import { NaverCafeIcon, YoutubeIcon, XIcon } from '@/shared/ui/icons';
@@ -39,12 +40,10 @@ export function LinkHub() {
                     <span className='block font-heavy text-lg leading-tight'>{link.label}</span>
                     <span className='block truncate text-sm text-text-muted'>{link.handle}</span>
                   </span>
-                  <span
+                  <ArrowUpRight
                     aria-hidden
-                    className='text-lg text-text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5'
-                  >
-                    ↗
-                  </span>
+                    className='size-5 shrink-0 text-text-muted transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5'
+                  />
                 </a>
               </li>
             );

@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import type { ComponentType, CSSProperties, SVGProps } from 'react';
 import type { Member } from '@/shared/constants';
 import { MEMBER_DETAILS, BRAND_COLORS } from '@/shared/constants';
@@ -119,9 +120,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
           style={memberVars(prevMember)}
           className='fixed top-1/2 left-4 z-40 hidden -translate-y-1/2 items-center gap-2 rounded-full border border-border bg-surface py-3 pr-4 pl-2 shadow-poster transition-transform hover:-translate-x-1 sm:flex'
         >
-          <span aria-hidden className='text-lg text-text-muted'>
-            ←
-          </span>
+          <ArrowLeft aria-hidden className='size-5 shrink-0 text-text-muted' />
           <span className='max-w-24 truncate font-heavy text-member-text'>{prevMember.nameKo}</span>
         </Link>
         <Link
@@ -132,9 +131,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
           className='fixed top-1/2 right-4 z-40 hidden -translate-y-1/2 items-center gap-2 rounded-full border border-border bg-surface py-3 pr-2 pl-4 shadow-poster transition-transform hover:translate-x-1 sm:flex'
         >
           <span className='max-w-24 truncate font-heavy text-member-text'>{nextMember.nameKo}</span>
-          <span aria-hidden className='text-lg text-text-muted'>
-            →
-          </span>
+          <ArrowRight aria-hidden className='size-5 shrink-0 text-text-muted' />
         </Link>
 
         {detail?.links && (
@@ -214,9 +211,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
             style={memberVars(prevMember)}
             className='flex min-h-16 items-center gap-3 rounded-2xl border border-border bg-surface px-4 py-3 shadow-poster'
           >
-            <span aria-hidden className='text-lg text-text-muted'>
-              ←
-            </span>
+            <ArrowLeft aria-hidden className='size-5 shrink-0 text-text-muted' />
             <span className='flex min-w-0 flex-col'>
               <span className='text-xs text-text-muted'>이전 멤버</span>
               <span className='truncate font-heavy text-member-text'>{prevMember.nameKo}</span>
@@ -232,9 +227,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
               <span className='text-xs text-text-muted'>다음 멤버</span>
               <span className='truncate font-heavy text-member-text'>{nextMember.nameKo}</span>
             </span>
-            <span aria-hidden className='text-lg text-text-muted'>
-              →
-            </span>
+            <ArrowRight aria-hidden className='size-5 shrink-0 text-text-muted' />
           </Link>
         </nav>
       </div>
