@@ -46,7 +46,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
 
           <div className='flex flex-col gap-2 pb-2'>
             <p className='text-xs font-bold tracking-[0.3em] text-black/60'>{member.position}</p>
-            <h1 className='font-heavy text-5xl tracking-tight sm:text-6xl' style={{ color: member.ink }}>
+            <h1 className='font-display font-heavy text-5xl tracking-tight sm:text-6xl' style={{ color: member.ink }}>
               {member.nameKo}
             </h1>
             <p className='text-sm text-black/60'>{member.name}</p>
