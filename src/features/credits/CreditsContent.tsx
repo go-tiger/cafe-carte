@@ -19,7 +19,7 @@ export async function CreditsContent() {
   return (
     <div className='mx-auto max-w-5xl'>
       <p className='text-xs font-bold tracking-[0.3em] text-text-muted'>CREDITS</p>
-      <h1 className='mt-2 font-heavy text-3xl tracking-tight sm:text-4xl'>같이 만들어요</h1>
+      <h1 className='mt-2 font-display font-heavy text-3xl tracking-tight sm:text-4xl'>같이 만들어요</h1>
       <p className='mt-3 max-w-md text-sm leading-relaxed text-text-muted'>
         멤버 정보 보강, 버그 수정, 디자인 개선, 새 기능 — 어떤 기여든 환영합니다. 저장소에서 이슈를 남기거나 Pull
         Request를 보내주세요.
