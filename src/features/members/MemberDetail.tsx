@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react';
 import type { ComponentType, ReactNode, SVGProps } from 'react';
 import type { Member } from '@/shared/constants';
 import { MEMBER_DETAILS, BRAND_COLORS } from '@/shared/constants';
@@ -60,7 +60,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
     <>
       <div className='border-b border-border px-6 pt-32 pb-10 sm:px-10' style={{ backgroundColor: member.color }}>
         <div className='mx-auto flex max-w-5xl flex-col gap-8 sm:flex-row sm:items-end'>
-          <div className='relative aspect-179/236 w-56 shrink-0 overflow-hidden rounded-2xl border border-border shadow-poster sm:w-72'>
+          <div className='relative aspect-179/236 w-56 shrink-0 self-center overflow-hidden rounded-2xl border border-border shadow-poster sm:w-72 sm:self-auto'>
             <Image
               src={asset(member.avatar)}
               alt={member.nameKo}
@@ -167,29 +167,37 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
 
           <nav
             aria-label='멤버 이동'
-            className='grid grid-cols-2 gap-3 border-t border-border bg-surface-2 px-4 py-3 sm:px-10'
+            className='flex items-center gap-1 border-t border-border bg-surface-2 px-2 py-3 sm:gap-2 sm:px-10'
           >
             <Link
               href={`/members/${prevMember.id}`}
               data-member
               style={memberVars(prevMember)}
-              className='flex min-h-14 items-center gap-3 rounded-xl px-2 transition-colors hover:bg-border/50'
+              className='flex min-h-14 min-w-0 flex-1 items-center gap-2 rounded-xl px-1 transition-colors hover:bg-border/50 sm:gap-3 sm:px-2'
             >
               <ArrowLeft aria-hidden className='size-5 shrink-0 text-text-muted' />
               <span className='flex min-w-0 flex-col'>
                 <span className='text-xs text-text-muted'>이전 멤버</span>
-                <span className='truncate font-heavy text-member-text'>{prevMember.nameKo}</span>
+                <span className='font-heavy leading-tight text-member-text sm:truncate'>{prevMember.nameKo}</span>
               </span>
+            </Link>
+            <Link
+              href='/members'
+              aria-label='전체 멤버'
+              className='flex min-h-14 shrink-0 items-center gap-2 rounded-xl px-2.5 text-sm font-bold text-text-muted transition-colors hover:bg-border/50 hover:text-text'
+            >
+              <LayoutGrid aria-hidden className='size-5' />
+              <span className='hidden sm:inline'>전체 멤버</span>
             </Link>
             <Link
               href={`/members/${nextMember.id}`}
               data-member
               style={memberVars(nextMember)}
-              className='flex min-h-14 items-center justify-end gap-3 rounded-xl px-2 text-right transition-colors hover:bg-border/50'
+              className='flex min-h-14 min-w-0 flex-1 items-center justify-end gap-2 rounded-xl px-1 text-right transition-colors hover:bg-border/50 sm:gap-3 sm:px-2'
             >
               <span className='flex min-w-0 flex-col'>
                 <span className='text-xs text-text-muted'>다음 멤버</span>
-                <span className='truncate font-heavy text-member-text'>{nextMember.nameKo}</span>
+                <span className='font-heavy leading-tight text-member-text sm:truncate'>{nextMember.nameKo}</span>
               </span>
               <ArrowRight aria-hidden className='size-5 shrink-0 text-text-muted' />
             </Link>
