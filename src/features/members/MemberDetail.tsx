@@ -181,6 +181,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
                 <span className='font-heavy leading-tight text-member-text sm:truncate'>{prevMember.nameKo}</span>
               </span>
             </Link>
+            <span aria-hidden className='h-8 w-px shrink-0 bg-border' />
             <Link
               href='/members'
               aria-label='전체 멤버'
@@ -189,6 +190,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
               <LayoutGrid aria-hidden className='size-5' />
               <span className='hidden sm:inline'>전체 멤버</span>
             </Link>
+            <span aria-hidden className='h-8 w-px shrink-0 bg-border' />
             <Link
               href={`/members/${nextMember.id}`}
               data-member
