@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
-import type { ComponentType, SVGProps } from 'react';
+import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react';
+import type { ComponentType, ReactNode, SVGProps } from 'react';
 import type { Member } from '@/shared/constants';
 import { MEMBER_DETAILS, BRAND_COLORS } from '@/shared/constants';
 import { asset, memberVars } from '@/shared/lib';
@@ -20,21 +20,47 @@ const SNS_LABELS = {
   x: 'X',
 } satisfies Record<string, string>;
 
+const TAG_LABELS = {
+  unified: '통합 태그',
+  clip: '클립 태그',
+  art: '팬아트 태그',
+} as const;
+
 interface MemberDetailProps {
   member: Member;
   prevMember: Member;
   nextMember: Member;
 }
 
+function SectionTitle({ children }: { children: ReactNode }) {
+  return (
+    <h2 className='flex items-center gap-3 font-display text-lg text-accent'>
+      <span aria-hidden className='h-px flex-1 bg-border' />
+      {children}
+      <span aria-hidden className='h-px flex-1 bg-border' />
+    </h2>
+  );
+}
+
+function ProfileRow({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className='flex items-baseline gap-2'>
+      <dt className='shrink-0 text-sm text-text-muted'>{label}</dt>
+      <span aria-hidden className='min-w-4 flex-1 border-b-2 border-dotted border-border' />
+      <dd className='text-right font-heavy'>{children}</dd>
+    </div>
+  );
+}
+
 export function MemberDetail({ member, prevMember, nextMember }: MemberDetailProps) {
   const detail = MEMBER_DETAILS[member.id];
-  const fanNameLines = detail?.fanName.split(/(?= \()/) ?? [];
+  const [fanName, fanNameNote] = detail?.fanName.split(/ (?=\()/) ?? [];
 
   return (
     <>
       <div className='border-b border-border px-6 pt-32 pb-10 sm:px-10' style={{ backgroundColor: member.color }}>
         <div className='mx-auto flex max-w-5xl flex-col gap-8 sm:flex-row sm:items-end'>
-          <div className='relative aspect-179/236 w-56 shrink-0 overflow-hidden rounded-2xl border border-border shadow-poster sm:w-72'>
+          <div className='relative aspect-179/236 w-56 shrink-0 self-center overflow-hidden rounded-2xl border border-border shadow-poster sm:w-72 sm:self-auto'>
             <Image
               src={asset(member.avatar)}
               alt={member.nameKo}
@@ -45,154 +71,140 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
             />
           </div>
 
-          <div className='flex flex-col gap-2 pb-2'>
-            <p className='text-xs font-bold tracking-eyebrow text-black/60'>{member.position}</p>
-            <h1 className='font-display font-heavy text-5xl tracking-tight sm:text-6xl' style={{ color: member.ink }}>
-              {member.nameKo}
-            </h1>
-            <p className='text-sm text-black/60'>{member.name}</p>
-            <LiveBadge chzzkUrl={detail?.links.chzzk} asLink />
+          <div className='flex flex-col gap-3 pb-2' style={{ color: member.ink }}>
+            <div className='flex flex-wrap items-center gap-2'>
+              <span className='rounded-full border border-current px-3 py-1 text-xs font-bold tracking-widest'>
+                {member.position}
+              </span>
+              <LiveBadge chzzkUrl={detail?.links.chzzk} asLink />
+            </div>
+            <h1 className='font-display font-heavy text-5xl tracking-tight sm:text-6xl'>{member.nameKo}</h1>
+            <p className='font-display text-xl'>{member.name}</p>
+            <p className='max-w-md leading-relaxed'>{detail?.bio ?? '소개 글이 등록되어 있지 않습니다.'}</p>
           </div>
         </div>
       </div>
 
       <div className='mx-auto max-w-5xl px-6 sm:px-10'>
-        <p className='mt-8 max-w-xl text-base leading-relaxed text-text-muted'>
-          {detail?.bio ?? '소개 글이 등록되어있지 않습니다.'}
-        </p>
+        <article className='mt-10 overflow-hidden rounded-2xl border border-border bg-surface shadow-poster'>
+          {detail && (
+            <div className='grid gap-10 p-6 sm:p-10 lg:grid-cols-2'>
+              <section className='flex flex-col gap-4'>
+                <SectionTitle>Profile</SectionTitle>
+                <dl className='flex flex-col gap-3'>
+                  <ProfileRow label='나이'>{detail.age}</ProfileRow>
+                  <ProfileRow label={detail.anniversaryLabel ?? '생일'}>{detail.anniversary}</ProfileRow>
+                  <ProfileRow label='데뷔일'>
+                    <span className='inline-flex flex-wrap items-center justify-end gap-2'>
+                      {detail.debutDate}
+                      <DebutCounter
+                        debutDate={detail.debutDate}
+                        color={member.color}
+                        ink={member.ink}
+                        className='px-2.5 py-0.5 text-sm'
+                      />
+                    </span>
+                  </ProfileRow>
+                  <ProfileRow label='팬네임'>
+                    {fanName}
+                    {fanNameNote && <span className='block text-sm font-normal text-text-muted'>{fanNameNote}</span>}
+                  </ProfileRow>
+                  <ProfileRow label='오시마크'>
+                    <Emoji>{detail.mark}</Emoji>
+                  </ProfileRow>
+                  {(Object.keys(TAG_LABELS) as (keyof typeof TAG_LABELS)[]).map(key => (
+                    <ProfileRow key={key} label={TAG_LABELS[key]}>
+                      <a
+                        href={`https://x.com/hashtag/${encodeURIComponent(detail.tags[key].replace(/^#/, ''))}`}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='-my-3 inline-block py-3 font-bold text-accent underline-offset-4 hover:underline'
+                      >
+                        {detail.tags[key]}
+                      </a>
+                    </ProfileRow>
+                  ))}
+                </dl>
+              </section>
 
-        {detail && (
-          <dl className='mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6'>
-            <div className='rounded-2xl border border-border bg-surface p-4 shadow-poster'>
-              <dt className='text-xs text-text-muted'>나이</dt>
-              <dd className='mt-1 font-heavy'>{detail?.age}</dd>
+              <section className='flex flex-col gap-4'>
+                <SectionTitle>Channels</SectionTitle>
+                <ul className='flex flex-col gap-3'>
+                  {detail.links.chzzk && (
+                    <li>
+                      <ChannelCard
+                        href={detail.links.chzzk}
+                        icon={SNS_ICONS.chzzk}
+                        brand={BRAND_COLORS.chzzk}
+                        label={SNS_LABELS.chzzk}
+                      />
+                    </li>
+                  )}
+                  {detail.links.youtube?.map(yt => (
+                    <li key={yt.url}>
+                      <ChannelCard
+                        href={yt.url}
+                        icon={SNS_ICONS.youtube}
+                        brand={BRAND_COLORS.youtube}
+                        label={`${SNS_LABELS.youtube} · ${yt.label}`}
+                      />
+                    </li>
+                  ))}
+                  {detail.links.x && (
+                    <li>
+                      <ChannelCard
+                        href={detail.links.x}
+                        icon={SNS_ICONS.x}
+                        brand={BRAND_COLORS.x}
+                        label={SNS_LABELS.x}
+                      />
+                    </li>
+                  )}
+                </ul>
+              </section>
             </div>
-            <div className='rounded-2xl border border-border bg-surface p-4 shadow-poster'>
-              <dt className='text-xs text-text-muted'>{detail?.anniversaryLabel ?? '생일'}</dt>
-              <dd className='mt-1 font-heavy'>{detail?.anniversary}</dd>
-            </div>
-            <div className='rounded-2xl border border-border bg-surface p-4 shadow-poster'>
-              <dt className='text-xs text-text-muted'>데뷔일</dt>
-              <dd className='mt-1 font-heavy'>{detail?.debutDate}</dd>
-              {detail && (
-                <dd className='mt-1.5'>
-                  <DebutCounter debutDate={detail.debutDate} color={member.color} ink={member.ink} />
-                </dd>
-              )}
-            </div>
-            <div className='col-span-2 rounded-2xl border border-border bg-surface p-4 shadow-poster'>
-              <dt className='text-xs text-text-muted'>팬네임</dt>
-              <dd className='mt-1 font-heavy'>
-                {fanNameLines.map(line => (
-                  <span key={line} className='block'>
-                    {line.trim()}
-                  </span>
-                ))}
-              </dd>
-            </div>
-            <div className='rounded-2xl border border-border bg-surface p-4 shadow-poster'>
-              <dt className='text-xs text-text-muted'>오시마크</dt>
-              <dd className='mt-1 text-lg'>{detail && <Emoji>{detail.mark}</Emoji>}</dd>
-            </div>
-          </dl>
-        )}
+          )}
 
-        {detail && (
-          <div className='mt-6 flex flex-wrap gap-2 text-xs'>
-            {[detail.tags.unified, detail.tags.clip, detail.tags.art].map(tag => (
-              <a
-                key={tag}
-                href={`https://x.com/hashtag/${encodeURIComponent(tag.replace(/^#/, ''))}`}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='rounded-full bg-surface-2 px-3 py-1 text-text-muted transition-opacity hover:opacity-70'
-              >
-                {tag}
-              </a>
-            ))}
-          </div>
-        )}
-
-        <Link
-          href={`/members/${prevMember.id}`}
-          aria-label={`이전 멤버: ${prevMember.nameKo}`}
-          data-member
-          style={memberVars(prevMember)}
-          className='fixed top-1/2 left-4 z-40 hidden -translate-y-1/2 items-center gap-2 rounded-full border border-border bg-surface py-3 pr-4 pl-2 shadow-poster transition-transform hover:-translate-x-1 sm:flex'
-        >
-          <ArrowLeft aria-hidden className='size-5 shrink-0 text-text-muted' />
-          <span className='max-w-24 truncate font-heavy text-member-text'>{prevMember.nameKo}</span>
-        </Link>
-        <Link
-          href={`/members/${nextMember.id}`}
-          aria-label={`다음 멤버: ${nextMember.nameKo}`}
-          data-member
-          style={memberVars(nextMember)}
-          className='fixed top-1/2 right-4 z-40 hidden -translate-y-1/2 items-center gap-2 rounded-full border border-border bg-surface py-3 pr-2 pl-4 shadow-poster transition-transform hover:translate-x-1 sm:flex'
-        >
-          <span className='max-w-24 truncate font-heavy text-member-text'>{nextMember.nameKo}</span>
-          <ArrowRight aria-hidden className='size-5 shrink-0 text-text-muted' />
-        </Link>
-
-        {detail?.links && (
-          <div className='mt-12 border-t border-border pt-8'>
-            <p className='text-xs font-bold tracking-eyebrow text-text-muted'>CHANNELS</p>
-            <ul className='mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
-              {detail.links.chzzk && (
-                <li>
-                  <ChannelCard
-                    href={detail.links.chzzk}
-                    icon={SNS_ICONS.chzzk}
-                    brand={BRAND_COLORS.chzzk}
-                    label={SNS_LABELS.chzzk}
-                  />
-                </li>
-              )}
-              {detail.links.youtube?.map(yt => (
-                <li key={yt.url}>
-                  <ChannelCard
-                    href={yt.url}
-                    icon={SNS_ICONS.youtube}
-                    brand={BRAND_COLORS.youtube}
-                    label={`${SNS_LABELS.youtube} · ${yt.label}`}
-                  />
-                </li>
-              ))}
-              {detail.links.x && (
-                <li>
-                  <ChannelCard href={detail.links.x} icon={SNS_ICONS.x} brand={BRAND_COLORS.x} label={SNS_LABELS.x} />
-                </li>
-              )}
-            </ul>
-          </div>
-        )}
-
-        <nav aria-label='멤버 이동' className='mt-12 grid grid-cols-2 gap-3 sm:hidden'>
-          <Link
-            href={`/members/${prevMember.id}`}
-            data-member
-            style={memberVars(prevMember)}
-            className='flex min-h-16 items-center gap-3 rounded-2xl border border-border bg-surface px-4 py-3 shadow-poster'
+          <nav
+            aria-label='멤버 이동'
+            className='flex items-center gap-1 border-t border-border bg-surface-2 px-2 py-3 sm:gap-2 sm:px-10'
           >
-            <ArrowLeft aria-hidden className='size-5 shrink-0 text-text-muted' />
-            <span className='flex min-w-0 flex-col'>
-              <span className='text-xs text-text-muted'>이전 멤버</span>
-              <span className='truncate font-heavy text-member-text'>{prevMember.nameKo}</span>
-            </span>
-          </Link>
-          <Link
-            href={`/members/${nextMember.id}`}
-            data-member
-            style={memberVars(nextMember)}
-            className='flex min-h-16 items-center justify-end gap-3 rounded-2xl border border-border bg-surface px-4 py-3 text-right shadow-poster'
-          >
-            <span className='flex min-w-0 flex-col'>
-              <span className='text-xs text-text-muted'>다음 멤버</span>
-              <span className='truncate font-heavy text-member-text'>{nextMember.nameKo}</span>
-            </span>
-            <ArrowRight aria-hidden className='size-5 shrink-0 text-text-muted' />
-          </Link>
-        </nav>
+            <Link
+              href={`/members/${prevMember.id}`}
+              data-member
+              style={memberVars(prevMember)}
+              className='flex min-h-14 min-w-0 flex-1 items-center gap-2 rounded-xl px-1 transition-colors hover:bg-border/50 sm:gap-3 sm:px-2'
+            >
+              <ArrowLeft aria-hidden className='size-5 shrink-0 text-text-muted' />
+              <span className='flex min-w-0 flex-col'>
+                <span className='text-xs text-text-muted'>이전 멤버</span>
+                <span className='font-heavy leading-tight text-member-text sm:truncate'>{prevMember.nameKo}</span>
+              </span>
+            </Link>
+            <span aria-hidden className='h-8 w-px shrink-0 bg-border' />
+            <Link
+              href='/members'
+              aria-label='전체 멤버'
+              className='flex min-h-14 shrink-0 items-center gap-2 rounded-xl px-2.5 text-sm font-bold text-text-muted transition-colors hover:bg-border/50 hover:text-text'
+            >
+              <LayoutGrid aria-hidden className='size-5' />
+              <span className='hidden sm:inline'>전체 멤버</span>
+            </Link>
+            <span aria-hidden className='h-8 w-px shrink-0 bg-border' />
+            <Link
+              href={`/members/${nextMember.id}`}
+              data-member
+              style={memberVars(nextMember)}
+              className='flex min-h-14 min-w-0 flex-1 items-center justify-end gap-2 rounded-xl px-1 text-right transition-colors hover:bg-border/50 sm:gap-3 sm:px-2'
+            >
+              <span className='flex min-w-0 flex-col'>
+                <span className='text-xs text-text-muted'>다음 멤버</span>
+                <span className='font-heavy leading-tight text-member-text sm:truncate'>{nextMember.nameKo}</span>
+              </span>
+              <ArrowRight aria-hidden className='size-5 shrink-0 text-text-muted' />
+            </Link>
+          </nav>
+        </article>
       </div>
     </>
   );

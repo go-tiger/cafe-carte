@@ -1,6 +1,7 @@
 'use client';
 
 import { useSyncExternalStore } from 'react';
+import { cn } from '@/shared/lib';
 import { debutDay } from '@/shared/lib/debut-day';
 
 const noopSubscribe = () => () => {};
@@ -9,9 +10,10 @@ interface DebutCounterProps {
   debutDate: string;
   color: string;
   ink: string;
+  className?: string;
 }
 
-export function DebutCounter({ debutDate, color, ink }: DebutCounterProps) {
+export function DebutCounter({ debutDate, color, ink, className }: DebutCounterProps) {
   const mounted = useSyncExternalStore(
     noopSubscribe,
     () => true,
@@ -21,7 +23,10 @@ export function DebutCounter({ debutDate, color, ink }: DebutCounterProps) {
   return (
     <span
       suppressHydrationWarning
-      className='inline-flex w-fit items-center rounded-full px-3 py-1 font-heavy text-lg tracking-tight'
+      className={cn(
+        'inline-flex w-fit items-center rounded-full px-3 py-1 font-heavy text-lg tracking-tight',
+        className,
+      )}
       style={{ backgroundColor: color, color: ink }}
     >
       {mounted ? debutDay(debutDate) : ' '}
