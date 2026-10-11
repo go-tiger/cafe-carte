@@ -58,7 +58,11 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
 
   return (
     <>
-      <div className='border-b border-border px-6 pt-32 pb-10 sm:px-10' style={{ backgroundColor: member.color }}>
+      <div
+        data-member
+        style={memberVars(member)}
+        className='border-b border-border bg-member-hero px-6 pt-32 pb-10 sm:px-10'
+      >
         <div className='mx-auto flex max-w-5xl flex-col gap-8 sm:flex-row sm:items-end'>
           <div className='relative aspect-179/236 w-56 shrink-0 self-center overflow-hidden rounded-2xl border border-border shadow-poster sm:w-72 sm:self-auto'>
             <Image
@@ -71,7 +75,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
             />
           </div>
 
-          <div className='flex flex-col gap-3 pb-2' style={{ color: member.ink }}>
+          <div className='flex flex-col gap-3 pb-2 text-member-hero-text'>
             <div className='flex flex-wrap items-center gap-2'>
               <span className='rounded-full border border-current px-3 py-1 text-xs font-bold tracking-widest'>
                 {member.position}
