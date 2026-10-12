@@ -3,17 +3,26 @@ import { Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/shared/providers';
 import { SiteFooter } from '@/components';
-import { asset, cn } from '@/shared/lib';
+import { SITE_DESCRIPTION, SITE_NAME, SITE_OPEN_GRAPH, SITE_ORIGIN } from '@/shared/constants';
+import { asset, BASE_PATH, cn } from '@/shared/lib';
 
 const playfair = Playfair_Display({ weight: '700', subsets: ['latin'], variable: '--font-playfair' });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(`${SITE_ORIGIN}${BASE_PATH}/`),
   title: {
-    default: 'Cafe Carte 팬사이트',
-    template: '%s · Cafe Carte 팬사이트',
+    default: SITE_NAME,
+    template: `%s · ${SITE_NAME}`,
   },
-  description: 'Twillit Studio 소속 Cafe Carte(모코 파르페, 한서린, 댕키, 유우희, 에루 솔스티스) 비공식 팬사이트',
+  description: SITE_DESCRIPTION,
   icons: { icon: asset('/logo.png') },
+  openGraph: {
+    ...SITE_OPEN_GRAPH,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: [{ url: '/logo.png', width: 512, height: 512, alt: 'Cafe Carte' }],
+  },
+  twitter: { card: 'summary' },
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
