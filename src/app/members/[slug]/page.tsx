@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { SiteHeader } from '@/components';
-import { MEMBERS } from '@/shared/constants';
+import { MEMBER_DETAILS, MEMBERS, SITE_NAME, SITE_OPEN_GRAPH } from '@/shared/constants';
 import { MemberDetail } from '@/features/members';
 
 interface MemberPageProps {
@@ -15,7 +15,20 @@ export function generateStaticParams() {
 export function generateMetadata({ params }: MemberPageProps): Promise<Metadata> {
   return params.then(({ slug }) => {
     const member = MEMBERS.find(m => m.id === slug);
-    return { title: member ? member.nameKo : '멤버' };
+    if (!member) return { title: '멤버' };
+
+    const bio = MEMBER_DETAILS[member.id]?.bio;
+    const description = `${member.nameKo}(${member.name}) · ${member.position}${bio ? ` — ${bio}` : ''}`;
+    return {
+      title: member.nameKo,
+      description,
+      openGraph: {
+        ...SITE_OPEN_GRAPH,
+        title: `${member.nameKo} · ${SITE_NAME}`,
+        description,
+        images: [{ url: member.avatar, alt: member.nameKo }],
+      },
+    };
   });
 }
 
