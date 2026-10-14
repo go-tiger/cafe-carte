@@ -47,12 +47,14 @@ src/
 
 ## 에셋 출처
 
-| 자산               | 출처                                                      | 권리                     |
-| ------------------ | --------------------------------------------------------- | ------------------------ |
-| 멤버 프로필 이미지 | Twillit Studio 네이버 카페 대문 이미지                    | 원저작권자(Twillit) 소유 |
-| 로고               | Cafe Carte 관련 이미지                                    | 원저작권자 소유          |
-| 본문 폰트          | [NanumSquareNeo](https://hangeul.naver.com/font) (네이버) | 네이버 폰트 라이선스     |
-| 브랜드 아이콘      | YouTube, X, 네이버 카페, 치지직 로고를 단순화한 SVG       | 각 서비스 상표권자 소유  |
+| 자산                    | 출처                                                                                 | 권리                      |
+| ----------------------- | ------------------------------------------------------------------------------------ | ------------------------- |
+| 멤버 카드 일러스트      | Twillit Studio 네이버 카페 대문 이미지                                               | 원저작권자(Twillit) 소유  |
+| 멤버 상세 프로필 이미지 | 각 멤버 치지직 채널 프로필 이미지                                                    | 원저작권자 소유           |
+| 로고                    | Cafe Carte 관련 이미지                                                               | 원저작권자 소유           |
+| 본문 폰트               | [NanumSquareNeo](https://hangeul.naver.com/font) (네이버)                            | [네이버 폰트 라이선스](https://hangeul.naver.com/font) |
+| 제목 폰트               | [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) (Google Fonts) | [SIL Open Font License 1.1](https://openfontlicense.org) |
+| 브랜드 아이콘           | YouTube, X, 네이버 카페, 치지직 로고를 단순화한 SVG                                  | 각 서비스 상표권자 소유   |
 
 이미지, 로고, 브랜드 아이콘의 권리는 원저작권자에게 있고, 이 저장소는 팬 활동 목적으로만 사용합니다. 자세한 내용은
 [LICENSE](LICENSE) 참고.

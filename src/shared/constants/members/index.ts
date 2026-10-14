@@ -14,6 +14,7 @@ export interface Member {
   ink: string;
   color: string;
   avatar: string;
+  profile?: string;
   position: string;
 }
 
@@ -33,6 +34,7 @@ export const MEMBERS: Member[] = [
     ink: '#6b2350',
     color: '#FF99FF',
     avatar: '/members/mocoparfe.png',
+    profile: '/members/mocoparfe/profile.png',
     position: '바리스타',
   },
   {
@@ -42,6 +44,7 @@ export const MEMBERS: Member[] = [
     ink: '#5a1016',
     color: '#FF6666',
     avatar: '/members/hanseorin.png',
+    profile: '/members/hanseorin/profile.png',
     position: '매니저',
   },
   {
@@ -51,6 +54,7 @@ export const MEMBERS: Member[] = [
     ink: '#6b4a12',
     color: '#FFCC33',
     avatar: '/members/dangkey.png',
+    profile: '/members/dangkey/profile.png',
     position: '경비견',
   },
   {
@@ -60,6 +64,7 @@ export const MEMBERS: Member[] = [
     ink: '#3f2a63',
     color: '#CC99FF',
     avatar: '/members/uuhee.png',
+    profile: '/members/uuhee/profile.png',
     position: '청소부 (자칭 마스코트)',
   },
   {
@@ -69,6 +74,7 @@ export const MEMBERS: Member[] = [
     ink: '#123a63',
     color: '#CCFFFF',
     avatar: '/members/aerusolstice.png',
+    profile: '/members/aerusolstice/profile.png',
     position: '서빙',
   },
 ];
