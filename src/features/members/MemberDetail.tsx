@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react';
 import type { ComponentType, ReactNode, SVGProps } from 'react';
 import type { Member } from '@/shared/constants';
 import { MEMBER_DETAILS, BRAND_COLORS } from '@/shared/constants';
-import { asset, memberVars } from '@/shared/lib';
+import { asset, cn, memberVars } from '@/shared/lib';
 import { ChannelCard, DebutCounter, Emoji, LiveBadge } from '@/shared/ui';
 import { ChzzkIcon, YoutubeIcon, XIcon } from '@/shared/ui/icons';
 
@@ -64,9 +64,14 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
         className='border-b border-border bg-member-hero px-6 pt-32 pb-10 sm:px-10'
       >
         <div className='mx-auto flex max-w-5xl flex-col gap-8 sm:flex-row sm:items-end'>
-          <div className='relative aspect-179/236 w-56 shrink-0 self-center overflow-hidden rounded-2xl border border-border shadow-poster sm:w-72 sm:self-auto'>
+          <div
+            className={cn(
+              'relative w-56 shrink-0 self-center overflow-hidden rounded-2xl border border-border shadow-poster sm:w-72 sm:self-auto',
+              member.profile ? 'aspect-square' : 'aspect-179/236',
+            )}
+          >
             <Image
-              src={asset(member.avatar)}
+              src={asset(member.profile ?? member.avatar)}
               alt={member.nameKo}
               fill
               sizes='288px'

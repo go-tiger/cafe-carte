@@ -26,7 +26,7 @@ export function generateMetadata({ params }: MemberPageProps): Promise<Metadata>
         ...SITE_OPEN_GRAPH,
         title: `${member.nameKo} · ${SITE_NAME}`,
         description,
-        images: [{ url: member.avatar, alt: member.nameKo }],
+        images: [{ url: member.profile ?? member.avatar, alt: member.nameKo }],
       },
     };
   });
