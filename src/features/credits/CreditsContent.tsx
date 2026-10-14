@@ -13,6 +13,40 @@ const statItems = (s: GitHubStats | null) => [
   { icon: CircleDot, label: '이슈', value: stat(s?.openIssues), href: githubLinks.issues },
 ];
 
+interface AssetCredit {
+  asset: string;
+  source: string;
+  rights: string;
+  rightsHref?: string;
+}
+
+const ASSET_CREDITS: AssetCredit[] = [
+  {
+    asset: '멤버 카드 일러스트',
+    source: 'Twillit Studio 네이버 카페 대문 이미지',
+    rights: '원저작권자(Twillit Studio) 소유',
+  },
+  { asset: '멤버 상세 프로필 이미지', source: '각 멤버 치지직 채널 프로필 이미지', rights: '원저작권자 소유' },
+  { asset: '로고', source: 'Cafe Carte 관련 이미지', rights: '원저작권자 소유' },
+  {
+    asset: '본문 폰트',
+    source: 'NanumSquareNeo (네이버)',
+    rights: '네이버 폰트 라이선스',
+    rightsHref: 'https://hangeul.naver.com/font',
+  },
+  {
+    asset: '제목 폰트',
+    source: 'Playfair Display (Google Fonts)',
+    rights: 'SIL Open Font License 1.1',
+    rightsHref: 'https://openfontlicense.org',
+  },
+  {
+    asset: '브랜드 아이콘',
+    source: 'YouTube, X, 네이버 카페, 치지직 로고를 단순화한 SVG',
+    rights: '각 서비스 상표권자 소유',
+  },
+];
+
 export async function CreditsContent() {
   const { stats, contributors } = await getGitHubData();
 
@@ -87,6 +121,42 @@ export async function CreditsContent() {
           </section>
         )}
       </div>
+
+      <section className='mt-12 border-t border-border pt-10'>
+        <h2 className='text-xs font-bold tracking-eyebrow text-text-muted'>ASSETS</h2>
+        <ul className='mt-4 divide-y divide-border text-sm'>
+          {ASSET_CREDITS.map(({ asset, source, rights, rightsHref }) => (
+            <li key={asset} className='grid gap-1 py-3 sm:grid-cols-[10rem_1fr_auto] sm:gap-6'>
+              <span className='font-bold'>{asset}</span>
+              <span className='text-text-muted'>{source}</span>
+              {rightsHref ? (
+                <a
+                  href={rightsHref}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='w-fit text-accent underline-offset-4 hover:underline'
+                >
+                  {rights}
+                </a>
+              ) : (
+                <span className='text-text-muted'>{rights}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+        <p className='mt-4 text-sm leading-relaxed text-text-muted'>
+          이미지, 로고, 브랜드 아이콘의 권리는 원저작권자에게 있으며 팬 활동 목적으로만 사용합니다. 문제가 되는 콘텐츠는{' '}
+          <a
+            href={githubLinks.issues}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='text-accent underline-offset-4 hover:underline'
+          >
+            이슈
+          </a>
+          로 알려 주시면 삭제하겠습니다.
+        </p>
+      </section>
     </div>
   );
 }
