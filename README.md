@@ -36,7 +36,7 @@ src/
   app/                 라우팅, 레이아웃, 페이지 메타데이터
   features/<도메인>/    도메인별 컴포넌트, 훅, 로직 (예: features/home)
   shared/
-    ui/                재사용 UI 컴포넌트 (Button, Card, Badge 등)
+    ui/                재사용 UI 컴포넌트 (Button, MemberCard, ChannelCard 등)
     lib/               유틸 (cn, asset, color, shuffle 등)
     constants/         정적 데이터 (members 등)
     providers/         ThemeProvider
@@ -54,6 +54,7 @@ src/
 | 로고                    | Cafe Carte 관련 이미지                                                               | 원저작권자 소유           |
 | 본문 폰트               | [NanumSquareNeo](https://hangeul.naver.com/font) (네이버)                            | [네이버 폰트 라이선스](https://hangeul.naver.com/font) |
 | 제목 폰트               | [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) (Google Fonts) | [SIL Open Font License 1.1](https://openfontlicense.org) |
+| 오시마크 이모지         | [Twemoji](https://github.com/jdecked/twemoji) 17.0.3                                 | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) |
 | 브랜드 아이콘           | YouTube, X, 네이버 카페, 치지직 로고를 단순화한 SVG                                  | 각 서비스 상표권자 소유   |
 
 이미지, 로고, 브랜드 아이콘의 권리는 원저작권자에게 있고, 이 저장소는 팬 활동 목적으로만 사용합니다. 자세한 내용은
