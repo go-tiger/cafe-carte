@@ -1,4 +1,6 @@
-/** 이모지를 Twemoji SVG 이미지로 렌더링한다. */
+import { asset } from '@/shared/lib';
+
+/** 이모지를 public/emoji 의 Twemoji SVG 로 렌더링한다. 새 이모지는 같은 이름의 SVG 를 추가해야 한다. */
 interface EmojiProps {
   children: string;
   className?: string;
@@ -23,7 +25,7 @@ export function Emoji({ children, className }: EmojiProps) {
         // eslint-disable-next-line @next/next/no-img-element
         <img
           key={`${segment}-${i}`}
-          src={`https://cdn.jsdelivr.net/gh/jdecked/twemoji@17.0.3/assets/svg/${toCodePoints(segment)}.svg`}
+          src={asset(`/emoji/${toCodePoints(segment)}.svg`)}
           alt={segment}
           className={className ?? 'inline-block size-[1.1em] align-[-0.15em]'}
         />
