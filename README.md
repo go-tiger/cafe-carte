@@ -36,7 +36,7 @@ src/
   app/                 라우팅, 레이아웃, 페이지 메타데이터
   features/<도메인>/    도메인별 컴포넌트, 훅, 로직 (예: features/home)
   shared/
-    ui/                재사용 UI 컴포넌트 (Button, Card, Badge 등)
+    ui/                재사용 UI 컴포넌트 (Button, MemberCard, ChannelCard 등)
     lib/               유틸 (cn, asset, color, shuffle 등)
     constants/         정적 데이터 (members 등)
     providers/         ThemeProvider
