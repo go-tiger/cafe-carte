@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ThemeToggle } from '@/shared/ui';
 import { cn, asset } from '@/shared/lib';
+import { AnniversaryBanner } from './AnniversaryBanner';
 
 const NAV_LINKS = [
   { href: '/members', label: 'MEMBERS' },
@@ -60,6 +61,8 @@ export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: bo
           <ThemeToggle />
         </div>
       </nav>
+
+      <AnniversaryBanner />
     </header>
   );
 }
