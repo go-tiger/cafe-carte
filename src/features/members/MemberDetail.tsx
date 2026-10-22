@@ -72,7 +72,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
           >
             <Image
               src={asset(member.profile ?? member.avatar)}
-              alt={member.nameKo}
+              alt=''
               fill
               sizes='288px'
               priority

@@ -33,8 +33,8 @@ export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: bo
       )}
     >
       <nav className='mx-auto flex h-16 max-w-5xl items-center gap-3 px-4 sm:gap-6'>
-        <Link href='/' className='flex shrink-0 items-center gap-2'>
-          <Image src={asset('/logo.png')} alt='Cafe Carte' width={32} height={32} className='rounded-full' priority />
+        <Link href='/' aria-label='Cafe Carte 홈' className='flex shrink-0 items-center gap-2'>
+          <Image src={asset('/logo.png')} alt='' width={32} height={32} className='rounded-full' priority />
           <span className='hidden font-heavy tracking-tight xs:inline'>Cafe Carte</span>
         </Link>
 

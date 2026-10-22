@@ -20,7 +20,7 @@ export function MemberCard({ member, variant = 'compact' }: MemberCardProps) {
         <div className='absolute inset-0' style={{ backgroundColor: member.color }}>
           <Image
             src={asset(member.avatar)}
-            alt={member.nameKo}
+            alt=''
             fill
             sizes='(max-width: 640px) 100vw, 20vw'
             className='object-cover'
@@ -47,13 +47,7 @@ export function MemberCard({ member, variant = 'compact' }: MemberCardProps) {
       className='flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-surface shadow-poster'
     >
       <div className='relative aspect-179/236 w-full' style={{ backgroundColor: member.color }}>
-        <Image
-          src={asset(member.avatar)}
-          alt={member.nameKo}
-          fill
-          sizes='(max-width: 640px) 50vw, 20vw'
-          className='object-cover'
-        />
+        <Image src={asset(member.avatar)} alt='' fill sizes='(max-width: 640px) 50vw, 20vw' className='object-cover' />
         <div className='absolute top-2 left-2'>
           <LiveBadge chzzkUrl={chzzkUrl} />
         </div>
