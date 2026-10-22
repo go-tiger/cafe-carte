@@ -29,7 +29,7 @@ export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: bo
     <header
       className={cn(
         'fixed inset-x-0 top-0 z-50 transition-colors duration-300',
-        scrolled ? 'border-b border-border bg-bg/80 backdrop-blur' : 'border-b border-transparent bg-transparent',
+        scrolled ? 'border-b border-border bg-bg/95 backdrop-blur' : 'border-b border-transparent bg-transparent',
       )}
     >
       <nav className='mx-auto flex h-16 max-w-5xl items-center gap-3 px-4 sm:gap-6'>

@@ -156,7 +156,7 @@ export async function CreditsContent() {
             href={githubLinks.issues}
             target='_blank'
             rel='noopener noreferrer'
-            className='text-accent underline-offset-4 hover:underline'
+            className='text-accent underline underline-offset-4'
           >
             이슈
           </a>
