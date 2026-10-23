@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const POLL_INTERVAL_MS = 30_000;
+const POLL_INTERVAL_MS = 60_000;
 
 interface ChzzkChannelStatus {
   channelId: string;
@@ -27,6 +27,7 @@ export function useChzzkLive(channelId: string | null): ChzzkChannelStatus | nul
     if (!channelId) return;
 
     let cancelled = false;
+    let interval: ReturnType<typeof setInterval> | undefined;
 
     const fetchStatus = async () => {
       try {
@@ -37,12 +38,26 @@ export function useChzzkLive(channelId: string | null): ChzzkChannelStatus | nul
       } catch {}
     };
 
-    fetchStatus();
-    const interval = setInterval(fetchStatus, POLL_INTERVAL_MS);
+    const start = () => {
+      if (interval) return;
+      fetchStatus();
+      interval = setInterval(fetchStatus, POLL_INTERVAL_MS);
+    };
+
+    const stop = () => {
+      clearInterval(interval);
+      interval = undefined;
+    };
+
+    const onVisibilityChange = () => (document.hidden ? stop() : start());
+
+    if (!document.hidden) start();
+    document.addEventListener('visibilitychange', onVisibilityChange);
 
     return () => {
       cancelled = true;
-      clearInterval(interval);
+      stop();
+      document.removeEventListener('visibilitychange', onVisibilityChange);
     };
   }, [channelId]);
 
