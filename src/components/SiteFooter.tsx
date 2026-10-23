@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const SINCE = 2025;
 
 export function SiteFooter() {
@@ -11,6 +13,9 @@ export function SiteFooter() {
           비공식 팬사이트입니다. Twillit Studio 및 Cafe Carte 공식과 무관하며, 모든 캐릭터, 이미지, 상표의 권리는
           <br className='hidden sm:block' /> 각 원저작권자에게 있습니다.
         </p>
+        <Link href='/privacy' className='text-xs text-text-muted hover:text-text hover:underline'>
+          개인정보처리방침
+        </Link>
         <p className='text-xs text-text-muted'>Cafe Carte / Twillit Studio, &copy; {years} go-tiger</p>
       </div>
     </footer>
