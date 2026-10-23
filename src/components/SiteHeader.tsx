@@ -33,13 +33,13 @@ export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: bo
         scrolled ? 'border-b border-border bg-bg/95 backdrop-blur' : 'border-b border-transparent bg-transparent',
       )}
     >
-      <nav className='mx-auto flex h-16 max-w-5xl items-center gap-3 px-4 sm:gap-6'>
+      <nav className='mx-auto flex h-16 max-w-5xl items-center gap-2 px-4 sm:gap-6'>
         <Link href='/' aria-label='Cafe Carte 홈' className='flex shrink-0 items-center gap-2'>
           <Image src={asset('/logo.png')} alt='' width={32} height={32} className='rounded-full' priority />
-          <span className='hidden font-heavy tracking-tight xs:inline'>Cafe Carte</span>
+          <span className='hidden font-heavy tracking-tight sm:inline'>Cafe Carte</span>
         </Link>
 
-        <ul className='flex items-center gap-3 sm:gap-5'>
+        <ul className='flex items-center gap-2.5 sm:gap-5'>
           {NAV_LINKS.map(link => {
             const active = pathname === link.href || pathname.startsWith(`${link.href}/`);
             return (
@@ -47,7 +47,7 @@ export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: bo
                 <Link
                   href={link.href}
                   className={cn(
-                    'text-xs font-bold tracking-[0.15em] transition-colors',
+                    'text-xs font-bold tracking-widest transition-colors sm:tracking-[0.15em]',
                     active ? 'text-accent' : 'text-text-muted hover:text-text',
                   )}
                 >
