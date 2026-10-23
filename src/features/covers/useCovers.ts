@@ -4,8 +4,11 @@ import { useEffect, useState } from 'react';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+export type CoverKind = 'cover' | 'short';
+
 export interface CoverVideo {
   videoId: string;
+  kind: CoverKind;
   title: string;
   channelTitle: string;
   memberId: string | null;
