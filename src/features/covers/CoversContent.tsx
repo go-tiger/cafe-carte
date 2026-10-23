@@ -69,6 +69,18 @@ export function CoversContent() {
           {current ? (
             <div className='mt-8'>
               <CoverPlayer video={current} member={memberOf(current.memberId)} autoplay={selectedId !== null} />
+              <p className='mt-3 text-xs text-text-muted'>
+                영상은 YouTube에서 제공되며, 재생 시{' '}
+                <a
+                  href='https://www.youtube.com/t/terms'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='underline underline-offset-2 hover:text-text'
+                >
+                  YouTube 서비스 약관
+                </a>
+                이 적용됩니다.
+              </p>
             </div>
           ) : (
             <p className='mt-10 text-sm text-text-muted'>아직 등록된 커버곡이 없어요.</p>
