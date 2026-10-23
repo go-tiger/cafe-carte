@@ -1,0 +1,1 @@
+export { CoversContent } from './CoversContent';

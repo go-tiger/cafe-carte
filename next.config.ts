@@ -9,7 +9,10 @@ const nextConfig: NextConfig = {
   env: { NEXT_PUBLIC_BASE_PATH: basePath, NEXT_PUBLIC_API_URL: apiUrl },
   images: {
     unoptimized: true,
-    remotePatterns: [{ protocol: 'https', hostname: 'avatars.githubusercontent.com' }],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'avatars.githubusercontent.com' },
+      { protocol: 'https', hostname: 'i.ytimg.com' },
+    ],
   },
 };
 
