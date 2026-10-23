@@ -5,9 +5,11 @@ export default function Home() {
   return (
     <>
       <SiteHeader transparentOnTop />
-      <Hero />
-      <MemberIntro />
-      <LinkHub />
+      <main>
+        <Hero />
+        <MemberIntro />
+        <LinkHub />
+      </main>
     </>
   );
 }
