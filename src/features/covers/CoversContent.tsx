@@ -31,7 +31,7 @@ export function CoversContent() {
   const visible = ofKind.filter(v =>
     filter === 'all' ? true : filter === 'official' ? v.memberId === null : v.memberId === filter,
   );
-  const current = items.find(v => v.videoId === selectedId) ?? visible[0];
+  const current = visible.find(v => v.videoId === selectedId) ?? visible[0];
   const memberOf = (id: string | null) => MEMBERS.find(m => m.id === id);
 
   return (
@@ -50,7 +50,10 @@ export function CoversContent() {
             key={k.id}
             type='button'
             aria-pressed={kind === k.id}
-            onClick={() => setKind(k.id)}
+            onClick={() => {
+              setKind(k.id);
+              setSelectedId(null);
+            }}
             className={cn(
               'min-h-10 rounded-full px-5 text-sm font-bold transition-colors',
               kind === k.id ? 'bg-text text-bg' : 'text-text-muted hover:text-text',
@@ -73,7 +76,10 @@ export function CoversContent() {
               key={f.id}
               type='button'
               aria-pressed={active}
-              onClick={() => setFilter(f.id)}
+              onClick={() => {
+                setFilter(f.id);
+                setSelectedId(null);
+              }}
               data-member={member ? '' : undefined}
               style={member ? memberVars(member) : undefined}
               className={cn(
