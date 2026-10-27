@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { MEMBERS } from '@/shared/constants';
 import { cn, memberVars } from '@/shared/lib';
 import { CoverCard } from './CoverCard';
@@ -25,6 +25,7 @@ export function CoversContent() {
   const [kind, setKind] = useState<CoverKind>('cover');
   const [filter, setFilter] = useState<Filter>('all');
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const playerRef = useRef<HTMLDivElement>(null);
 
   const items = covers.status === 'ready' ? covers.items : [];
   const ofKind = items.filter(v => v.kind === kind);
@@ -104,7 +105,7 @@ export function CoversContent() {
       {covers.status === 'ready' && (
         <>
           {current ? (
-            <div className='mt-8'>
+            <div ref={playerRef} className='mt-8 scroll-mt-32'>
               <CoverPlayer video={current} member={memberOf(current.memberId)} autoplay={selectedId !== null} />
               <p className='mt-3 text-xs text-text-muted'>
                 영상은 YouTube에서 제공되며, 재생 시{' '}
@@ -135,7 +136,7 @@ export function CoversContent() {
                     active={current?.videoId === v.videoId}
                     onSelect={() => {
                       setSelectedId(v.videoId);
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                      playerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }}
                   />
                 </li>
