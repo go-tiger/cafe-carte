@@ -9,6 +9,23 @@ interface CoverPlayerProps {
   autoplay: boolean;
 }
 
+export function YouTubeNotice({ className }: { className?: string }) {
+  return (
+    <p className={cn('mt-3 text-xs', className)}>
+      영상은 YouTube에서 제공되며, 재생 시{' '}
+      <a
+        href='https://www.youtube.com/t/terms'
+        target='_blank'
+        rel='noopener noreferrer'
+        className='underline underline-offset-2'
+      >
+        YouTube 서비스 약관
+      </a>
+      이 적용됩니다.
+    </p>
+  );
+}
+
 export function CoverPlayer({ video, member, autoplay }: CoverPlayerProps) {
   const src = `https://www.youtube-nocookie.com/embed/${video.videoId}?rel=0${autoplay ? '&autoplay=1' : ''}`;
   const published = new Date(video.publishedAt).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' });

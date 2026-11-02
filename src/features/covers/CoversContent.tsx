@@ -4,7 +4,8 @@ import { useRef, useState } from 'react';
 import { MEMBERS } from '@/shared/constants';
 import { cn, memberVars } from '@/shared/lib';
 import { CoverCard } from './CoverCard';
-import { CoverPlayer } from './CoverPlayer';
+import { CoverPlayer, YouTubeNotice } from './CoverPlayer';
+import { ShortsViewer } from './ShortsViewer';
 import { useCovers, type CoverKind } from './useCovers';
 
 type Filter = 'all' | 'official' | string;
@@ -32,7 +33,8 @@ export function CoversContent() {
   const visible = ofKind.filter(v =>
     filter === 'all' ? true : filter === 'official' ? v.memberId === null : v.memberId === filter,
   );
-  const current = visible.find(v => v.videoId === selectedId) ?? visible[0];
+  const selected = visible.find(v => v.videoId === selectedId);
+  const current = selected ?? visible[0];
   const memberOf = (id: string | null) => MEMBERS.find(m => m.id === id);
 
   return (
@@ -104,26 +106,17 @@ export function CoversContent() {
 
       {covers.status === 'ready' && (
         <>
-          {current ? (
-            <div ref={playerRef} className='mt-8 scroll-mt-32'>
-              <CoverPlayer video={current} member={memberOf(current.memberId)} autoplay={selectedId !== null} />
-              <p className='mt-3 text-xs text-text-muted'>
-                영상은 YouTube에서 제공되며, 재생 시{' '}
-                <a
-                  href='https://www.youtube.com/t/terms'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='underline underline-offset-2 hover:text-text'
-                >
-                  YouTube 서비스 약관
-                </a>
-                이 적용됩니다.
-              </p>
-            </div>
-          ) : (
+          {!current && (
             <p className='mt-10 text-sm text-text-muted'>
               {ofKind.length === 0 ? '아직 등록된 영상이 없어요.' : '이 채널에는 아직 영상이 없어요.'}
             </p>
+          )}
+
+          {current && kind === 'cover' && (
+            <div ref={playerRef} className='mt-8 scroll-mt-32'>
+              <CoverPlayer video={current} member={memberOf(current.memberId)} autoplay={selectedId !== null} />
+              <YouTubeNotice className='text-text-muted hover:[&_a]:text-text' />
+            </div>
           )}
 
           {visible.length > 0 && (
@@ -140,7 +133,7 @@ export function CoversContent() {
                   <CoverCard
                     video={v}
                     member={memberOf(v.memberId)}
-                    active={current?.videoId === v.videoId}
+                    active={(kind === 'short' ? selected : current)?.videoId === v.videoId}
                     onSelect={() => {
                       setSelectedId(v.videoId);
                       playerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -149,6 +142,14 @@ export function CoversContent() {
                 </li>
               ))}
             </ul>
+          )}
+
+          {kind === 'short' && selected && (
+            <ShortsViewer
+              video={selected}
+              member={memberOf(selected.memberId)}
+              onClose={() => setSelectedId(null)}
+            />
           )}
         </>
       )}
