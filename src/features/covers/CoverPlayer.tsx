@@ -7,6 +7,7 @@ interface CoverPlayerProps {
   video: CoverVideo;
   member: Member | undefined;
   autoplay: boolean;
+  position?: string;
 }
 
 export function YouTubeNotice({ className }: { className?: string }) {
@@ -26,7 +27,7 @@ export function YouTubeNotice({ className }: { className?: string }) {
   );
 }
 
-export function CoverPlayer({ video, member, autoplay }: CoverPlayerProps) {
+export function CoverPlayer({ video, member, autoplay, position }: CoverPlayerProps) {
   const src = `https://www.youtube-nocookie.com/embed/${video.videoId}?rel=0${autoplay ? '&autoplay=1' : ''}`;
   const published = new Date(video.publishedAt).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' });
   const vertical = video.kind === 'short';
@@ -65,9 +66,16 @@ export function CoverPlayer({ video, member, autoplay }: CoverPlayerProps) {
         )}
       >
         <div className='min-w-0'>
+          {position && <p className='mb-2 text-xs font-bold text-white/70'>{position}</p>}
           <h2 className='font-heavy text-lg leading-snug'>{video.title}</h2>
           <p className={cn('mt-1 text-sm', vertical ? 'text-white/70' : 'text-text-muted')}>
-            {member?.nameKo ?? video.channelTitle}, {published}
+            <span
+              className={cn(vertical && member && 'font-bold')}
+              style={vertical && member ? { color: member.color } : undefined}
+            >
+              {member?.nameKo ?? video.channelTitle}
+            </span>
+            , {published}
           </p>
         </div>
         <a

@@ -10,6 +10,7 @@ import type { CoverVideo } from './useCovers';
 interface ShortsViewerProps {
   video: CoverVideo;
   member: Member | undefined;
+  position: string;
   onPrev: (() => void) | undefined;
   onNext: (() => void) | undefined;
   onClose: () => void;
@@ -18,7 +19,7 @@ interface ShortsViewerProps {
 const NAV_BUTTON =
   'flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 disabled:opacity-30 disabled:hover:bg-white/10';
 
-export function ShortsViewer({ video, member, onPrev, onNext, onClose }: ShortsViewerProps) {
+export function ShortsViewer({ video, member, position, onPrev, onNext, onClose }: ShortsViewerProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -76,7 +77,7 @@ export function ShortsViewer({ video, member, onPrev, onNext, onClose }: ShortsV
         </button>
       </div>
       <div className='m-auto'>
-        <CoverPlayer video={video} member={member} autoplay />
+        <CoverPlayer video={video} member={member} autoplay position={position} />
         <YouTubeNotice className='text-white/70 hover:[&_a]:text-white' />
       </div>
     </dialog>

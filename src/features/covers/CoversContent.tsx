@@ -180,6 +180,7 @@ function CoversBody() {
             <ShortsViewer
               video={selected}
               member={memberOf(selected.memberId)}
+              position={`${selectedIndex + 1} / ${visible.length}`}
               onPrev={moveTo(selectedIndex - 1)}
               onNext={moveTo(selectedIndex + 1)}
               onClose={closeViewer}
