@@ -34,15 +34,16 @@ export function CoverPlayer({ video, member, autoplay }: CoverPlayerProps) {
   return (
     <div
       className={cn(
-        'overflow-hidden rounded-2xl border border-border bg-surface shadow-poster',
-        vertical && 'sm:flex sm:w-fit',
+        vertical
+          ? 'sm:flex sm:items-end sm:gap-6'
+          : 'overflow-hidden rounded-2xl border border-border bg-surface shadow-poster',
       )}
     >
-      <div className='bg-black sm:shrink-0'>
+      <div className={cn('bg-black sm:shrink-0', vertical && 'overflow-hidden rounded-2xl')}>
         <div
           className={
             vertical
-              ? 'mx-auto aspect-9/16 w-full max-w-[min(100%,39svh,360px)] sm:w-[min(39svh,360px)]'
+              ? 'mx-auto aspect-9/16 w-[min(calc((100svh-6rem)*9/16),calc(100vw-2rem))] sm:w-[min(calc((100svh-6rem)*9/16),calc(100vw-23.5rem))]'
               : 'aspect-video w-full'
           }
         >
@@ -59,13 +60,13 @@ export function CoverPlayer({ video, member, autoplay }: CoverPlayerProps) {
       </div>
       <div
         className={cn(
-          'flex flex-col gap-3 p-5',
-          vertical ? 'sm:w-80 sm:justify-end sm:p-8' : 'sm:flex-row sm:items-center sm:justify-between',
+          'flex flex-col gap-3',
+          vertical ? 'pt-4 sm:w-80 sm:pt-0' : 'p-5 sm:flex-row sm:items-center sm:justify-between',
         )}
       >
         <div className='min-w-0'>
           <h2 className='font-heavy text-lg leading-snug'>{video.title}</h2>
-          <p className='mt-1 text-sm text-text-muted'>
+          <p className={cn('mt-1 text-sm', vertical ? 'text-white/70' : 'text-text-muted')}>
             {member?.nameKo ?? video.channelTitle}, {published}
           </p>
         </div>
@@ -73,7 +74,10 @@ export function CoverPlayer({ video, member, autoplay }: CoverPlayerProps) {
           href={`https://www.youtube.com/watch?v=${video.videoId}`}
           target='_blank'
           rel='noopener noreferrer'
-          className='inline-flex shrink-0 items-center gap-1 text-sm font-bold text-accent hover:underline'
+          className={cn(
+            'inline-flex shrink-0 items-center gap-1 text-sm font-bold hover:underline',
+            vertical ? 'text-white' : 'text-accent',
+          )}
         >
           YouTube에서 보기
           <ArrowUpRight aria-hidden className='size-4' />

@@ -37,7 +37,7 @@ export function ShortsViewer({ video, member, onClose }: ShortsViewerProps) {
       aria-label={video.title}
       onClose={onClose}
       onClick={closeOnBackdrop}
-      className='m-auto max-h-dvh w-full max-w-none overflow-y-auto bg-transparent p-4 text-text backdrop:bg-black/80 sm:w-fit'
+      className='fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto bg-black p-4 pt-16 text-white open:flex sm:pt-4'
     >
       <button
         type='button'
@@ -47,8 +47,10 @@ export function ShortsViewer({ video, member, onClose }: ShortsViewerProps) {
       >
         <X aria-hidden className='size-5' />
       </button>
-      <CoverPlayer video={video} member={member} autoplay />
-      <YouTubeNotice className='text-white/70 hover:[&_a]:text-white' />
+      <div className='m-auto'>
+        <CoverPlayer video={video} member={member} autoplay />
+        <YouTubeNotice className='text-white/70 hover:[&_a]:text-white' />
+      </div>
     </dialog>
   );
 }
