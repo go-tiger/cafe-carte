@@ -35,6 +35,11 @@ export function CoversContent() {
   );
   const selected = visible.find(v => v.videoId === selectedId);
   const current = selected ?? visible[0];
+  const selectedIndex = selected ? visible.indexOf(selected) : -1;
+  const selectAt = (index: number) => {
+    const video = visible[index];
+    return video && (() => setSelectedId(video.videoId));
+  };
   const memberOf = (id: string | null) => MEMBERS.find(m => m.id === id);
 
   return (
@@ -148,6 +153,8 @@ export function CoversContent() {
             <ShortsViewer
               video={selected}
               member={memberOf(selected.memberId)}
+              onPrev={selectAt(selectedIndex - 1)}
+              onNext={selectAt(selectedIndex + 1)}
               onClose={() => setSelectedId(null)}
             />
           )}
