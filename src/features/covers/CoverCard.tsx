@@ -19,8 +19,6 @@ export function formatDuration(sec: number): string {
 }
 
 export function CoverCard({ video, member, active, eager, onSelect }: CoverCardProps) {
-  const vertical = video.kind === 'short';
-
   return (
     <button
       type='button'
@@ -33,13 +31,13 @@ export function CoverCard({ video, member, active, eager, onSelect }: CoverCardP
         active ? 'border-accent ring-2 ring-accent' : 'border-border',
       )}
     >
-      <span className={cn('relative block w-full bg-surface-2', vertical ? 'aspect-9/16' : 'aspect-video')}>
+      <span className='relative block aspect-9/16 w-full bg-surface-2'>
         <Image
           src={video.thumbnailUrl}
           alt=''
           fill
           loading={eager ? 'eager' : undefined}
-          sizes={vertical ? '(max-width: 640px) 50vw, 25vw' : '(max-width: 640px) 100vw, 33vw'}
+          sizes='(max-width: 640px) 50vw, 25vw'
           className='object-cover'
         />
         <span className='absolute right-2 bottom-2 rounded bg-black/75 px-1.5 py-0.5 text-xs font-bold text-white'>
@@ -55,8 +53,8 @@ export function CoverCard({ video, member, active, eager, onSelect }: CoverCardP
           <Play className='size-10 fill-white text-white' />
         </span>
       </span>
-      <span className={cn('flex flex-1 flex-col gap-1', vertical ? 'p-3' : 'p-4')}>
-        <span className={cn('line-clamp-2 font-heavy leading-snug', vertical && 'text-sm')}>{video.title}</span>
+      <span className='flex flex-1 flex-col gap-1 p-3'>
+        <span className='line-clamp-2 text-sm font-heavy leading-snug'>{video.title}</span>
         <span className={cn('text-sm', member ? 'font-bold text-member-text' : 'text-text-muted')}>
           {member?.nameKo ?? video.channelTitle}
         </span>

@@ -6,6 +6,7 @@ import { MEMBERS } from '@/shared/constants';
 import { cn, memberVars } from '@/shared/lib';
 import { CoverCard } from './CoverCard';
 import { CoverPlayer, YouTubeNotice } from './CoverPlayer';
+import { CoverRow } from './CoverRow';
 import { ShortsViewer } from './ShortsViewer';
 import { useCovers, type CoverKind } from './useCovers';
 
@@ -139,36 +140,43 @@ function CoversBody() {
           )}
 
           {current && kind === 'cover' && (
-            <div ref={playerRef} className='mt-8 scroll-mt-32'>
-              <CoverPlayer video={current} member={memberOf(current.memberId)} autoplay={selectedId !== null} />
-              <YouTubeNotice className='text-text-muted hover:[&_a]:text-text' />
+            <div className='mt-8 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-8'>
+              <div ref={playerRef} className='scroll-mt-32'>
+                <CoverPlayer video={current} member={memberOf(current.memberId)} autoplay={selectedId !== null} />
+                <YouTubeNotice className='text-text-muted hover:[&_a]:text-text' />
+              </div>
+
+              <ul className='mt-6 grid gap-1 sm:grid-cols-2 lg:mt-0 lg:max-h-[calc(100svh-10rem)] lg:grid-cols-1 lg:overflow-y-auto lg:p-1'>
+                {visible.map((v, index) => (
+                  <li key={v.videoId}>
+                    <CoverRow
+                      video={v}
+                      member={memberOf(v.memberId)}
+                      eager={index < 4}
+                      active={current.videoId === v.videoId}
+                      onSelect={() => {
+                        setSelectedId(v.videoId);
+                        playerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                      }}
+                    />
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
 
-          {visible.length > 0 && (
-            <ul
-              className={cn(
-                'mt-10 grid',
-                kind === 'short'
-                  ? 'grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4'
-                  : 'grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3',
-              )}
-            >
+          {kind === 'short' && visible.length > 0 && (
+            <ul className='mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4'>
               {visible.map((v, index) => (
                 <li key={v.videoId}>
                   <CoverCard
                     video={v}
                     member={memberOf(v.memberId)}
-                    eager={index < (kind === 'short' ? 4 : 3)}
-                    active={(kind === 'short' ? selected : current)?.videoId === v.videoId}
+                    eager={index < 4}
+                    active={selected?.videoId === v.videoId}
                     onSelect={() => {
-                      if (kind === 'short') {
-                        openedFromList.current = true;
-                        window.history.pushState(null, '', `?short=${v.videoId}`);
-                        return;
-                      }
-                      setSelectedId(v.videoId);
-                      playerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      openedFromList.current = true;
+                      window.history.pushState(null, '', `?short=${v.videoId}`);
                     }}
                   />
                 </li>
