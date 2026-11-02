@@ -1,6 +1,7 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { Suspense, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { MEMBERS } from '@/shared/constants';
 import { cn, memberVars } from '@/shared/lib';
 import { CoverCard } from './CoverCard';
@@ -22,32 +23,52 @@ const FILTERS: { id: Filter; label: string }[] = [
 ];
 
 export function CoversContent() {
-  const covers = useCovers();
-  const [kind, setKind] = useState<CoverKind>('cover');
-  const [filter, setFilter] = useState<Filter>('all');
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const playerRef = useRef<HTMLDivElement>(null);
-
-  const items = covers.status === 'ready' ? covers.items : [];
-  const ofKind = items.filter(v => v.kind === kind);
-  const visible = ofKind.filter(v =>
-    filter === 'all' ? true : filter === 'official' ? v.memberId === null : v.memberId === filter,
-  );
-  const selected = visible.find(v => v.videoId === selectedId);
-  const current = selected ?? visible[0];
-  const selectedIndex = selected ? visible.indexOf(selected) : -1;
-  const selectAt = (index: number) => {
-    const video = visible[index];
-    return video && (() => setSelectedId(video.videoId));
-  };
-  const memberOf = (id: string | null) => MEMBERS.find(m => m.id === id);
-
   return (
     <div className='mx-auto max-w-5xl'>
       <p className='text-xs font-bold tracking-eyebrow text-text-muted'>COVERS</p>
       <h1 className='mt-2 font-display font-heavy text-3xl tracking-tight sm:text-4xl'>커버곡</h1>
       <p className='mt-3 max-w-md text-sm text-text-muted'>공식 채널과 멤버 채널의 커버곡을 모아 들을 수 있어요.</p>
 
+      <Suspense fallback={<p className='mt-10 text-sm text-text-muted'>커버곡을 불러오는 중이에요.</p>}>
+        <CoversBody />
+      </Suspense>
+    </div>
+  );
+}
+
+function CoversBody() {
+  const covers = useCovers();
+  const shortId = useSearchParams().get('short');
+  const [kind, setKind] = useState<CoverKind>(shortId ? 'short' : 'cover');
+  const [filter, setFilter] = useState<Filter>('all');
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const playerRef = useRef<HTMLDivElement>(null);
+  const openedFromList = useRef(false);
+
+  const items = covers.status === 'ready' ? covers.items : [];
+  const ofKind = items.filter(v => v.kind === kind);
+  const visible = ofKind.filter(v =>
+    filter === 'all' ? true : filter === 'official' ? v.memberId === null : v.memberId === filter,
+  );
+  const selected = visible.find(v => v.videoId === (kind === 'short' ? shortId : selectedId));
+  const current = selected ?? visible[0];
+  const selectedIndex = selected ? visible.indexOf(selected) : -1;
+  const moveTo = (index: number) => {
+    const video = visible[index];
+    return video && (() => window.history.replaceState(null, '', `?short=${video.videoId}`));
+  };
+  const closeViewer = () => {
+    if (openedFromList.current) {
+      openedFromList.current = false;
+      window.history.back();
+    } else {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  };
+  const memberOf = (id: string | null) => MEMBERS.find(m => m.id === id);
+
+  return (
+    <>
       <div
         role='group'
         aria-label='영상 종류'
@@ -141,6 +162,11 @@ export function CoversContent() {
                     eager={index < (kind === 'short' ? 4 : 3)}
                     active={(kind === 'short' ? selected : current)?.videoId === v.videoId}
                     onSelect={() => {
+                      if (kind === 'short') {
+                        openedFromList.current = true;
+                        window.history.pushState(null, '', `?short=${v.videoId}`);
+                        return;
+                      }
                       setSelectedId(v.videoId);
                       playerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }}
@@ -154,13 +180,13 @@ export function CoversContent() {
             <ShortsViewer
               video={selected}
               member={memberOf(selected.memberId)}
-              onPrev={selectAt(selectedIndex - 1)}
-              onNext={selectAt(selectedIndex + 1)}
-              onClose={() => setSelectedId(null)}
+              onPrev={moveTo(selectedIndex - 1)}
+              onNext={moveTo(selectedIndex + 1)}
+              onClose={closeViewer}
             />
           )}
         </>
       )}
-    </div>
+    </>
   );
 }
