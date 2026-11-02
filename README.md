@@ -58,7 +58,7 @@ src/
 | 브랜드 아이콘           | YouTube, X, 네이버 카페, 치지직 로고를 단순화한 SVG                                  | 각 서비스 상표권자 소유   |
 
 이미지, 로고, 브랜드 아이콘의 권리는 원저작권자에게 있고, 이 저장소는 팬 활동 목적으로만 사용합니다. 자세한 내용은
-[LICENSE](LICENSE) 참고.
+[NOTICE.md](NOTICE.md) 참고.
 
 ## 기여
 
@@ -66,8 +66,10 @@ src/
 
 ## 라이선스
 
-- 자체 제작 **소스 코드**: [MIT License](LICENSE)
-- 자체 제작 **비코드 콘텐츠**: CC BY-NC-SA 4.0
-- **Cafe Carte / Twillit Studio 자산**: 각 원저작권자 소유
+저장소에 표시되는 MIT License는 자체 제작 소스 코드에만 적용됩니다.
 
-전문과 팬 프로젝트 고지는 [LICENSE](LICENSE)에 있습니다. 문제가 되는 콘텐츠는 이슈로 알려 주시면 삭제하겠습니다.
+- 자체 제작 **소스 코드**: [MIT License](LICENSE)
+- 자체 제작 **비코드 콘텐츠**: [CC BY-NC-SA 4.0](LICENSE-CONTENT)
+- **Cafe Carte / Twillit Studio 자산**: [각 원저작권자 소유](NOTICE.md)
+
+문제가 되는 콘텐츠는 이슈로 알려 주시면 삭제하겠습니다.

@@ -71,7 +71,7 @@ PR에는 이런 내용을 적어 주세요:
 ## 라이선스와 저작권
 
 기여하면 자체 제작 코드는 MIT, 자체 제작 비코드 콘텐츠는 CC BY-NC-SA 4.0으로 배포되는 데 동의하는 것으로 봅니다. 자세한
-내용은 [LICENSE](LICENSE)를 참고하세요.
+내용은 [LICENSE](LICENSE), [LICENSE-CONTENT](LICENSE-CONTENT), [NOTICE.md](NOTICE.md)를 참고하세요.
 
 이 프로젝트는 비공식 팬 프로젝트입니다. Cafe Carte, Twillit Studio 및 그 밖의 원저작권자의 권리를 침해하지 않도록 주의해
 주세요.
