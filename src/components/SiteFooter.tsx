@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-const SINCE = 2025;
+const SINCE = 2026;
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
