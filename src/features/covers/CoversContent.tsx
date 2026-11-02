@@ -133,11 +133,12 @@ export function CoversContent() {
                   : 'grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3',
               )}
             >
-              {visible.map(v => (
+              {visible.map((v, index) => (
                 <li key={v.videoId}>
                   <CoverCard
                     video={v}
                     member={memberOf(v.memberId)}
+                    eager={index < (kind === 'short' ? 4 : 3)}
                     active={(kind === 'short' ? selected : current)?.videoId === v.videoId}
                     onSelect={() => {
                       setSelectedId(v.videoId);

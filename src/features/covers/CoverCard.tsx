@@ -8,6 +8,7 @@ interface CoverCardProps {
   video: CoverVideo;
   member: Member | undefined;
   active: boolean;
+  eager: boolean;
   onSelect: () => void;
 }
 
@@ -17,7 +18,7 @@ export function formatDuration(sec: number): string {
   return m >= 60 ? `${Math.floor(m / 60)}:${String(m % 60).padStart(2, '0')}:${s}` : `${m}:${s}`;
 }
 
-export function CoverCard({ video, member, active, onSelect }: CoverCardProps) {
+export function CoverCard({ video, member, active, eager, onSelect }: CoverCardProps) {
   const vertical = video.kind === 'short';
 
   return (
@@ -37,6 +38,7 @@ export function CoverCard({ video, member, active, onSelect }: CoverCardProps) {
           src={video.thumbnailUrl}
           alt=''
           fill
+          loading={eager ? 'eager' : undefined}
           sizes={vertical ? '(max-width: 640px) 50vw, 25vw' : '(max-width: 640px) 100vw, 33vw'}
           className='object-cover'
         />
