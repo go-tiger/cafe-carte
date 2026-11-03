@@ -12,6 +12,12 @@ import { ShortsViewer } from './ShortsViewer';
 import { useCovers, type CoverKind } from './useCovers';
 
 type Filter = 'all' | 'official' | string;
+type Order = 'newest' | 'oldest';
+
+const ORDERS: { id: Order; label: string }[] = [
+  { id: 'newest', label: '최신순' },
+  { id: 'oldest', label: '오래된순' },
+];
 
 const KINDS: { id: CoverKind; label: string }[] = [
   { id: 'cover', label: '커버곡' },
@@ -47,6 +53,7 @@ function CoversBody() {
   const shortId = searchParams.get('short');
   const [kind, setKind] = useState<CoverKind>(shortId ? 'short' : 'cover');
   const [filter, setFilter] = useState<Filter>('all');
+  const [order, setOrder] = useState<Order>('newest');
   const [coverId, setCoverId] = useState(() => searchParams.get('cover'));
   const [autoplay, setAutoplay] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
@@ -54,9 +61,10 @@ function CoversBody() {
 
   const items = covers.status === 'ready' ? covers.items : [];
   const ofKind = items.filter(v => v.kind === kind);
-  const visible = ofKind.filter(v =>
+  const filtered = ofKind.filter(v =>
     filter === 'all' ? true : filter === 'official' ? v.memberId === null : v.memberId === filter,
   );
+  const visible = kind === 'cover' && order === 'oldest' ? filtered.toReversed() : filtered;
   const selected = visible.find(v => v.videoId === (kind === 'short' ? shortId : coverId));
   const current = selected ?? visible[0];
   const selectedIndex = selected ? visible.indexOf(selected) : -1;
@@ -192,22 +200,43 @@ function CoversBody() {
                 <YouTubeNotice className='text-text-muted hover:[&_a]:text-text' />
               </div>
 
-              <ul className='mt-6 grid gap-1 sm:grid-cols-2 lg:mt-0 lg:max-h-[calc(100svh-10rem)] lg:grid-cols-1 lg:overflow-y-auto lg:p-1'>
-                {visible.map((v, index) => (
-                  <li key={v.videoId}>
-                    <CoverRow
-                      video={v}
-                      member={memberOf(v.memberId)}
-                      eager={index < 4}
-                      active={current.videoId === v.videoId}
-                      onSelect={() => {
-                        selectCover(v.videoId);
-                        playerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                      }}
-                    />
-                  </li>
-                ))}
-              </ul>
+              <div className='mt-6 lg:mt-0'>
+                <div className='mb-2 flex items-center justify-between px-2'>
+                  <p className='text-sm font-bold'>{visible.length}곡</p>
+                  <div role='group' aria-label='정렬' className='flex gap-3 text-sm'>
+                    {ORDERS.map(o => (
+                      <button
+                        key={o.id}
+                        type='button'
+                        aria-pressed={order === o.id}
+                        onClick={() => setOrder(o.id)}
+                        className={cn(
+                          'min-h-10 font-bold transition-colors',
+                          order === o.id ? 'text-text' : 'text-text-muted hover:text-text',
+                        )}
+                      >
+                        {o.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <ul className='grid gap-1 sm:grid-cols-2 lg:max-h-[calc(100svh-13rem)] lg:grid-cols-1 lg:overflow-y-auto lg:p-1'>
+                  {visible.map((v, index) => (
+                    <li key={v.videoId}>
+                      <CoverRow
+                        video={v}
+                        member={memberOf(v.memberId)}
+                        eager={index < 4}
+                        active={current.videoId === v.videoId}
+                        onSelect={() => {
+                          selectCover(v.videoId);
+                          playerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           )}
 
