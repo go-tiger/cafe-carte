@@ -7,7 +7,10 @@ export default function NotFound() {
     <>
       <SiteHeader />
 
-      <main className='flex flex-1 flex-col items-center justify-center px-6 pt-32 pb-20 text-center sm:px-10'>
+      <main
+        id='main'
+        className='flex flex-1 flex-col items-center justify-center px-6 pt-32 pb-20 text-center sm:px-10'
+      >
         <p className='text-xs font-bold tracking-eyebrow text-text-muted'>NOT ON THE MENU</p>
         <h1 className='mt-2 font-display font-heavy text-7xl tracking-tight sm:text-8xl'>404</h1>
         <p className='mt-4 max-w-sm text-text-muted'>

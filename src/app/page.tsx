@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <SiteHeader transparentOnTop />
-      <main>
+      <main id='main'>
         <Hero />
         <MemberIntro />
         <LinkHub />

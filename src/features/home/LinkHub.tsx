@@ -17,7 +17,7 @@ export function LinkHub() {
         <p className='text-xs font-bold tracking-eyebrow text-text-muted'>OFFICIAL</p>
         <h2 className='mt-2 font-display font-heavy text-3xl tracking-tight sm:text-4xl'>공식 채널</h2>
 
-        <ul className='mt-10 grid gap-4 sm:grid-cols-2'>
+        <ul className='mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2'>
           {OFFICIAL_LINKS.map(link => (
             <li key={link.id}>
               <ChannelCard

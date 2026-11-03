@@ -45,7 +45,7 @@ export default async function MemberPage({ params }: MemberPageProps) {
     <>
       <SiteHeader />
 
-      <main className='pb-20'>
+      <main id='main' className='pb-20'>
         <MemberDetail member={member} prevMember={prevMember} nextMember={nextMember} />
       </main>
     </>

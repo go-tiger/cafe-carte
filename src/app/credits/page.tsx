@@ -11,7 +11,7 @@ export default function CreditsPage() {
     <>
       <SiteHeader />
 
-      <main className='px-6 pt-32 pb-20 sm:px-10'>
+      <main id='main' className='px-6 pt-32 pb-20 sm:px-10'>
         <CreditsContent />
       </main>
     </>

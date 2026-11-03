@@ -11,7 +11,7 @@ export default function CoversPage() {
     <>
       <SiteHeader />
 
-      <main className='px-6 pt-32 pb-20 sm:px-10'>
+      <main id='main' className='px-6 pt-32 pb-20 sm:px-10'>
         <CoversContent />
       </main>
     </>

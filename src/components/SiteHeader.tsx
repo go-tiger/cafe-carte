@@ -33,6 +33,12 @@ export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: bo
         scrolled ? 'border-b border-border bg-bg/95 backdrop-blur' : 'border-b border-transparent bg-transparent',
       )}
     >
+      <a
+        href='#main'
+        className='sr-only rounded-full bg-text text-sm font-bold text-bg focus:not-sr-only focus:absolute focus:top-3 focus:left-4 focus:px-4 focus:py-2'
+      >
+        본문 바로가기
+      </a>
       <nav className='mx-auto flex h-16 max-w-5xl items-center gap-2 px-4 sm:gap-6'>
         <Link href='/' aria-label='Cafe Carte 홈' className='flex shrink-0 items-center gap-2'>
           <Image src={asset('/logo.png')} alt='' width={32} height={32} className='rounded-full' />
