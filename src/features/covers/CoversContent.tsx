@@ -2,6 +2,7 @@
 
 import { Suspense, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { MEMBERS } from '@/shared/constants';
 import { cn, memberVars } from '@/shared/lib';
 import { CoverCard } from './CoverCard';
@@ -16,6 +17,9 @@ const KINDS: { id: CoverKind; label: string }[] = [
   { id: 'cover', label: '커버곡' },
   { id: 'short', label: '노래 쇼츠' },
 ];
+
+const STEP_BUTTON =
+  'flex size-10 items-center justify-center rounded-full border border-border text-text-muted transition-colors hover:bg-surface-2 hover:text-text disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-text-muted';
 
 const FILTERS: { id: Filter; label: string }[] = [
   { id: 'all', label: '전체' },
@@ -78,6 +82,9 @@ function CoversBody() {
     setCoverId(null);
     setAutoplay(false);
   };
+  const currentIndex = current ? visible.indexOf(current) : -1;
+  const prevCover = visible[currentIndex - 1];
+  const nextCover = visible[currentIndex + 1];
   const memberOf = (id: string | null) => MEMBERS.find(m => m.id === id);
 
   return (
@@ -154,7 +161,34 @@ function CoversBody() {
           {current && kind === 'cover' && (
             <div className='mt-8 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-8'>
               <div ref={playerRef} className='scroll-mt-32'>
-                <CoverPlayer video={current} member={memberOf(current.memberId)} autoplay={autoplay} />
+                <CoverPlayer
+                  video={current}
+                  member={memberOf(current.memberId)}
+                  autoplay={autoplay}
+                  onEnded={nextCover && (() => selectCover(nextCover.videoId))}
+                  controls={
+                    <span className='flex gap-2'>
+                      <button
+                        type='button'
+                        aria-label='이전 곡'
+                        disabled={!prevCover}
+                        onClick={() => selectCover(prevCover.videoId)}
+                        className={STEP_BUTTON}
+                      >
+                        <ChevronLeft aria-hidden className='size-5' />
+                      </button>
+                      <button
+                        type='button'
+                        aria-label='다음 곡'
+                        disabled={!nextCover}
+                        onClick={() => selectCover(nextCover.videoId)}
+                        className={STEP_BUTTON}
+                      >
+                        <ChevronRight aria-hidden className='size-5' />
+                      </button>
+                    </span>
+                  }
+                />
                 <YouTubeNotice className='text-text-muted hover:[&_a]:text-text' />
               </div>
 

@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useEffectEvent, useRef, type ReactNode } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import type { Member } from '@/shared/constants';
 import { cn } from '@/shared/lib';
@@ -8,7 +11,11 @@ interface CoverPlayerProps {
   member: Member | undefined;
   autoplay: boolean;
   position?: string;
+  controls?: ReactNode;
+  onEnded?: () => void;
 }
+
+const YOUTUBE_ORIGIN = 'https://www.youtube-nocookie.com';
 
 export function YouTubeNotice({ className }: { className?: string }) {
   return (
@@ -27,8 +34,39 @@ export function YouTubeNotice({ className }: { className?: string }) {
   );
 }
 
-export function CoverPlayer({ video, member, autoplay, position }: CoverPlayerProps) {
-  const src = `https://www.youtube-nocookie.com/embed/${video.videoId}?rel=0${autoplay ? '&autoplay=1' : ''}`;
+export function CoverPlayer({ video, member, autoplay, position, controls, onEnded }: CoverPlayerProps) {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const listensForEnd = onEnded !== undefined;
+  const src = `${YOUTUBE_ORIGIN}/embed/${video.videoId}?rel=0${autoplay ? '&autoplay=1' : ''}${listensForEnd ? '&enablejsapi=1' : ''}`;
+  const handleEnded = useEffectEvent(() => onEnded?.());
+
+  // YouTube 플레이어가 보내는 재생 상태 중 종료(0)만 받아서 다음 곡으로 넘긴다
+  useEffect(() => {
+    if (!listensForEnd) return;
+    let ended = false;
+    const onMessage = (e: MessageEvent) => {
+      if (e.origin !== YOUTUBE_ORIGIN || e.source !== iframeRef.current?.contentWindow) return;
+      try {
+        const data = JSON.parse(e.data);
+        if (data.event === 'onStateChange' && data.info === 0 && !ended) {
+          ended = true;
+          handleEnded();
+        }
+      } catch {}
+    };
+    window.addEventListener('message', onMessage);
+    return () => window.removeEventListener('message', onMessage);
+  }, [listensForEnd, video.videoId]);
+
+  const subscribe = () => {
+    if (!listensForEnd) return;
+    const player = iframeRef.current?.contentWindow;
+    player?.postMessage(JSON.stringify({ event: 'listening', id: 1, channel: 'widget' }), YOUTUBE_ORIGIN);
+    player?.postMessage(
+      JSON.stringify({ event: 'command', func: 'addEventListener', args: ['onStateChange'], id: 1, channel: 'widget' }),
+      YOUTUBE_ORIGIN,
+    );
+  };
   const published = new Date(video.publishedAt).toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul' });
   const vertical = video.kind === 'short';
 
@@ -49,12 +87,14 @@ export function CoverPlayer({ video, member, autoplay, position }: CoverPlayerPr
           }
         >
           <iframe
+            ref={iframeRef}
             key={video.videoId}
             src={src}
             title={video.title}
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
             referrerPolicy='strict-origin-when-cross-origin'
             allowFullScreen
+            onLoad={subscribe}
             className='size-full'
           />
         </div>
@@ -78,18 +118,21 @@ export function CoverPlayer({ video, member, autoplay, position }: CoverPlayerPr
             , {published}
           </p>
         </div>
-        <a
-          href={`https://www.youtube.com/watch?v=${video.videoId}`}
-          target='_blank'
-          rel='noopener noreferrer'
-          className={cn(
-            'inline-flex shrink-0 items-center gap-1 text-sm font-bold hover:underline',
-            vertical ? 'text-white' : 'text-accent',
-          )}
-        >
-          YouTube에서 보기
-          <ArrowUpRight aria-hidden className='size-4' />
-        </a>
+        <div className='flex shrink-0 items-center gap-4'>
+          {controls}
+          <a
+            href={`https://www.youtube.com/watch?v=${video.videoId}`}
+            target='_blank'
+            rel='noopener noreferrer'
+            className={cn(
+              'inline-flex shrink-0 items-center gap-1 text-sm font-bold hover:underline',
+              vertical ? 'text-white' : 'text-accent',
+            )}
+          >
+            YouTube에서 보기
+            <ArrowUpRight aria-hidden className='size-4' />
+          </a>
+        </div>
       </div>
     </div>
   );
