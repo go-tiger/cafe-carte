@@ -48,7 +48,7 @@ const ASSET_CREDITS: AssetCredit[] = [
   },
   {
     asset: '브랜드 아이콘',
-    source: 'YouTube, X, 네이버 카페, 치지직 로고를 단순화한 SVG',
+    source: 'YouTube, X, 네이버 카페, 치지직, 팬딩 로고를 단순화한 SVG',
     rights: '각 서비스 상표권자',
   },
 ];

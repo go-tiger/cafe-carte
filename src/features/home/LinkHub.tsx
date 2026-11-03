@@ -1,12 +1,13 @@
 import type { ComponentType, SVGProps } from 'react';
 import { OFFICIAL_LINKS, type OfficialLinkId } from '@/shared/constants';
 import { ChannelCard, Reveal } from '@/shared/ui';
-import { NaverCafeIcon, YoutubeIcon, XIcon } from '@/shared/ui/icons';
+import { FandingIcon, NaverCafeIcon, YoutubeIcon, XIcon } from '@/shared/ui/icons';
 
 const ICONS: Record<OfficialLinkId, ComponentType<SVGProps<SVGSVGElement>>> = {
   navercafe: NaverCafeIcon,
   youtube: YoutubeIcon,
   x: XIcon,
+  fanding: FandingIcon,
 };
 
 export function LinkHub() {
@@ -16,7 +17,7 @@ export function LinkHub() {
         <p className='text-xs font-bold tracking-eyebrow text-text-muted'>OFFICIAL</p>
         <h2 className='mt-2 font-display font-heavy text-3xl tracking-tight sm:text-4xl'>공식 채널</h2>
 
-        <ul className='mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
+        <ul className='mt-10 grid gap-4 sm:grid-cols-2'>
           {OFFICIAL_LINKS.map(link => (
             <li key={link.id}>
               <ChannelCard

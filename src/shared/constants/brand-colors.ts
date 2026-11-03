@@ -9,4 +9,5 @@ export const BRAND_COLORS = {
   youtube: { color: '#FF0000', ink: '#ffffff' },
   x: { color: '#000000', ink: '#ffffff' },
   chzzk: { color: '#000000', ink: '#00FFA3' },
+  fanding: { color: '#5D63F7', ink: '#ffffff' },
 } satisfies Record<string, BrandColor>;

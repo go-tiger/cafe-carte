@@ -1,6 +1,6 @@
 import { BRAND_COLORS } from './brand-colors';
 
-export type OfficialLinkId = 'navercafe' | 'youtube' | 'x';
+export type OfficialLinkId = 'navercafe' | 'youtube' | 'x' | 'fanding';
 
 export interface OfficialLink {
   id: OfficialLinkId;
@@ -35,5 +35,13 @@ export const OFFICIAL_LINKS: OfficialLink[] = [
     href: 'https://x.com/TWILLIT_studio_',
     brand: BRAND_COLORS.x.color,
     ink: BRAND_COLORS.x.ink,
+  },
+  {
+    id: 'fanding',
+    label: '팬딩',
+    handle: '@TWILLITSTUDIO_',
+    href: 'https://fanding.kr/@TWILLITSTUDIO_',
+    brand: BRAND_COLORS.fanding.color,
+    ink: BRAND_COLORS.fanding.ink,
   },
 ];
