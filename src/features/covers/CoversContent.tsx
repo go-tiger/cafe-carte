@@ -206,7 +206,7 @@ function CoversBody() {
           )}
 
           {current && kind === 'cover' && (
-            <div className='mt-8 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-8'>
+            <div className='mt-8 lg:mt-10 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-x-8'>
               <div ref={playerRef} className='scroll-mt-32'>
                 <CoverPlayer
                   video={current}
@@ -236,45 +236,47 @@ function CoversBody() {
                     </span>
                   }
                 />
-                <YouTubeNotice className='text-text-muted hover:[&_a]:text-text' />
               </div>
+              <YouTubeNotice className='text-text-muted hover:[&_a]:text-text lg:col-start-1 lg:row-start-2' />
 
-              <div className='mt-6 lg:mt-0'>
-                <div className='mb-2 flex items-center justify-between px-2'>
-                  <p className='text-sm font-bold'>{visible.length}곡</p>
-                  <div role='group' aria-label='정렬' className='flex gap-3 text-sm'>
-                    {ORDERS.map(o => (
-                      <button
-                        key={o.id}
-                        type='button'
-                        aria-pressed={order === o.id}
-                        onClick={() => setOrder(o.id)}
-                        className={cn(
-                          'min-h-10 font-bold transition-colors',
-                          order === o.id ? 'text-text' : 'text-text-muted hover:text-text',
-                        )}
-                      >
-                        {o.label}
-                      </button>
-                    ))}
+              <div className='relative mt-6 lg:col-start-2 lg:row-start-1 lg:mt-0'>
+                <div className='lg:absolute lg:inset-0 lg:flex lg:flex-col'>
+                  <div className='mb-2 flex items-center justify-between px-2 lg:absolute lg:inset-x-0 lg:bottom-full'>
+                    <p className='text-sm font-bold'>{visible.length}곡</p>
+                    <div role='group' aria-label='정렬' className='flex gap-3 text-sm'>
+                      {ORDERS.map(o => (
+                        <button
+                          key={o.id}
+                          type='button'
+                          aria-pressed={order === o.id}
+                          onClick={() => setOrder(o.id)}
+                          className={cn(
+                            'min-h-10 font-bold transition-colors',
+                            order === o.id ? 'text-text' : 'text-text-muted hover:text-text',
+                          )}
+                        >
+                          {o.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
+                  <ul className='grid gap-1 sm:grid-cols-2 lg:min-h-0 lg:flex-1 lg:grid-cols-1 lg:overflow-y-auto lg:p-1'>
+                    {visible.map((v, index) => (
+                      <li key={v.videoId}>
+                        <CoverRow
+                          video={v}
+                          member={memberOf(v.memberId)}
+                          eager={index < 4}
+                          active={current.videoId === v.videoId}
+                          onSelect={() => {
+                            selectCover(v.videoId);
+                            playerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                          }}
+                        />
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <ul className='grid gap-1 sm:grid-cols-2 lg:max-h-[calc(100svh-13rem)] lg:grid-cols-1 lg:overflow-y-auto lg:p-1'>
-                  {visible.map((v, index) => (
-                    <li key={v.videoId}>
-                      <CoverRow
-                        video={v}
-                        member={memberOf(v.memberId)}
-                        eager={index < 4}
-                        active={current.videoId === v.videoId}
-                        onSelect={() => {
-                          selectCover(v.videoId);
-                          playerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                        }}
-                      />
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
           )}
