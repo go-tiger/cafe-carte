@@ -39,10 +39,12 @@ export function CoversContent() {
 
 function CoversBody() {
   const covers = useCovers();
-  const shortId = useSearchParams().get('short');
+  const searchParams = useSearchParams();
+  const shortId = searchParams.get('short');
   const [kind, setKind] = useState<CoverKind>(shortId ? 'short' : 'cover');
   const [filter, setFilter] = useState<Filter>('all');
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [coverId, setCoverId] = useState(() => searchParams.get('cover'));
+  const [autoplay, setAutoplay] = useState(false);
   const playerRef = useRef<HTMLDivElement>(null);
   const openedFromList = useRef(false);
 
@@ -51,7 +53,7 @@ function CoversBody() {
   const visible = ofKind.filter(v =>
     filter === 'all' ? true : filter === 'official' ? v.memberId === null : v.memberId === filter,
   );
-  const selected = visible.find(v => v.videoId === (kind === 'short' ? shortId : selectedId));
+  const selected = visible.find(v => v.videoId === (kind === 'short' ? shortId : coverId));
   const current = selected ?? visible[0];
   const selectedIndex = selected ? visible.indexOf(selected) : -1;
   const moveTo = (index: number) => {
@@ -65,6 +67,16 @@ function CoversBody() {
     } else {
       window.history.replaceState(null, '', window.location.pathname);
     }
+  };
+  const selectCover = (videoId: string) => {
+    setCoverId(videoId);
+    setAutoplay(true);
+    window.history.replaceState(null, '', `?cover=${videoId}`);
+  };
+  const clearCover = () => {
+    if (coverId) window.history.replaceState(null, '', window.location.pathname);
+    setCoverId(null);
+    setAutoplay(false);
   };
   const memberOf = (id: string | null) => MEMBERS.find(m => m.id === id);
 
@@ -82,7 +94,7 @@ function CoversBody() {
             aria-pressed={kind === k.id}
             onClick={() => {
               setKind(k.id);
-              setSelectedId(null);
+              clearCover();
             }}
             className={cn(
               'min-h-10 rounded-full px-5 text-sm font-bold transition-colors',
@@ -108,7 +120,7 @@ function CoversBody() {
               aria-pressed={active}
               onClick={() => {
                 setFilter(f.id);
-                setSelectedId(null);
+                clearCover();
               }}
               data-member={member ? '' : undefined}
               style={member ? memberVars(member) : undefined}
@@ -142,7 +154,7 @@ function CoversBody() {
           {current && kind === 'cover' && (
             <div className='mt-8 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start lg:gap-8'>
               <div ref={playerRef} className='scroll-mt-32'>
-                <CoverPlayer video={current} member={memberOf(current.memberId)} autoplay={selectedId !== null} />
+                <CoverPlayer video={current} member={memberOf(current.memberId)} autoplay={autoplay} />
                 <YouTubeNotice className='text-text-muted hover:[&_a]:text-text' />
               </div>
 
@@ -155,7 +167,7 @@ function CoversBody() {
                       eager={index < 4}
                       active={current.videoId === v.videoId}
                       onSelect={() => {
-                        setSelectedId(v.videoId);
+                        selectCover(v.videoId);
                         playerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                       }}
                     />
