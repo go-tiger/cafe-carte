@@ -31,7 +31,7 @@ export function PrivacyContent() {
           을 따릅니다.
         </p>
         <p className='text-text-muted'>
-          플레이어는 개인정보 보호 강화 모드(youtube-nocookie.com)로 삽입되며, 영상 정보는 서버에서 최대 6시간 동안만
+          플레이어는 개인정보 보호 강화 모드(youtube-nocookie.com)로 삽입되며, 영상 정보는 서버에서 최대 30분 동안만
           임시로 보관한 뒤 다시 받아옵니다. Google 계정의 데이터 접근 권한은{' '}
           <a href='https://myaccount.google.com/permissions' target='_blank' rel='noopener noreferrer' className={LINK}>
             Google 보안 설정

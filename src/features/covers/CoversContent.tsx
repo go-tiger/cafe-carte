@@ -178,7 +178,7 @@ function CoversBody() {
 
       {covers.status === 'ready' && covers.updatedAt && (
         <p className='mt-3 text-xs text-text-muted'>
-          목록 업데이트 {relativeTime(covers.updatedAt)}, 6시간마다 갱신돼요
+          목록 업데이트 {relativeTime(covers.updatedAt)}, 30분마다 갱신돼요
         </p>
       )}
 
