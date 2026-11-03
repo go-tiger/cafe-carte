@@ -177,7 +177,9 @@ function CoversBody() {
       </div>
 
       {covers.status === 'ready' && covers.updatedAt && (
-        <p className='mt-3 text-xs text-text-muted'>목록 업데이트 {relativeTime(covers.updatedAt)}</p>
+        <p className='mt-3 text-xs text-text-muted'>
+          목록 업데이트 {relativeTime(covers.updatedAt)}, 6시간마다 갱신돼요
+        </p>
       )}
 
       {covers.status === 'loading' && <CoversSkeleton />}
