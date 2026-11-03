@@ -77,7 +77,7 @@ export function ShortsViewer({ video, member, position, onPrev, onNext, onClose 
         </button>
       </div>
       <div className='m-auto lg:w-full'>
-        <CoverPlayer video={video} member={member} autoplay position={position} />
+        <CoverPlayer video={video} member={member} autoplay position={position} onEnded={onNext} />
         <YouTubeNotice className='text-white/70 hover:[&_a]:text-white pr-28 lg:pr-0 lg:text-center' />
       </div>
     </dialog>

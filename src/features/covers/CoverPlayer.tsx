@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useEffectEvent, useRef, type ReactNode } from 'react';
+import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 import type { Member } from '@/shared/constants';
 import { cn } from '@/shared/lib';
@@ -81,7 +82,8 @@ export function CoverPlayer({ video, member, autoplay, position, controls, onEnd
       <div
         className={cn('bg-black sm:shrink-0', vertical && 'mx-auto w-fit overflow-hidden rounded-2xl lg:col-start-2')}
       >
-        <div className={vertical ? 'mx-auto aspect-9/16 w-(--shorts-w)' : 'aspect-video w-full'}>
+        <div className={vertical ? 'relative mx-auto aspect-9/16 w-(--shorts-w)' : 'relative aspect-video w-full'}>
+          <Image src={video.thumbnailUrl} alt='' fill sizes='400px' className='object-cover' />
           <iframe
             ref={iframeRef}
             key={video.videoId}
@@ -91,7 +93,7 @@ export function CoverPlayer({ video, member, autoplay, position, controls, onEnd
             referrerPolicy='strict-origin-when-cross-origin'
             allowFullScreen
             onLoad={subscribe}
-            className='size-full'
+            className='relative size-full'
           />
         </div>
       </div>
