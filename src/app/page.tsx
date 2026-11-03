@@ -1,4 +1,5 @@
 import { SiteHeader } from '@/components';
+import { LatestCovers } from '@/features/covers';
 import { Hero, MemberIntro, LinkHub } from '@/features/home';
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
       <main id='main'>
         <Hero />
         <MemberIntro />
+        <LatestCovers />
         <LinkHub />
       </main>
     </>
