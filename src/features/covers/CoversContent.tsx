@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { MEMBERS } from '@/shared/constants';
 import { cn, memberVars } from '@/shared/lib';
+import { relativeTime } from '@/shared/lib/relative-time';
 import { CoverCard } from './CoverCard';
 import { CoverPlayer, YouTubeNotice } from './CoverPlayer';
 import { CoverRow } from './CoverRow';
@@ -33,6 +34,25 @@ const FILTERS: { id: Filter; label: string }[] = [
   ...MEMBERS.map(m => ({ id: m.id, label: m.nameKo })),
 ];
 
+function CoversSkeleton() {
+  return (
+    <div aria-hidden className='mt-8 motion-safe:animate-pulse lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-8'>
+      <div className='aspect-video rounded-2xl bg-surface-2' />
+      <div className='mt-6 grid gap-3 lg:mt-0'>
+        {Array.from({ length: 4 }, (_, i) => (
+          <div key={i} className='flex items-center gap-3 p-2'>
+            <div className='aspect-video w-32 shrink-0 rounded-lg bg-surface-2' />
+            <div className='flex flex-1 flex-col gap-2'>
+              <div className='h-3.5 w-4/5 rounded bg-surface-2' />
+              <div className='h-3 w-1/3 rounded bg-surface-2' />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function CoversContent() {
   return (
     <div className='mx-auto max-w-5xl'>
@@ -40,7 +60,7 @@ export function CoversContent() {
       <h1 className='mt-2 font-display font-heavy text-3xl tracking-tight sm:text-4xl'>커버곡</h1>
       <p className='mt-3 max-w-md text-sm text-text-muted'>공식 채널과 멤버 채널의 커버곡을 모아 들을 수 있어요.</p>
 
-      <Suspense fallback={<p className='mt-10 text-sm text-text-muted'>커버곡을 불러오는 중이에요.</p>}>
+      <Suspense fallback={<CoversSkeleton />}>
         <CoversBody />
       </Suspense>
     </div>
@@ -61,9 +81,9 @@ function CoversBody() {
 
   const items = covers.status === 'ready' ? covers.items : [];
   const ofKind = items.filter(v => v.kind === kind);
-  const filtered = ofKind.filter(v =>
-    filter === 'all' ? true : filter === 'official' ? v.memberId === null : v.memberId === filter,
-  );
+  const matches = (f: Filter, memberId: string | null) =>
+    f === 'all' ? true : f === 'official' ? memberId === null : memberId === f;
+  const filtered = ofKind.filter(v => matches(filter, v.memberId));
   const visible = kind === 'cover' && order === 'oldest' ? filtered.toReversed() : filtered;
   const selected = visible.find(v => v.videoId === (kind === 'short' ? shortId : coverId));
   const current = selected ?? visible[0];
@@ -128,11 +148,13 @@ function CoversBody() {
         {FILTERS.map(f => {
           const member = memberOf(f.id);
           const active = filter === f.id;
+          const count = ofKind.filter(v => matches(f.id, v.memberId)).length;
           return (
             <button
               key={f.id}
               type='button'
               aria-pressed={active}
+              disabled={covers.status === 'ready' && count === 0 && !active}
               onClick={() => {
                 setFilter(f.id);
                 clearCover();
@@ -140,7 +162,7 @@ function CoversBody() {
               data-member={member ? '' : undefined}
               style={member ? memberVars(member) : undefined}
               className={cn(
-                'min-h-10 rounded-full border px-4 text-sm font-bold transition-colors',
+                'min-h-10 rounded-full border px-4 text-sm font-bold transition-colors disabled:opacity-40',
                 active
                   ? 'border-transparent bg-accent text-accent-ink'
                   : 'border-border bg-surface text-text-muted hover:text-text',
@@ -148,12 +170,17 @@ function CoversBody() {
               )}
             >
               {f.label}
+              {covers.status === 'ready' && <span className='ml-1.5 font-normal opacity-70'>{count}</span>}
             </button>
           );
         })}
       </div>
 
-      {covers.status === 'loading' && <p className='mt-10 text-sm text-text-muted'>커버곡을 불러오는 중이에요.</p>}
+      {covers.status === 'ready' && covers.updatedAt && (
+        <p className='mt-3 text-xs text-text-muted'>목록 업데이트 {relativeTime(covers.updatedAt)}</p>
+      )}
+
+      {covers.status === 'loading' && <CoversSkeleton />}
       {covers.status === 'error' && (
         <p className='mt-10 text-sm text-text-muted'>커버곡 목록을 불러오지 못했어요. 잠시 후 다시 시도해 주세요.</p>
       )}

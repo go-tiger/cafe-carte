@@ -17,7 +17,10 @@ export interface CoverVideo {
   thumbnailUrl: string;
 }
 
-type CoversState = { status: 'loading' } | { status: 'error' } | { status: 'ready'; items: CoverVideo[] };
+type CoversState =
+  | { status: 'loading' }
+  | { status: 'error' }
+  | { status: 'ready'; items: CoverVideo[]; updatedAt: string | null };
 
 export function useCovers(): CoversState {
   const [state, setState] = useState<CoversState>({ status: 'loading' });
@@ -26,8 +29,12 @@ export function useCovers(): CoversState {
     let cancelled = false;
 
     fetch(`${API_URL}/covers`)
-      .then(res => (res.ok ? (res.json() as Promise<{ items: CoverVideo[] }>) : Promise.reject(res.status)))
-      .then(data => !cancelled && setState({ status: 'ready', items: data.items }))
+      .then(res =>
+        res.ok
+          ? (res.json() as Promise<{ items: CoverVideo[]; updatedAt: string | null }>)
+          : Promise.reject(res.status),
+      )
+      .then(data => !cancelled && setState({ status: 'ready', items: data.items, updatedAt: data.updatedAt }))
       .catch(() => !cancelled && setState({ status: 'error' }));
 
     return () => {
