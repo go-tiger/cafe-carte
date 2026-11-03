@@ -2,7 +2,7 @@
 
 import { Suspense, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, RotateCw } from 'lucide-react';
 import { MEMBERS } from '@/shared/constants';
 import { cn, memberVars } from '@/shared/lib';
 import { relativeTime } from '@/shared/lib/relative-time';
@@ -182,7 +182,17 @@ function CoversBody() {
 
       {covers.status === 'loading' && <CoversSkeleton />}
       {covers.status === 'error' && (
-        <p className='mt-10 text-sm text-text-muted'>커버곡 목록을 불러오지 못했어요. 잠시 후 다시 시도해 주세요.</p>
+        <div className='mt-10 flex flex-wrap items-center gap-3 text-sm text-text-muted'>
+          <p>커버곡 목록을 불러오지 못했어요.</p>
+          <button
+            type='button'
+            onClick={covers.retry}
+            className='inline-flex min-h-10 items-center gap-1.5 rounded-full border border-border bg-surface px-4 font-bold text-text transition-colors hover:bg-surface-2'
+          >
+            <RotateCw aria-hidden className='size-4' />
+            다시 시도
+          </button>
+        </div>
       )}
 
       {covers.status === 'ready' && (

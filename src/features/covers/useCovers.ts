@@ -19,11 +19,12 @@ export interface CoverVideo {
 
 type CoversState =
   | { status: 'loading' }
-  | { status: 'error' }
+  | { status: 'error'; retry: () => void }
   | { status: 'ready'; items: CoverVideo[]; updatedAt: string | null };
 
 export function useCovers(): CoversState {
   const [state, setState] = useState<CoversState>({ status: 'loading' });
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -35,12 +36,22 @@ export function useCovers(): CoversState {
           : Promise.reject(res.status),
       )
       .then(data => !cancelled && setState({ status: 'ready', items: data.items, updatedAt: data.updatedAt }))
-      .catch(() => !cancelled && setState({ status: 'error' }));
+      .catch(
+        () =>
+          !cancelled &&
+          setState({
+            status: 'error',
+            retry: () => {
+              setState({ status: 'loading' });
+              setAttempt(n => n + 1);
+            },
+          }),
+      );
 
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [attempt]);
 
   return state;
 }

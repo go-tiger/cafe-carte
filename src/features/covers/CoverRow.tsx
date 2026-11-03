@@ -27,7 +27,7 @@ export function CoverRow({ video, member, active, eager, onSelect }: CoverRowPro
     >
       <span className='relative aspect-video w-32 shrink-0 overflow-hidden rounded-lg bg-surface-2'>
         <Image
-          src={video.thumbnailUrl}
+          src={video.thumbnailUrl.replace('/hqdefault.', '/mqdefault.')}
           alt=''
           fill
           loading={eager ? 'eager' : undefined}
