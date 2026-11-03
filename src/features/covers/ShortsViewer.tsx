@@ -58,7 +58,7 @@ export function ShortsViewer({ video, member, position, onPrev, onNext, onClose 
       aria-label={video.title}
       onClose={onClose}
       onClick={closeOnBackdrop}
-      className='fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto bg-black p-4 pt-16 text-white open:flex sm:pt-4'
+      className='fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto bg-black p-4 pt-16 pb-20 text-white [--shorts-w:min(calc((100svh-16rem)*9/16),calc(100vw-2rem))] open:flex lg:pt-4 lg:pb-4 lg:[--shorts-w:min(calc((100svh-6rem)*9/16),calc(100vw-45rem))]'
     >
       <button
         type='button'
@@ -68,7 +68,7 @@ export function ShortsViewer({ video, member, position, onPrev, onNext, onClose 
       >
         <X aria-hidden className='size-5' />
       </button>
-      <div className='fixed top-4 left-4 z-10 flex gap-2 sm:top-1/2 sm:right-4 sm:left-auto sm:-translate-y-1/2 sm:flex-col'>
+      <div className='fixed right-4 bottom-4 z-10 flex gap-2 lg:top-1/2 lg:right-auto lg:bottom-auto lg:left-[calc(50%+var(--shorts-w)/2+1.5rem)] lg:-translate-y-1/2 lg:flex-col'>
         <button type='button' aria-label='이전 영상' disabled={!onPrev} onClick={onPrev} className={NAV_BUTTON}>
           <ArrowUp aria-hidden className='size-5' />
         </button>
@@ -76,9 +76,9 @@ export function ShortsViewer({ video, member, position, onPrev, onNext, onClose 
           <ArrowDown aria-hidden className='size-5' />
         </button>
       </div>
-      <div className='m-auto'>
+      <div className='m-auto lg:w-full'>
         <CoverPlayer video={video} member={member} autoplay position={position} />
-        <YouTubeNotice className='text-white/70 hover:[&_a]:text-white' />
+        <YouTubeNotice className='text-white/70 hover:[&_a]:text-white pr-28 lg:pr-0 lg:text-center' />
       </div>
     </dialog>
   );

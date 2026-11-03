@@ -74,18 +74,14 @@ export function CoverPlayer({ video, member, autoplay, position, controls, onEnd
     <div
       className={cn(
         vertical
-          ? 'sm:flex sm:items-end sm:gap-6'
+          ? 'lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-end lg:gap-6'
           : 'overflow-hidden rounded-2xl border border-border bg-surface shadow-poster',
       )}
     >
-      <div className={cn('bg-black sm:shrink-0', vertical && 'overflow-hidden rounded-2xl')}>
-        <div
-          className={
-            vertical
-              ? 'mx-auto aspect-9/16 w-[min(calc((100svh-6rem)*9/16),calc(100vw-2rem))] sm:w-[min(calc((100svh-6rem)*9/16),calc(100vw-23.5rem))]'
-              : 'aspect-video w-full'
-          }
-        >
+      <div
+        className={cn('bg-black sm:shrink-0', vertical && 'mx-auto w-fit overflow-hidden rounded-2xl lg:col-start-2')}
+      >
+        <div className={vertical ? 'mx-auto aspect-9/16 w-(--shorts-w)' : 'aspect-video w-full'}>
           <iframe
             ref={iframeRef}
             key={video.videoId}
@@ -102,7 +98,7 @@ export function CoverPlayer({ video, member, autoplay, position, controls, onEnd
       <div
         className={cn(
           'flex flex-col gap-3',
-          vertical ? 'pt-4 sm:w-80 sm:pt-0' : 'p-5 sm:flex-row sm:items-center sm:justify-between',
+          vertical ? 'pt-4 lg:max-w-80 lg:pt-0' : 'p-5 sm:flex-row sm:items-center sm:justify-between',
         )}
       >
         <div className='min-w-0'>
