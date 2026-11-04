@@ -1,6 +1,7 @@
 import { MEMBERS } from '@/shared/constants';
 import { HeroCollage } from './HeroCollage';
 import { HeroMembers } from './HeroMembers';
+import { LiveNow } from './LiveNow';
 
 const memberNames = MEMBERS.map(m => m.nameKo).join(' · ');
 
@@ -26,6 +27,7 @@ export function Hero() {
           </p>
 
           <div className='pointer-events-auto'>
+            <LiveNow />
             <HeroMembers />
           </div>
         </div>
