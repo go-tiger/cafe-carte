@@ -72,7 +72,10 @@ function CoversBody() {
   const searchParams = useSearchParams();
   const shortId = searchParams.get('short');
   const [kind, setKind] = useState<CoverKind>(shortId ? 'short' : 'cover');
-  const [filter, setFilter] = useState<Filter>('all');
+  const [filter, setFilter] = useState<Filter>(() => {
+    const memberId = searchParams.get('member');
+    return MEMBERS.some(m => m.id === memberId) ? memberId! : 'all';
+  });
   const [order, setOrder] = useState<Order>('newest');
   const [coverId, setCoverId] = useState(() => searchParams.get('cover'));
   const [autoplay, setAutoplay] = useState(false);
@@ -158,6 +161,7 @@ function CoversBody() {
               onClick={() => {
                 setFilter(f.id);
                 clearCover();
+                window.history.replaceState(null, '', member ? `?member=${member.id}` : window.location.pathname);
               }}
               data-member={member ? '' : undefined}
               style={member ? memberVars(member) : undefined}

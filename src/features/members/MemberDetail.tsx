@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react';
 import type { ComponentType, ReactNode, SVGProps } from 'react';
 import type { Member } from '@/shared/constants';
+import { MemberCovers } from '@/features/covers';
 import { MEMBER_DETAILS, BRAND_COLORS } from '@/shared/constants';
 import { asset, cn, memberVars } from '@/shared/lib';
 import { ChannelCard, DebutCounter, Emoji, LiveBadge } from '@/shared/ui';
@@ -173,6 +174,8 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
               </section>
             </div>
           )}
+
+          <MemberCovers memberId={member.id} title={<SectionTitle>Covers</SectionTitle>} />
 
           <nav
             aria-label='멤버 이동'
