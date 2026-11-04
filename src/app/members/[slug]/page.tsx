@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { SiteHeader } from '@/components';
 import { MEMBER_DETAILS, MEMBERS, SITE_NAME, SITE_OPEN_GRAPH } from '@/shared/constants';
 import { MemberDetail } from '@/features/members';
+import { OG_SIZE } from '@/shared/lib';
 
 interface MemberPageProps {
   params: Promise<{ slug: string }>;
@@ -26,7 +27,9 @@ export function generateMetadata({ params }: MemberPageProps): Promise<Metadata>
         ...SITE_OPEN_GRAPH,
         title: `${member.nameKo} · ${SITE_NAME}`,
         description,
-        images: [{ url: member.profile ?? member.avatar, alt: member.nameKo }],
+        images: [
+          { url: `/og/members/${member.id}.png`, width: OG_SIZE.width, height: OG_SIZE.height, alt: member.nameKo },
+        ],
       },
     };
   });

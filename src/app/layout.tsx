@@ -4,7 +4,7 @@ import './globals.css';
 import { ThemeProvider } from '@/shared/providers';
 import { SiteFooter } from '@/components';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_OPEN_GRAPH, SITE_ORIGIN } from '@/shared/constants';
-import { asset, BASE_PATH, cn } from '@/shared/lib';
+import { asset, BASE_PATH, cn, OG_SIZE } from '@/shared/lib';
 
 const playfair = Playfair_Display({ weight: '700', subsets: ['latin'], variable: '--font-playfair' });
 
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
     ...SITE_OPEN_GRAPH,
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
-    images: [{ url: '/logo.png', width: 512, height: 512, alt: 'Cafe Carte' }],
+    images: [{ url: '/og/site.png', width: OG_SIZE.width, height: OG_SIZE.height, alt: SITE_NAME }],
   },
-  twitter: { card: 'summary' },
+  twitter: { card: 'summary_large_image' },
 };
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
