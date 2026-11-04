@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, LayoutGrid } from 'lucide-react';
-import type { ComponentType, ReactNode, SVGProps } from 'react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, LayoutGrid } from 'lucide-react';
+import type { ComponentType, CSSProperties, ReactNode, SVGProps } from 'react';
 import type { Member } from '@/shared/constants';
 import { MemberCovers } from '@/features/covers';
 import { MEMBER_DETAILS, BRAND_COLORS } from '@/shared/constants';
@@ -56,6 +56,7 @@ function ProfileRow({ label, children }: { label: string; children: ReactNode })
 export function MemberDetail({ member, prevMember, nextMember }: MemberDetailProps) {
   const detail = MEMBER_DETAILS[member.id];
   const [fanName, fanNameNote] = detail?.fanName.split(/ (?=\()/) ?? [];
+  const [mainYoutube, ...subYoutube] = detail?.links.youtube ?? [];
 
   return (
     <>
@@ -150,16 +151,16 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
                       />
                     </li>
                   )}
-                  {detail.links.youtube?.map(yt => (
-                    <li key={yt.url}>
+                  {mainYoutube && (
+                    <li>
                       <ChannelCard
-                        href={yt.url}
+                        href={mainYoutube.url}
                         icon={SNS_ICONS.youtube}
                         brand={BRAND_COLORS.youtube}
-                        label={`${SNS_LABELS.youtube} · ${yt.label}`}
+                        label={SNS_LABELS.youtube}
                       />
                     </li>
-                  ))}
+                  )}
                   {detail.links.x && (
                     <li>
                       <ChannelCard
@@ -171,6 +172,33 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
                     </li>
                   )}
                 </ul>
+                {subYoutube.length > 0 && (
+                  <ul aria-label='유튜브 보조 채널' className='flex flex-wrap gap-2'>
+                    {subYoutube.map(yt => (
+                      <li key={yt.url}>
+                        <a
+                          href={yt.url}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                          className='inline-flex min-h-10 items-center gap-1.5 rounded-full border border-border px-4 text-sm font-bold text-text-muted transition-colors hover:bg-surface-2 hover:text-text'
+                        >
+                          <YoutubeIcon
+                            aria-hidden
+                            className='size-4'
+                            style={
+                              {
+                                color: BRAND_COLORS.youtube.color,
+                                '--yt-notch': BRAND_COLORS.youtube.ink,
+                              } as CSSProperties
+                            }
+                          />
+                          {yt.label}
+                          <ArrowUpRight aria-hidden className='size-3.5' />
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </section>
             </div>
           )}
