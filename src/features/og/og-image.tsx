@@ -4,7 +4,6 @@ import { ImageResponse } from 'next/og';
 import { MEMBER_DETAILS, MEMBERS, type Member } from '@/shared/constants';
 import { OG_SIZE } from '@/shared/lib';
 
-const FONT_BASE = 'https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF';
 const CREAM = '#fdfaf5';
 const INK = '#2a2420';
 const MUTED = '#6f655c';
@@ -15,10 +14,8 @@ async function publicImage(path: string, mime: string): Promise<string> {
   return `data:${mime};base64,${data.toString('base64')}`;
 }
 
-async function loadFont(weight: string): Promise<ArrayBuffer> {
-  const res = await fetch(`${FONT_BASE}-${weight}.ttf`);
-  if (!res.ok) throw new Error(`OG 글꼴을 받지 못했습니다: ${weight} (${res.status})`);
-  return res.arrayBuffer();
+async function loadFont(weight: string): Promise<Buffer> {
+  return readFile(join(process.cwd(), 'node_modules/nanumsquareneo/ttf', `NanumSquareNeo-${weight}.ttf`));
 }
 
 async function render(node: React.ReactElement) {
