@@ -8,24 +8,37 @@ import { useCovers } from './useCovers';
 
 const COUNT = 3;
 
+const MORE_LINK = 'inline-flex min-h-10 items-center gap-1 text-sm font-bold text-accent hover:underline';
+
 export function MemberCovers({ memberId, title }: { memberId: string; title: ReactNode }) {
   const covers = useCovers();
-  const all = covers.status === 'ready' ? covers.items.filter(v => v.kind === 'cover' && v.memberId === memberId) : [];
+  const items = covers.status === 'ready' ? covers.items.filter(v => v.memberId === memberId) : [];
+  const all = items.filter(v => v.kind === 'cover');
+  const shortCount = items.length - all.length;
 
-  if (covers.status === 'error' || (covers.status === 'ready' && all.length === 0)) return null;
+  if (covers.status === 'error' || (covers.status === 'ready' && items.length === 0)) return null;
 
   return (
     <section className='flex flex-col gap-6 px-6 pb-6 sm:px-10 sm:pb-10'>
       {title}
-      <CoverLinkGrid videos={covers.status === 'ready' ? all.slice(0, COUNT) : null} skeletonCount={COUNT} />
+      {(covers.status === 'loading' || all.length > 0) && (
+        <CoverLinkGrid videos={covers.status === 'ready' ? all.slice(0, COUNT) : null} skeletonCount={COUNT} />
+      )}
       {covers.status === 'ready' && (
-        <Link
-          href={`/covers?member=${memberId}`}
-          className='inline-flex min-h-10 items-center gap-1 self-end text-sm font-bold text-accent hover:underline'
-        >
-          커버곡 {all.length}곡 모두 보기
-          <ArrowRight aria-hidden className='size-4' />
-        </Link>
+        <div className='flex flex-wrap justify-end gap-x-6'>
+          {shortCount > 0 && (
+            <Link href={`/covers?member=${memberId}&kind=short`} className={MORE_LINK}>
+              노래 쇼츠 {shortCount}개 보기
+              <ArrowRight aria-hidden className='size-4' />
+            </Link>
+          )}
+          {all.length > 0 && (
+            <Link href={`/covers?member=${memberId}`} className={MORE_LINK}>
+              커버곡 {all.length}곡 모두 보기
+              <ArrowRight aria-hidden className='size-4' />
+            </Link>
+          )}
+        </div>
       )}
     </section>
   );

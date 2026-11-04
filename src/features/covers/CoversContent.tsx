@@ -71,7 +71,7 @@ function CoversBody() {
   const covers = useCovers();
   const searchParams = useSearchParams();
   const shortId = searchParams.get('short');
-  const [kind, setKind] = useState<CoverKind>(shortId ? 'short' : 'cover');
+  const [kind, setKind] = useState<CoverKind>(shortId || searchParams.get('kind') === 'short' ? 'short' : 'cover');
   const [filter, setFilter] = useState<Filter>(() => {
     const memberId = searchParams.get('member');
     return MEMBERS.some(m => m.id === memberId) ? memberId! : 'all';
@@ -113,6 +113,13 @@ function CoversBody() {
     setCoverId(null);
     setAutoplay(false);
   };
+  const syncListUrl = (nextKind: CoverKind, nextFilter: Filter) => {
+    const params = new URLSearchParams();
+    if (MEMBERS.some(m => m.id === nextFilter)) params.set('member', nextFilter);
+    if (nextKind === 'short') params.set('kind', 'short');
+    const query = params.toString();
+    window.history.replaceState(null, '', query ? `?${query}` : window.location.pathname);
+  };
   const currentIndex = current ? visible.indexOf(current) : -1;
   const prevCover = visible[currentIndex - 1];
   const nextCover = visible[currentIndex + 1];
@@ -133,6 +140,7 @@ function CoversBody() {
             onClick={() => {
               setKind(k.id);
               clearCover();
+              syncListUrl(k.id, filter);
             }}
             className={cn(
               'min-h-10 rounded-full px-5 text-sm font-bold transition-colors',
@@ -161,7 +169,7 @@ function CoversBody() {
               onClick={() => {
                 setFilter(f.id);
                 clearCover();
-                window.history.replaceState(null, '', member ? `?member=${member.id}` : window.location.pathname);
+                syncListUrl(kind, f.id);
               }}
               data-member={member ? '' : undefined}
               style={member ? memberVars(member) : undefined}
