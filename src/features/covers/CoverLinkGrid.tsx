@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { MEMBERS } from '@/shared/constants';
-import { memberVars } from '@/shared/lib';
+import { cn, memberVars } from '@/shared/lib';
 import { formatDuration } from './CoverCard';
 import type { CoverVideo } from './useCovers';
 
@@ -13,7 +13,7 @@ interface CoverLinkGridProps {
 
 export function CoverLinkGrid({ videos, skeletonCount, className }: CoverLinkGridProps) {
   return (
-    <ul className={`grid grid-cols-1 gap-4 sm:grid-cols-3 ${className ?? ''}`}>
+    <ul className={cn('grid grid-cols-1 gap-4 sm:grid-cols-3', className)}>
       {!videos
         ? Array.from({ length: skeletonCount }, (_, i) => (
             <li key={i} aria-hidden className='flex gap-3 motion-safe:animate-pulse sm:flex-col'>

@@ -91,25 +91,34 @@ function CoversBody() {
   const selected = visible.find(v => v.videoId === (kind === 'short' ? shortId : coverId));
   const current = selected ?? visible[0];
   const selectedIndex = selected ? visible.indexOf(selected) : -1;
+  const setQuery = (changes: Record<string, string | null>, push = false) => {
+    const params = new URLSearchParams(window.location.search);
+    for (const [key, value] of Object.entries(changes)) {
+      if (value === null) params.delete(key);
+      else params.set(key, value);
+    }
+    const query = params.toString();
+    window.history[push ? 'pushState' : 'replaceState'](null, '', query ? `?${query}` : window.location.pathname);
+  };
   const moveTo = (index: number) => {
     const video = visible[index];
-    return video && (() => window.history.replaceState(null, '', `?short=${video.videoId}`));
+    return video && (() => setQuery({ short: video.videoId }));
   };
   const closeViewer = () => {
     if (openedFromList.current) {
       openedFromList.current = false;
       window.history.back();
     } else {
-      window.history.replaceState(null, '', window.location.pathname);
+      setQuery({ short: null });
     }
   };
   const selectCover = (videoId: string) => {
     setCoverId(videoId);
     setAutoplay(true);
-    window.history.replaceState(null, '', `?cover=${videoId}`);
+    setQuery({ cover: videoId });
   };
   const clearCover = () => {
-    if (coverId) window.history.replaceState(null, '', window.location.pathname);
+    if (coverId) setQuery({ cover: null });
     setCoverId(null);
     setAutoplay(false);
   };
@@ -304,7 +313,7 @@ function CoversBody() {
                     active={selected?.videoId === v.videoId}
                     onSelect={() => {
                       openedFromList.current = true;
-                      window.history.pushState(null, '', `?short=${v.videoId}`);
+                      setQuery({ short: v.videoId }, true);
                     }}
                   />
                 </li>

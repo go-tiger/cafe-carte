@@ -26,15 +26,15 @@ export function MemberCovers({ memberId, title }: { memberId: string; title: Rea
       )}
       {covers.status === 'ready' && (
         <div className='flex flex-wrap justify-end gap-x-6'>
-          {shortCount > 0 && (
-            <Link href={`/covers?member=${memberId}&kind=short`} className={MORE_LINK}>
-              노래 쇼츠 {shortCount}개 보기
+          {all.length > 0 && (
+            <Link href={`/covers?member=${memberId}`} className={MORE_LINK}>
+              커버곡 {all.length}곡 보러가기
               <ArrowRight aria-hidden className='size-4' />
             </Link>
           )}
-          {all.length > 0 && (
-            <Link href={`/covers?member=${memberId}`} className={MORE_LINK}>
-              커버곡 {all.length}곡 모두 보기
+          {shortCount > 0 && (
+            <Link href={`/covers?member=${memberId}&kind=short`} className={MORE_LINK}>
+              노래 쇼츠 {shortCount}개 보러가기
               <ArrowRight aria-hidden className='size-4' />
             </Link>
           )}
