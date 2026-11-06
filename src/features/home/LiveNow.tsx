@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
 import { MEMBER_DETAILS, MEMBERS, type Member } from '@/shared/constants';
 import { asset, getChzzkChannelId, memberVars, useChzzkLive } from '@/shared/lib';
+import { LivePill } from '@/shared/ui';
 
 function LiveMember({ member }: { member: Member }) {
   const status = useChzzkLive(getChzzkChannelId(MEMBER_DETAILS[member.id]?.links.chzzk));
@@ -27,10 +28,7 @@ function LiveMember({ member }: { member: Member }) {
         >
           <Image src={asset(member.avatar)} alt='' fill sizes='36px' className='object-cover' />
         </span>
-        <span className='inline-flex items-center gap-1.5 rounded-full bg-red-600 px-2 py-0.5 text-xs font-bold text-white'>
-          <span aria-hidden className='size-1.5 animate-pulse rounded-full bg-white motion-reduce:animate-none' />
-          LIVE
-        </span>
+        <LivePill />
         <span className='font-heavy text-sm text-member-text'>{member.nameKo}</span>
         <ArrowUpRight aria-hidden className='size-4 shrink-0 text-text-muted' />
       </a>

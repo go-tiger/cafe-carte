@@ -1,6 +1,8 @@
 'use client';
 
-import { cn, getChzzkChannelId, useChzzkLive } from '@/shared/lib';
+import type { ReactNode } from 'react';
+import { ArrowUpRight } from 'lucide-react';
+import { getChzzkChannelId, useChzzkLive } from '@/shared/lib';
 
 interface LiveBadgeProps {
   chzzkUrl: string | undefined;
@@ -8,8 +10,15 @@ interface LiveBadgeProps {
   asLink?: boolean;
 }
 
-const BADGE_CLASS =
-  'inline-flex w-fit items-center gap-1.5 rounded-full bg-red-600 px-3 py-1 text-xs font-bold text-white';
+export function LivePill({ children }: { children?: ReactNode }) {
+  return (
+    <span className='inline-flex w-fit shrink-0 items-center gap-1.5 rounded-full bg-live px-3 py-1 text-xs font-bold text-white'>
+      <span aria-hidden className='size-1.5 animate-pulse rounded-full bg-white motion-reduce:animate-none' />
+      LIVE
+      {children}
+    </span>
+  );
+}
 
 export function LiveBadge({ chzzkUrl, asLink = false }: LiveBadgeProps) {
   const channelId = getChzzkChannelId(chzzkUrl);
@@ -17,14 +26,7 @@ export function LiveBadge({ chzzkUrl, asLink = false }: LiveBadgeProps) {
 
   if (!status?.openLive) return null;
 
-  const content = (
-    <>
-      <span aria-hidden className='size-1.5 animate-pulse rounded-full bg-white motion-reduce:animate-none' />
-      LIVE
-    </>
-  );
-
-  if (!asLink) return <span className={BADGE_CLASS}>{content}</span>;
+  if (!asLink) return <LivePill />;
 
   return (
     <a
@@ -32,9 +34,11 @@ export function LiveBadge({ chzzkUrl, asLink = false }: LiveBadgeProps) {
       target='_blank'
       rel='noopener noreferrer'
       aria-label='치지직에서 라이브 방송 보기'
-      className={cn(BADGE_CLASS, 'transition-opacity hover:opacity-80')}
+      className='rounded-full transition-opacity hover:opacity-80'
     >
-      {content}
+      <LivePill>
+        <ArrowUpRight aria-hidden className='size-3' />
+      </LivePill>
     </a>
   );
 }

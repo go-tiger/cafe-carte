@@ -75,6 +75,7 @@
   --color-member-text: var(--member-text);
   --color-member-hero: var(--member-hero);
   --color-member-hero-text: var(--member-hero-text);
+  --color-live: var(--live);
 
   /* 제목용: 영문은 Playfair Display, 한글은 본문 폰트로 폴백 */
   --font-display: var(--font-playfair), var(--font-sans);
@@ -90,6 +91,7 @@
   --text-muted: var(--palette-ink-700);
   --accent: var(--palette-green-500);
   --accent-ink: var(--palette-green-ink-light);
+  --live: #dc2626;
   --shadow-poster: 0 18px 40px -18px rgba(62, 119, 102, 0.35);
 }
 
