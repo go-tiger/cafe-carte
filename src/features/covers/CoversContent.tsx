@@ -37,7 +37,7 @@ const FILTERS: { id: Filter; label: string }[] = [
 
 function CoversSkeleton() {
   return (
-    <div aria-hidden className='mt-8 motion-safe:animate-pulse lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-8'>
+    <div aria-hidden className='mt-8 motion-safe:animate-pulse lg:grid lg:grid-cols-[minmax(0,1fr)_25rem] lg:gap-8'>
       <div className='aspect-video rounded-2xl bg-surface-2' />
       <div className='mt-6 grid gap-3 lg:mt-0'>
         {Array.from({ length: 4 }, (_, i) => (
@@ -58,8 +58,10 @@ export function CoversContent() {
   return (
     <div className='mx-auto max-w-5xl'>
       <p className='text-xs font-bold tracking-eyebrow text-text-muted'>COVERS</p>
-      <h1 className='mt-2 font-display font-heavy text-3xl tracking-tight sm:text-4xl'>커버곡</h1>
-      <p className='mt-3 max-w-md text-sm text-text-muted'>공식 채널과 멤버 채널의 커버곡을 모아 들을 수 있어요.</p>
+      <div className='mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-3'>
+        <h1 className='font-display font-heavy text-3xl tracking-tight sm:text-4xl'>커버곡</h1>
+        <p className='text-sm text-text-muted'>공식 채널과 멤버 채널의 커버곡을 모아 들을 수 있어요.</p>
+      </div>
 
       <Suspense fallback={<CoversSkeleton />}>
         <CoversBody />
@@ -137,69 +139,71 @@ function CoversBody() {
 
   return (
     <>
-      <div
-        role='group'
-        aria-label='영상 종류'
-        className='mt-8 inline-flex rounded-full border border-border bg-surface p-1'
-      >
-        {KINDS.map(k => (
-          <button
-            key={k.id}
-            type='button'
-            aria-pressed={kind === k.id}
-            onClick={() => {
-              setKind(k.id);
-              clearCover();
-              syncListUrl(k.id, filter);
-            }}
-            className={cn(
-              'min-h-10 rounded-full px-5 text-sm font-bold transition-colors',
-              kind === k.id ? 'bg-text text-bg' : 'text-text-muted hover:text-text',
-            )}
-          >
-            {k.label}
-            {covers.status === 'ready' && (
-              <span className='ml-1.5 font-normal opacity-70'>{items.filter(v => v.kind === k.id).length}</span>
-            )}
-          </button>
-        ))}
-      </div>
-
-      <div role='group' aria-label='채널 필터' className='mt-4 flex flex-wrap gap-2'>
-        {FILTERS.map(f => {
-          const member = memberOf(f.id);
-          const active = filter === f.id;
-          const count = ofKind.filter(v => matches(f.id, v.memberId)).length;
-          return (
+      <div className='mt-8 flex flex-col items-start gap-4 lg:mt-6 lg:gap-2.5'>
+        <div
+          role='group'
+          aria-label='영상 종류'
+          className='inline-flex shrink-0 rounded-full border border-border bg-surface p-1'
+        >
+          {KINDS.map(k => (
             <button
-              key={f.id}
+              key={k.id}
               type='button'
-              aria-pressed={active}
-              disabled={covers.status === 'ready' && count === 0 && !active}
+              aria-pressed={kind === k.id}
               onClick={() => {
-                setFilter(f.id);
+                setKind(k.id);
                 clearCover();
-                syncListUrl(kind, f.id);
+                syncListUrl(k.id, filter);
               }}
-              data-member={member ? '' : undefined}
-              style={member ? memberVars(member) : undefined}
               className={cn(
-                'min-h-10 rounded-full border px-4 text-sm font-bold transition-colors disabled:opacity-40',
-                active
-                  ? 'border-transparent bg-accent text-accent-ink'
-                  : 'border-border bg-surface text-text-muted hover:text-text',
-                active && member && 'bg-(--m-color) text-(--m-ink)',
+                'min-h-10 rounded-full px-5 text-sm font-bold transition-colors lg:min-h-8 lg:px-4',
+                kind === k.id ? 'bg-text text-bg' : 'text-text-muted hover:text-text',
               )}
             >
-              {f.label}
-              {covers.status === 'ready' && <span className='ml-1.5 font-normal opacity-70'>{count}</span>}
+              {k.label}
+              {covers.status === 'ready' && (
+                <span className='ml-1.5 font-normal opacity-70'>{items.filter(v => v.kind === k.id).length}</span>
+              )}
             </button>
-          );
-        })}
+          ))}
+        </div>
+
+        <div role='group' aria-label='채널 필터' className='flex flex-wrap gap-2'>
+          {FILTERS.map(f => {
+            const member = memberOf(f.id);
+            const active = filter === f.id;
+            const count = ofKind.filter(v => matches(f.id, v.memberId)).length;
+            return (
+              <button
+                key={f.id}
+                type='button'
+                aria-pressed={active}
+                disabled={covers.status === 'ready' && count === 0 && !active}
+                onClick={() => {
+                  setFilter(f.id);
+                  clearCover();
+                  syncListUrl(kind, f.id);
+                }}
+                data-member={member ? '' : undefined}
+                style={member ? memberVars(member) : undefined}
+                className={cn(
+                  'min-h-10 rounded-full border px-4 text-sm font-bold transition-colors disabled:opacity-40 lg:min-h-8 lg:px-3',
+                  active
+                    ? 'border-transparent bg-accent text-accent-ink'
+                    : 'border-border bg-surface text-text-muted hover:text-text',
+                  active && member && 'bg-(--m-color) text-(--m-ink)',
+                )}
+              >
+                {f.label}
+                {covers.status === 'ready' && <span className='ml-1.5 font-normal opacity-70'>{count}</span>}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {covers.status === 'ready' && covers.updatedAt && (
-        <p className='mt-3 text-xs text-text-muted'>
+        <p className='mt-3 text-xs text-text-muted lg:hidden'>
           목록 업데이트 {relativeTime(covers.updatedAt)}, 30분마다 갱신돼요
         </p>
       )}
@@ -228,7 +232,7 @@ function CoversBody() {
           )}
 
           {current && kind === 'cover' && (
-            <div className='mt-8 lg:mt-10 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-x-8'>
+            <div className='mt-8 lg:mt-10 lg:grid lg:grid-cols-[minmax(0,1fr)_25rem] lg:gap-x-8'>
               <div ref={playerRef} className='scroll-mt-32'>
                 <CoverPlayer
                   video={current}
@@ -264,7 +268,15 @@ function CoversBody() {
               <div className='relative mt-6 lg:col-start-2 lg:row-start-1 lg:mt-0'>
                 <div className='lg:absolute lg:inset-0 lg:flex lg:flex-col'>
                   <div className='mb-2 flex items-center justify-between px-2 lg:absolute lg:inset-x-0 lg:bottom-full'>
-                    <p className='text-sm font-bold'>{visible.length}곡</p>
+                    <p className='text-sm font-bold'>
+                      {visible.length}곡
+                      {covers.updatedAt && (
+                        <span className='hidden font-normal text-text-muted lg:inline'>
+                          {' '}
+                          · {relativeTime(covers.updatedAt)} 갱신
+                        </span>
+                      )}
+                    </p>
                     <div role='group' aria-label='정렬' className='flex gap-3 text-sm'>
                       {ORDERS.map(o => (
                         <button
