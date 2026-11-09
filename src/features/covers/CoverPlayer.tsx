@@ -13,6 +13,7 @@ interface CoverPlayerProps {
   autoplay: boolean;
   position?: string;
   controls?: ReactNode;
+  overlay?: ReactNode;
   onEnded?: () => void;
 }
 
@@ -35,7 +36,7 @@ export function YouTubeNotice({ className }: { className?: string }) {
   );
 }
 
-export function CoverPlayer({ video, member, autoplay, position, controls, onEnded }: CoverPlayerProps) {
+export function CoverPlayer({ video, member, autoplay, position, controls, overlay, onEnded }: CoverPlayerProps) {
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const listensForEnd = onEnded !== undefined;
   const src = `${YOUTUBE_ORIGIN}/embed/${video.videoId}?rel=0${autoplay ? '&autoplay=1' : ''}${listensForEnd ? '&enablejsapi=1' : ''}`;
@@ -95,6 +96,7 @@ export function CoverPlayer({ video, member, autoplay, position, controls, onEnd
             onLoad={subscribe}
             className='relative size-full'
           />
+          {overlay}
         </div>
       </div>
       <div

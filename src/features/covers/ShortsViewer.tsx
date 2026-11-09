@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, type MouseEvent } from 'react';
+import { useEffect, useRef, useState, type MouseEvent, type WheelEvent } from 'react';
 import { ArrowDown, ArrowUp, X } from 'lucide-react';
 import type { Member } from '@/shared/constants';
 import { cn } from '@/shared/lib';
@@ -21,6 +21,8 @@ const NAV_BUTTON =
 
 export function ShortsViewer({ video, member, position, onPrev, onNext, onClose }: ShortsViewerProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const lastWheelAt = useRef(0);
+  const [releasedId, setReleasedId] = useState<string | null>(null);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -48,6 +50,16 @@ export function ShortsViewer({ video, member, position, onPrev, onNext, onClose 
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [onPrev, onNext]);
 
+  const moveOnWheel = (e: WheelEvent<HTMLDialogElement>) => {
+    const isNewGesture = e.timeStamp - lastWheelAt.current > 300;
+    lastWheelAt.current = e.timeStamp;
+    const dialog = e.currentTarget;
+    const down = e.deltaY > 0;
+    const canScroll = down ? dialog.scrollTop + dialog.clientHeight < dialog.scrollHeight - 1 : dialog.scrollTop > 0;
+    if (!isNewGesture || canScroll || e.deltaY === 0) return;
+    (down ? onNext : onPrev)?.();
+  };
+
   const closeOnBackdrop = (e: MouseEvent<HTMLDialogElement>) => {
     if (e.target === dialogRef.current) dialogRef.current?.close();
   };
@@ -58,6 +70,7 @@ export function ShortsViewer({ video, member, position, onPrev, onNext, onClose 
       aria-label={video.title}
       onClose={onClose}
       onClick={closeOnBackdrop}
+      onWheel={moveOnWheel}
       className='fixed inset-0 m-0 h-dvh max-h-none w-full max-w-none overflow-y-auto bg-black p-4 pt-16 pb-20 text-white [--shorts-w:min(calc((100svh-16rem)*9/16),calc(100vw-2rem))] open:flex lg:pt-4 lg:pb-4 lg:[--shorts-w:min(calc((100svh-6rem)*9/16),calc(100vw-45rem))]'
     >
       <button
@@ -77,7 +90,18 @@ export function ShortsViewer({ video, member, position, onPrev, onNext, onClose 
         </button>
       </div>
       <div className='m-auto lg:w-full'>
-        <CoverPlayer video={video} member={member} autoplay position={position} onEnded={onNext} />
+        <CoverPlayer
+          video={video}
+          member={member}
+          autoplay
+          position={position}
+          onEnded={onNext}
+          overlay={
+            releasedId !== video.videoId && (
+              <div aria-hidden className='absolute inset-0' onClick={() => setReleasedId(video.videoId)} />
+            )
+          }
+        />
         <YouTubeNotice className='text-white/70 hover:[&_a]:text-white pr-28 lg:pr-0 lg:text-center' />
       </div>
     </dialog>
