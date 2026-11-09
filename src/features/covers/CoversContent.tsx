@@ -9,6 +9,7 @@ import { relativeTime } from '@/shared/lib/relative-time';
 import { CoverCard } from './CoverCard';
 import { CoverPlayer, YouTubeNotice } from './CoverPlayer';
 import { CoverRow } from './CoverRow';
+import { CoverThumbSkeleton } from './CoverThumb';
 import { ShortsViewer } from './ShortsViewer';
 import { useCovers, type CoverKind } from './useCovers';
 
@@ -41,7 +42,7 @@ function CoversSkeleton() {
       <div className='mt-6 grid gap-3 lg:mt-0'>
         {Array.from({ length: 4 }, (_, i) => (
           <div key={i} className='flex items-center gap-3 p-2'>
-            <div className='aspect-video w-32 shrink-0 rounded-lg bg-surface-2' />
+            <CoverThumbSkeleton variant='row' />
             <div className='flex flex-1 flex-col gap-2'>
               <div className='h-3.5 w-4/5 rounded bg-surface-2' />
               <div className='h-3 w-1/3 rounded bg-surface-2' />

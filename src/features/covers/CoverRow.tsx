@@ -1,7 +1,6 @@
-import Image from 'next/image';
 import type { Member } from '@/shared/constants';
 import { cn, memberVars } from '@/shared/lib';
-import { formatDuration } from './CoverCard';
+import { CoverThumb } from './CoverThumb';
 import type { CoverVideo } from './useCovers';
 
 interface CoverRowProps {
@@ -25,19 +24,7 @@ export function CoverRow({ video, member, active, eager, onSelect }: CoverRowPro
         active ? 'bg-surface-2 ring-2 ring-accent' : 'hover:bg-surface-2',
       )}
     >
-      <span className='relative aspect-video w-32 shrink-0 overflow-hidden rounded-lg bg-surface-2'>
-        <Image
-          src={video.thumbnailUrl.replace('/hqdefault.', '/mqdefault.')}
-          alt=''
-          fill
-          loading={eager ? 'eager' : undefined}
-          sizes='128px'
-          className='object-cover'
-        />
-        <span className='absolute right-1 bottom-1 rounded bg-black/75 px-1 text-[0.6875rem] font-bold text-white'>
-          {formatDuration(video.durationSec)}
-        </span>
-      </span>
+      <CoverThumb video={video} variant='row' eager={eager} />
       <span className='flex min-w-0 flex-col gap-1'>
         <span className='line-clamp-2 text-sm font-heavy leading-snug'>{video.title}</span>
         <span className={cn('text-xs', member ? 'font-bold text-member-text' : 'text-text-muted')}>
