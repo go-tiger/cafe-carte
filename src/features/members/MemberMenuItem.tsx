@@ -15,8 +15,14 @@ export function MemberMenuItem({ member }: { member: Member }) {
       style={memberVars(member)}
       className='group flex h-full items-center gap-3 rounded-2xl border border-border bg-surface p-3 shadow-poster transition-transform hover:-translate-y-1 min-[360px]:gap-4 sm:gap-5 sm:p-4'
     >
-      <span className='relative size-20 shrink-0 overflow-hidden rounded-xl min-[360px]:size-24 sm:size-32'>
-        <Image src={asset(member.profile ?? member.avatar)} alt='' fill sizes='128px' className='object-cover' />
+      <span className='relative size-20 shrink-0 overflow-hidden rounded-xl bg-[color-mix(in_oklch,var(--m-color)_22%,white)] dark:bg-transparent min-[360px]:size-24 sm:size-32'>
+        <Image
+          src={asset(member.profile ?? member.avatar)}
+          alt=''
+          fill
+          sizes='128px'
+          className='object-cover mix-blend-multiply dark:mix-blend-normal'
+        />
       </span>
       <span className='min-w-0 flex-1'>
         <span className='flex items-baseline gap-2'>
