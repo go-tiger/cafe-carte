@@ -9,9 +9,9 @@ export function MemberIntro() {
         <p className='text-xs font-bold tracking-eyebrow text-text-muted'>MEMBERS</p>
         <h2 className='mt-2 font-display font-heavy text-3xl tracking-tight sm:text-4xl'>멤버</h2>
 
-        <ul className='mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5'>
+        <ul className='mt-10 flex flex-wrap justify-center gap-4 sm:grid sm:grid-cols-3 lg:grid-cols-5'>
           {MEMBERS.map(m => (
-            <li key={m.id}>
+            <li key={m.id} className='w-[calc(50%-0.5rem)] sm:w-auto'>
               <Link href={`/members/${m.id}`} className='block transition-transform hover:-translate-y-1'>
                 <MemberCard member={m} />
               </Link>
