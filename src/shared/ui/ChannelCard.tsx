@@ -22,10 +22,10 @@ export function ChannelCard({ href, icon: Icon, brand, label, handle }: ChannelC
       href={href}
       target='_blank'
       rel='noopener noreferrer'
-      className='group flex items-center gap-4 rounded-2xl border border-border bg-surface p-5 shadow-poster transition-transform hover:-translate-y-1'
+      className='group flex items-center gap-3 rounded-2xl border border-border bg-surface p-3.5 shadow-poster transition-transform hover:-translate-y-1 sm:gap-4 sm:p-5'
     >
-      <span className='flex size-12 shrink-0 items-center justify-center rounded-xl' style={chipStyle}>
-        <Icon className='size-6' />
+      <span className='flex size-10 shrink-0 items-center justify-center rounded-xl sm:size-12' style={chipStyle}>
+        <Icon className='size-5 sm:size-6' />
       </span>
       <span className='min-w-0 flex-1'>
         <span className='block truncate font-heavy text-lg leading-tight'>{label}</span>
