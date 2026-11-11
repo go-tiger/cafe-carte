@@ -23,11 +23,15 @@ export function MemberMenuItem({ member }: { member: Member }) {
           <span className='shrink-0 font-heavy leading-tight text-member-text min-[360px]:text-lg sm:text-xl'>
             {member.nameKo}
           </span>
-          <span aria-hidden className='min-w-2 flex-1 translate-y-[-0.2em] border-b-2 border-dotted border-border' />
-          <span className='text-right text-xs font-bold sm:text-sm'>{member.position}</span>
+          <span
+            aria-hidden
+            className='hidden min-w-2 flex-1 translate-y-[-0.2em] border-b-2 border-dotted border-border sm:block'
+          />
+          <span className='hidden text-right text-sm font-bold sm:inline'>{member.position}</span>
         </span>
-        <span className='mt-1 flex items-center gap-2 text-xs text-text-muted'>
+        <span className='mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-text-muted'>
           {member.name}
+          <span className='font-bold text-text sm:hidden'>{member.position}</span>
           <LiveBadge chzzkUrl={details?.links.chzzk} />
         </span>
         {details?.bio && <span className='mt-2 line-clamp-2 text-sm text-text-muted'>{details.bio}</span>}
