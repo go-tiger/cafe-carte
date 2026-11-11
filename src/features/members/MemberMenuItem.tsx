@@ -25,10 +25,11 @@ export function MemberMenuItem({ member }: { member: Member }) {
         />
       </span>
       <span className='min-w-0 flex-1'>
-        <span className='flex items-baseline gap-2'>
+        <span className='flex flex-wrap items-baseline gap-x-2 gap-y-1 sm:flex-nowrap'>
           <span className='shrink-0 font-heavy leading-tight text-member-text min-[360px]:text-lg sm:text-xl'>
             {member.nameKo}
           </span>
+          <LiveBadge chzzkUrl={details?.links.chzzk} />
           <span
             aria-hidden
             className='hidden min-w-2 flex-1 translate-y-[-0.2em] border-b-2 border-dotted border-border sm:block'
@@ -38,7 +39,6 @@ export function MemberMenuItem({ member }: { member: Member }) {
         <span className='mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-text-muted'>
           {member.name}
           <span className='font-bold text-text sm:hidden'>{member.position}</span>
-          <LiveBadge chzzkUrl={details?.links.chzzk} />
         </span>
         {details?.bio && <span className='mt-2 line-clamp-2 text-sm text-text-muted'>{details.bio}</span>}
       </span>
