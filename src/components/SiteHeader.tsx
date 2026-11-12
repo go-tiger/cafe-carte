@@ -53,7 +53,7 @@ export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: bo
                 <Link
                   href={link.href}
                   className={cn(
-                    'text-[11px] font-bold tracking-wide transition-colors sm:text-xs sm:tracking-[0.15em]',
+                    'inline-flex h-10 items-center text-[11px] font-bold tracking-wide transition-colors sm:text-xs sm:tracking-[0.15em]',
                     active ? 'text-accent' : 'text-text-muted hover:text-text',
                   )}
                 >
