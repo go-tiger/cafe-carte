@@ -96,7 +96,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
         </div>
       </div>
 
-      <div className='mx-auto max-w-5xl px-6 sm:px-10'>
+      <div className='mx-auto box-content max-w-5xl px-6 sm:px-10'>
         <article className='mt-10 overflow-hidden rounded-2xl border border-border bg-surface shadow-poster'>
           {detail && (
             <div className='grid grid-cols-1 gap-10 p-6 sm:p-10 lg:grid-cols-2'>
