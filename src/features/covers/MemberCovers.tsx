@@ -19,7 +19,7 @@ export function MemberCovers({ memberId, title }: { memberId: string; title: Rea
   if (covers.status === 'error' || (covers.status === 'ready' && items.length === 0)) return null;
 
   return (
-    <section className='flex flex-col gap-6 px-6 pb-6 sm:px-10 sm:pb-10'>
+    <section className='flex flex-col gap-6 px-4 pb-4 sm:px-10 sm:pb-10'>
       {title}
       {(covers.status === 'loading' || all.length > 0) && (
         <CoverLinkGrid videos={covers.status === 'ready' ? all.slice(0, COUNT) : null} skeletonCount={COUNT} />

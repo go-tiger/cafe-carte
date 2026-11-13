@@ -63,7 +63,7 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
       <div
         data-member
         style={memberVars(member)}
-        className='border-b border-border bg-member-hero px-6 pt-32 pb-10 sm:px-10'
+        className='border-b border-border bg-member-hero px-4 pt-32 pb-10 sm:px-10'
       >
         <div className='mx-auto flex max-w-5xl flex-col gap-8 sm:flex-row sm:items-end'>
           <div
@@ -96,10 +96,10 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
         </div>
       </div>
 
-      <div className='mx-auto box-content max-w-5xl px-6 sm:px-10'>
+      <div className='mx-auto box-content max-w-5xl px-4 sm:px-10'>
         <article className='mt-10 overflow-hidden rounded-2xl border border-border bg-surface shadow-poster'>
           {detail && (
-            <div className='grid grid-cols-1 gap-10 p-6 sm:p-10 lg:grid-cols-2'>
+            <div className='grid grid-cols-1 gap-10 p-4 sm:p-10 lg:grid-cols-2'>
               <section className='flex flex-col gap-4'>
                 <SectionTitle>Profile</SectionTitle>
                 <dl className='flex flex-col gap-3'>
