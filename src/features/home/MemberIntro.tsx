@@ -12,7 +12,7 @@ export function MemberIntro() {
         <ul className='mt-10 flex flex-wrap justify-center gap-4 sm:grid sm:grid-cols-3 lg:grid-cols-5'>
           {MEMBERS.map(m => (
             <li key={m.id} className='w-[calc(50%-0.5rem)] sm:w-auto'>
-              <Link href={`/members/${m.id}`} className='block transition-transform hover:-translate-y-1'>
+              <Link href={`/members/${m.id}`} className='block h-full transition-transform hover:-translate-y-1'>
                 <MemberCard member={m} />
               </Link>
             </li>
