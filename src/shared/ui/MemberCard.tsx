@@ -23,7 +23,7 @@ export function MemberCard({ member }: MemberCardProps) {
           <LiveBadge chzzkUrl={chzzkUrl} />
         </div>
       </div>
-      <div className='flex flex-1 flex-col gap-1 p-4'>
+      <div className='flex flex-1 flex-col gap-1 p-3 min-[360px]:p-4'>
         <span className='font-heavy leading-tight text-member-text'>{member.nameKo}</span>
         <span className='text-xs text-text-muted'>{member.name}</span>
         <span className='mt-0.5 text-xs text-text-muted'>{member.position}</span>

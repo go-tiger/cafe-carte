@@ -215,10 +215,12 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
               style={memberVars(prevMember)}
               className='flex min-h-14 min-w-0 flex-1 items-center gap-2 rounded-xl px-1 transition-colors hover:bg-border/50 sm:gap-3 sm:px-2'
             >
-              <ArrowLeft aria-hidden className='size-5 shrink-0 text-text-muted' />
+              <ArrowLeft aria-hidden className='hidden size-5 shrink-0 text-text-muted min-[360px]:block' />
               <span className='flex min-w-0 flex-col'>
                 <span className='text-xs text-text-muted'>이전 멤버</span>
-                <span className='font-heavy leading-tight text-member-text sm:truncate'>{prevMember.nameKo}</span>
+                <span className='text-sm font-heavy leading-tight text-member-text min-[360px]:text-base sm:truncate'>
+                  {prevMember.nameKo}
+                </span>
               </span>
             </Link>
             <span aria-hidden className='h-8 w-px shrink-0 bg-border' />
@@ -239,9 +241,11 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
             >
               <span className='flex min-w-0 flex-col'>
                 <span className='text-xs text-text-muted'>다음 멤버</span>
-                <span className='font-heavy leading-tight text-member-text sm:truncate'>{nextMember.nameKo}</span>
+                <span className='text-sm font-heavy leading-tight text-member-text min-[360px]:text-base sm:truncate'>
+                  {nextMember.nameKo}
+                </span>
               </span>
-              <ArrowRight aria-hidden className='size-5 shrink-0 text-text-muted' />
+              <ArrowRight aria-hidden className='hidden size-5 shrink-0 text-text-muted min-[360px]:block' />
             </Link>
           </nav>
         </article>
