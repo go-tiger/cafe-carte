@@ -1,7 +1,7 @@
 import type { MemberDetail } from './types';
 
 export const uuhee: MemberDetail = {
-  bio: '카페 카르테의 마스코트 지박령❕',
+  bio: '카페 카르테의 마스코트 지박령!',
   age: '2026세',
   anniversary: '11월 2일',
   anniversaryLabel: '기념일',
