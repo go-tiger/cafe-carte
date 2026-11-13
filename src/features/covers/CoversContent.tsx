@@ -294,7 +294,7 @@ function CoversBody() {
                       ))}
                     </div>
                   </div>
-                  <ul className='grid gap-1 sm:grid-cols-2 lg:min-h-0 lg:flex-1 lg:grid-cols-1 lg:overflow-y-auto lg:p-1'>
+                  <ul className='grid gap-1 sm:grid-cols-2 lg:min-h-0 lg:flex-1 lg:grid-cols-1 lg:overflow-y-auto lg:p-1 lg:pb-12 lg:mask-[linear-gradient(to_bottom,#000_calc(100%-3rem),transparent)]'>
                     {visible.map((v, index) => (
                       <li key={v.videoId}>
                         <CoverRow
