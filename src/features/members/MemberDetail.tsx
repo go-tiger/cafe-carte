@@ -82,8 +82,8 @@ export function MemberDetail({ member, prevMember, nextMember }: MemberDetailPro
             />
           </div>
 
-          <div className='flex flex-col gap-3 pb-2 text-member-hero-text'>
-            <div className='flex flex-wrap items-center gap-2'>
+          <div className='flex flex-col items-center gap-3 pb-2 text-center text-member-hero-text sm:items-start sm:text-left'>
+            <div className='flex flex-wrap items-center justify-center gap-2 sm:justify-start'>
               <span className='rounded-full border border-current px-3 py-1 text-xs font-bold tracking-widest'>
                 {member.position}
               </span>
