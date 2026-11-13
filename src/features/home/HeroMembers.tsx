@@ -26,7 +26,7 @@ export function HeroMembers() {
           />
         </li>
       ))}
-      <li className='relative aspect-179/236 overflow-hidden rounded-xl bg-white shadow-poster sm:hidden'>
+      <li className='relative aspect-179/236 overflow-hidden rounded-xl bg-white shadow-poster sm:hidden dark:brightness-90 dark:sepia-[.25]'>
         <Image src={asset('/logo.png')} alt='' fill sizes='33vw' className='object-cover' />
       </li>
     </ul>

@@ -63,7 +63,7 @@ export function HeroCollage() {
         </div>
       ))}
       <div className='slot slot-static relative aspect-179/236'>
-        <div className='inner relative h-full w-full overflow-hidden rounded-2xl bg-white shadow-poster'>
+        <div className='inner relative h-full w-full overflow-hidden rounded-2xl bg-white shadow-poster dark:brightness-90 dark:sepia-[.25]'>
           <Image src={asset('/logo.png')} alt='' fill sizes='220px' className='object-cover' />
         </div>
       </div>
