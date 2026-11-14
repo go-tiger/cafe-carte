@@ -7,8 +7,8 @@ const memberNames = MEMBERS.map(m => m.nameKo).join(' · ');
 
 export function Hero() {
   return (
-    <section className='relative flex min-h-svh flex-col justify-start overflow-hidden px-4 pt-28 pb-16 lg:h-screen lg:justify-center'>
-      <div className='relative mx-auto w-full max-w-5xl'>
+    <section className='relative flex min-h-svh flex-col justify-start overflow-hidden px-4 pt-28 pb-16 lg:min-h-0 lg:justify-center lg:pt-32 lg:pb-20'>
+      <div className='relative mx-auto w-full max-w-5xl lg:flex lg:min-h-124 lg:items-center'>
         <HeroCollage />
 
         <div className='pointer-events-none relative z-10 w-full max-w-2xl'>
