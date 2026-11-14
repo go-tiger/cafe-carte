@@ -84,7 +84,7 @@ export function CoverPlayer({ video, member, autoplay, position, controls, overl
         className={cn('bg-black sm:shrink-0', vertical && 'mx-auto w-fit overflow-hidden rounded-2xl lg:col-start-2')}
       >
         <div className={vertical ? 'relative mx-auto aspect-9/16 w-(--shorts-w)' : 'relative aspect-video w-full'}>
-          <Image src={video.thumbnailUrl} alt='' fill sizes='400px' className='object-cover' />
+          <Image src={video.thumbnailUrl} alt='' fill loading='eager' sizes='400px' className='object-cover' />
           <iframe
             ref={iframeRef}
             key={video.videoId}
