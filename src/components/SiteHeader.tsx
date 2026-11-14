@@ -11,7 +11,6 @@ import { AnniversaryBanner } from './AnniversaryBanner';
 const NAV_LINKS = [
   { href: '/members', label: 'MEMBERS' },
   { href: '/covers', label: 'COVERS' },
-  { href: '/credits', label: 'CREDITS' },
 ];
 
 export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: boolean }) {
