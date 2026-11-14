@@ -11,7 +11,7 @@ export function Hero() {
       <div className='relative mx-auto w-full max-w-5xl lg:flex lg:min-h-124 lg:items-center'>
         <HeroCollage />
 
-        <div className='pointer-events-none relative z-10 w-full max-w-2xl'>
+        <div className='pointer-events-none relative z-10 w-full max-w-2xl lg:max-w-[min(42rem,calc(100%-min(42vw,35rem)-2.5rem))]'>
           <p className='mb-3 w-fit text-xs font-bold tracking-eyebrow text-text-muted sm:text-sm'>
             UNOFFICIAL FAN SITE
           </p>
