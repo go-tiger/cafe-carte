@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Playfair_Display } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/shared/providers';
-import { SiteFooter } from '@/components';
+import { ScrollToTop, SiteFooter } from '@/components';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_OPEN_GRAPH, SITE_ORIGIN } from '@/shared/constants';
 import { asset, BASE_PATH, cn, OG_SIZE } from '@/shared/lib';
 
@@ -32,6 +32,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <ThemeProvider>
           {children}
           <SiteFooter />
+          <ScrollToTop />
         </ThemeProvider>
       </body>
     </html>
