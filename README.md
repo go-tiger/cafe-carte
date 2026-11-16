@@ -25,7 +25,7 @@ npm run dev        # http://localhost:3000
 | --------------- | --------------------------- |
 | `npm run dev`   | 개발 서버                   |
 | `npm run build` | 프로덕션 정적 빌드 (`out/`) |
-| `npm run lint`  | ESLint                      |
+| `npm run lint`  | oxlint                      |
 
 배포 빌드는 `PAGES_BASE_PATH=/cafe-carte` 환경 변수로 base path를 주입합니다 (로컬은 루트 `/`).
 
