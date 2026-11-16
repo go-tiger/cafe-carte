@@ -38,7 +38,7 @@ export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: bo
       >
         본문 바로가기
       </a>
-      <nav className='mx-auto flex h-16 max-w-5xl items-center gap-4 px-4 sm:gap-6'>
+      <nav className='mx-auto box-content flex h-16 max-w-5xl items-center gap-4 px-6 sm:gap-6 sm:px-10'>
         <Link href='/' aria-label='Cafe Carte 홈' className='flex shrink-0 items-center gap-2'>
           <Image src={asset('/logo.png')} alt='' width={32} height={32} className='rounded-full' />
           <span className='hidden font-heavy tracking-tight sm:inline'>Cafe Carte</span>
