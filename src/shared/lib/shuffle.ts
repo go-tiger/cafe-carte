@@ -8,3 +8,10 @@ export function shuffle<T>(items: readonly T[]): T[] {
 }
 
 export const randomInRange = (min: number, max: number): number => Math.random() * (max - min) + min;
+
+export function reshuffle<T>(items: readonly T[]): T[] {
+  if (items.length < 2) return [...items];
+  let next = shuffle(items);
+  while (next.every((item, i) => item === items[i])) next = shuffle(items);
+  return next;
+}

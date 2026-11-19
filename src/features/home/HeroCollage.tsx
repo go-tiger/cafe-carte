@@ -1,9 +1,10 @@
 'use client';
 
-import { useMemo, useSyncExternalStore } from 'react';
+import { useMemo, useState, useSyncExternalStore } from 'react';
 import Image from 'next/image';
 import { MEMBERS, type Member } from '@/shared/constants';
-import { asset, shuffle, randomInRange } from '@/shared/lib';
+import { asset, randomInRange, reshuffle, shuffle } from '@/shared/lib';
+import { withViewTransition } from '@/shared/lib/viewTransition';
 
 type Tile = {
   m: Member;
@@ -17,8 +18,8 @@ const noopSubscribe = () => () => {};
 
 const STATIC_TILES: Tile[] = MEMBERS.map(m => ({ m, rotate: 0, dx: 0, dy: 0, scale: 1 }));
 
-function scatter(): Tile[] {
-  return shuffle(MEMBERS).map(m => ({
+function scatter(members: readonly Member[] = shuffle(MEMBERS)): Tile[] {
+  return members.map(m => ({
     m,
     rotate: randomInRange(-4, 4),
     dx: randomInRange(-6, 6),
@@ -34,13 +35,17 @@ export function HeroCollage() {
     () => true,
     () => false,
   );
-  const tiles = useMemo(() => (mounted ? scatter() : STATIC_TILES), [mounted]);
+  const initial = useMemo(() => (mounted ? scatter() : STATIC_TILES), [mounted]);
+  const [shuffled, setShuffled] = useState<Tile[] | null>(null);
+  const tiles = shuffled ?? initial;
+
+  const shuffleTiles = () => {
+    const next = scatter(reshuffle(tiles.map(t => t.m)));
+    withViewTransition(() => setShuffled(next));
+  };
 
   return (
-    <div
-      aria-hidden
-      className='collage group absolute right-4 top-1/2 hidden w-[42vw] max-w-140 -translate-y-1/2 grid-cols-3 gap-5 lg:grid'
-    >
+    <div className='collage group absolute right-4 top-1/2 hidden w-[42vw] max-w-140 -translate-y-1/2 grid-cols-3 gap-5 lg:grid'>
       {tiles.map(({ m, rotate, dx, dy, scale }) => (
         <div
           key={m.id}
@@ -56,17 +61,23 @@ export function HeroCollage() {
         >
           <div
             className='inner relative h-full w-full overflow-hidden rounded-2xl shadow-poster'
-            style={{ backgroundColor: m.color }}
+            style={{ backgroundColor: m.color, viewTransitionName: `hero-tile-${m.id}` }}
           >
             <Image src={asset(m.avatar)} alt='' fill sizes='220px' className='img object-cover' priority />
           </div>
         </div>
       ))}
-      <div className='slot slot-static relative aspect-179/236'>
+      <button
+        type='button'
+        onClick={shuffleTiles}
+        aria-label='멤버 배너 섞기'
+        title='멤버 배너 섞기'
+        className='slot slot-static slot-logo relative aspect-179/236 cursor-pointer rounded-2xl'
+      >
         <div className='inner relative h-full w-full overflow-hidden rounded-2xl bg-white shadow-poster dark:brightness-90 dark:sepia-[.25]'>
           <Image src={asset('/logo.png')} alt='' fill sizes='220px' className='object-cover' />
         </div>
-      </div>
+      </button>
 
       <style jsx>{`
         .slot * {
@@ -95,6 +106,12 @@ export function HeroCollage() {
         }
         .collage .slot:not(.slot-static):hover .img {
           transform: scale(1.08);
+        }
+        .slot-logo:hover .inner {
+          transform: rotate(-3deg) scale(1.04);
+        }
+        .slot-logo:active .inner {
+          transform: scale(0.96);
         }
       `}</style>
     </div>
