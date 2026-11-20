@@ -51,6 +51,7 @@ export function SiteHeader({ transparentOnTop = false }: { transparentOnTop?: bo
               <li key={link.href}>
                 <Link
                   href={link.href}
+                  aria-current={active ? 'page' : undefined}
                   className={cn(
                     'inline-flex h-10 items-center text-[11px] font-bold tracking-wide transition-colors sm:text-xs sm:tracking-[0.15em]',
                     active ? 'text-accent' : 'text-text-muted hover:text-text',
