@@ -18,7 +18,7 @@ export function HeroMembers() {
   };
 
   return (
-    <ul className='mt-10 grid grid-cols-3 gap-3 sm:grid-cols-5 lg:hidden'>
+    <ul className='mt-10 grid grid-cols-3 gap-3 sm:grid-cols-6 lg:hidden'>
       {members.map((m, i) => (
         <li
           key={m.id}
@@ -29,13 +29,13 @@ export function HeroMembers() {
             src={asset(m.avatar)}
             alt={m.nameKo}
             fill
-            sizes='(max-width: 640px) 33vw, 20vw'
+            sizes='(max-width: 640px) 33vw, 17vw'
             className='object-cover'
             priority={i === 0}
           />
         </li>
       ))}
-      <li className='relative aspect-179/236 sm:hidden'>
+      <li className='relative aspect-179/236'>
         <button
           type='button'
           onClick={shuffleMembers}
@@ -43,7 +43,7 @@ export function HeroMembers() {
           title='멤버 배너 섞기'
           className='relative block size-full cursor-pointer overflow-hidden rounded-xl bg-white shadow-poster transition-transform active:scale-95 dark:brightness-90 dark:sepia-[.25]'
         >
-          <Image src={asset('/logo.png')} alt='' fill sizes='33vw' className='object-cover' />
+          <Image src={asset('/logo.png')} alt='' fill sizes='(max-width: 640px) 33vw, 17vw' className='object-cover' />
         </button>
       </li>
     </ul>
